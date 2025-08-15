@@ -1,0 +1,164 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tecnica7-webapp-ts # Nombre de la imagen
+    container_name: tecnica7-app-container
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3000}:3000" # Mapea el puerto del host al puerto del contenedor (3000 es el interno)
+    volumes:
+      # Para desarrollo, podrías montar el código fuente para hot-reloading con nodemon
+      # - ./src:/usr/src/app/src 
+      # - ./public:/usr/src/app/public
+      # Nota: Si montas src, asegúrate de que nodemon esté en las dependencias de producción
+      # o ajusta el Dockerfile para que funcione bien con el montaje de volúmenes en desarrollo.
+      # Por ahora, la imagen se construye con el código y no hay hot-reloading por defecto.
+      # Si quieres hot-reloading:
+      # 1. Asegúrate que nodemon es una dependencia normal (no dev) o instálalo globalmente en la imagen.
+      # 2. Cambia el CMD en Dockerfile a: CMD ["nodemon", "src/server.ts"] (o el script de dev)
+      # 3. Monta los volúmenes como se muestra arriba.
+      # Para producción, no se montan volúmenes de código.
+      - ./prisma:/usr/src/app/prisma # Montar prisma schema y migraciones por si se quieren ejecutar manualmente desde el host
+                                   # o para asegurar que `prisma migrate deploy` funcione correctamente si se ejecuta al inicio.
+    environment:
+      - NODE_ENV=production # O 'development' para desarrollo con hot-reloading
+      - PORT=3000
+      - DATABASE_URL=${DATABASE_URL} # Tomada del .env del host
+      - MAIL_HOST=${MAIL_HOST}
+      - MAIL_PORT=${MAIL_PORT}
+      - MAIL_SECURE=${MAIL_SECURE}
+      - MAIL_USER=${MAIL_USER}
+      - MAIL_PASS=${MAIL_PASS}
+      - MAIL_FROM=${MAIL_FROM}
+      - MAIL_TO=${MAIL_TO}
+      # Podrías añadir más variables de entorno aquí si son necesarias
+    depends_on:
+      db:
+        condition: service_healthy # Espera a que la base de datos esté lista
+    networks:
+      - tecnica7-net
+
+  db:
+    image: postgres:15-alpine # Usar una imagen oficial de PostgreSQL
+    container_name: tecnica7-db-container
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres} # Usuario de la BD, default 'postgres'
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-mysecretpassword} # Contraseña, cambiar en producción
+      - POSTGRES_DB=${DB_NAME:-tecnica7db} # Nombre de la BD, default 'tecnica7db'
+    ports:
+      - "${DB_PORT:-5432}:5432" # Mapea el puerto de PostgreSQL del host al contenedor
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persiste los datos de la BD
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-tecnica7db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tecnica7-net
+
+volumes:
+  postgres_data: # Define el volumen para la persistencia de datos de PostgreSQL
+
+networks:
+  tecnica7-net: # Define la red personalizada
+    driver: bridge
+
+# Instrucciones para el .env del host (que docker-compose usará):
+#
+# APP_PORT=3000
+#
+# # URL de la base de datos para la aplicación DENTRO de Docker.
+# # El HOST debe ser el nombre del servicio de la base de datos en docker-compose (ej. 'db')
+# DATABASE_URL="postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-mysecretpassword}@db:5432/${DB_NAME:-tecnica7db}?schema=public"
+#
+# # Variables para la configuración del servicio 'db' de PostgreSQL
+# DB_USER=tec7user
+# DB_PASSWORD=tec7password
+# DB_NAME=tecnica7_prod_db
+# DB_PORT=5432 # Puerto en el host para acceder a la BD si es necesario
+#
+# # Variables de correo (igual que en .env.example)
+# MAIL_HOST="smtp.ethereal.email"
+# MAIL_PORT=587
+# MAIL_SECURE=false
+# MAIL_USER="your_ethereal_user@ethereal.email"
+# MAIL_PASS="your_ethereal_password"
+# MAIL_FROM="noreply@example.com"
+# MAIL_TO="dominefolcomatiass@gmail.com"
+#
+# Nota: Las variables DB_USER, DB_PASSWORD, DB_NAME en la sección 'db' environment
+# son para la inicialización de PostgreSQL. La DATABASE_URL es para que la aplicación
+# se conecte a la base de datos. Asegúrate de que coincidan.
+# He usado placeholders como ${DB_USER:-postgres} para que puedas definirlos en tu .env
+# y si no, usará los valores por defecto.
+#
+# Para ejecutar:
+# 1. Crea un archivo .env en la raíz del proyecto con las variables anteriores.
+#    (puedes copiar de .env.example y ajustar DATABASE_URL y las variables DB_*)
+# 2. Copia el contenido de `frontend/` a `public/` para que sea servido.
+# 3. Ejecuta `docker-compose up --build`
+# 4. Para aplicar migraciones de Prisma:
+#    `docker-compose exec app npx prisma migrate deploy`
+#    o si es la primera vez en desarrollo:
+#    `docker-compose exec app npx prisma migrate dev --name init`
+#    (Asegúrate que DATABASE_URL en .env apunte a 'db' como host)
+#
+# Ejemplo de .env para docker-compose:
+#
+# APP_PORT=3000
+#
+# # Para el servicio 'db' de PostgreSQL
+# DB_USER=myuser
+# DB_PASSWORD=mypassword
+# DB_NAME=mydb
+# DB_PORT=5433 # Si el 5432 local ya está en uso
+#
+# # Para la aplicación 'app' (Node.js)
+# # Nótese el host 'db' que es el nombre del servicio de la base de datos en docker-compose
+# DATABASE_URL="postgresql://myuser:mypassword@db:5432/mydb?schema=public"
+#
+# MAIL_HOST=smtp.ethereal.email
+# MAIL_PORT=587
+# MAIL_SECURE=false
+# MAIL_USER=xxxx@ethereal.email # Tu usuario de Ethereal
+# MAIL_PASS=yyyy # Tu contraseña de Ethereal
+# MAIL_FROM=noreply@tecnica7.com
+# MAIL_TO=admin@tecnica7.com
+# NODE_ENV=production
+#
+#
+# Para copiar el frontend (ejecutar una vez en la terminal):
+# mkdir -p public
+# cp -R frontend/* public/
+# (Esto asume que todos los archivos de 'frontend/' deben ir a 'public/')
+# Considera limpiar 'public/' antes si es necesario: rm -rf public/*
+#
+# El Dockerfile ya copia 'public/' a la imagen.
+#
+# Si quieres usar el modo desarrollo con Nodemon y hot-reloading:
+# 1. Cambia NODE_ENV a 'development' en el environment de 'app'.
+# 2. Modifica el CMD en Dockerfile: `CMD ["npm", "run", "dev"]` (asumiendo que `npm run dev` usa nodemon).
+# 3. Descomenta los volúmenes para `src` y `public` en el servicio `app`.
+#    - ./src:/usr/src/app/src
+#    - ./public:/usr/src/app/public
+# 4. Asegúrate de que `nodemon` y `ts-node` estén en `dependencies` en `package.json`
+#    o instala `nodemon` globalmente en la imagen de desarrollo/base.
+#    (Actualmente están en devDependencies, lo que es correcto para builds de producción,
+#    pero para desarrollo con montaje de volumen, necesitarían estar disponibles).
+#    Una forma es tener un Dockerfile.dev diferente o usar multi-stage builds
+#    donde la etapa de desarrollo tenga nodemon.
+#    Por ahora, el Dockerfile está optimizado para producción.
+#
+# He añadido un healthcheck a la base de datos para que la aplicación espere a que esté lista.
+# Y he usado la sintaxis `${VARIABLE:-default}` para las variables de entorno de la BD
+# en docker-compose, lo que permite que se sobrescriban con un archivo .env.
+# También he actualizado las instrucciones en los comentarios.
+# He añadido APP_PORT para configurar el puerto de la aplicación también desde .env.
+#
+# Hecho.

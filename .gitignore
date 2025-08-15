@@ -1,0 +1,100 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Transpiled JavaScript
+/dist
+/build
+
+# Prisma
+/prisma/generated
+/prisma/migrations/*.new
+*.sqlite
+*.sqlite-journal
+
+# Environment variables
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and editors
+.idea
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test output
+/coverage
+/reports
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarnclean
+
+# Docusaurus specific files
+.docusaurus
+
+# Next.js specific files
+.next/
+out/
+
+# Gatsby specific files
+.cache/
+public
+
+# Nuxt specific files
+.nuxt/
+dist/
+
+# Svelte specific files
+.svelte-kit/
+build/
+
+# Angular specific files
+.angular/
+node_modules/
+
+# dotenv
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Temp files
+tmp/
+temp/

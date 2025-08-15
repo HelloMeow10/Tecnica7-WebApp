@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // O una versión más reciente de ECMAScript compatible con Node.js
+    "module": "commonjs", // El sistema de módulos estándar para Node.js
+    "rootDir": "./src", // Directorio raíz de los archivos fuente .ts
+    "outDir": "./dist", // Directorio de salida para los archivos .js compilados
+    "esModuleInterop": true, // Permite la interoperabilidad con módulos CommonJS
+    "forceConsistentCasingInFileNames": true, // Asegura la consistencia en el uso de mayúsculas y minúsculas en los nombres de archivo
+    "strict": true, // Habilita todas las opciones estrictas de verificación de tipos
+    "skipLibCheck": true, // Omite la verificación de tipos de los archivos de declaración (.d.ts)
+    "resolveJsonModule": true, // Permite importar archivos .json como módulos
+    "sourceMap": true, // Genera archivos .map para depuración
+    "baseUrl": ".", // Directorio base para resolver rutas de módulos no relativas
+    "paths": {
+      "@/*": ["src/*"] // Alias para rutas, por ejemplo, import ... from '@/services/...'
+    }
+  },
+  "include": ["src/**/*"], // Patrones para incluir archivos en la compilación
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"] // Patrones para excluir archivos
+}

@@ -1,0 +1,28 @@
+# Evitar copiar node_modules del host a la imagen, se instalarán dentro
+node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+.DS_Store
+.env
+.env*.local
+# Archivos de desarrollo de Docker
+docker-compose.yml 
+# No incluir el frontend original directamente si se va a manejar de otra forma
+# frontend/ 
+# (Dejaremos que se copie a public/ y luego a la imagen si es necesario)
+
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Build output (si se genera localmente antes de construir la imagen)
+dist
+build
+
+# Prisma local state (si existe)
+prisma/generated
+prisma/migrations/*.new
+*.sqlite
+*.sqlite-journal
