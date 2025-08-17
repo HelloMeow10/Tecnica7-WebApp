@@ -8,6 +8,7 @@ import {
   ExternalLink,
   Heart
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const especialidades = [
@@ -114,8 +115,8 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                 <div className="text-primary-foreground/90">
-                  <p>Manuel Acevedo 1864</p>
-                  <p>Banfield, Provincia de Buenos Aires</p>
+                  <p>Dirección de la escuela</p>
+                  <p>Ciudad, Provincia</p>
                   <p className="text-sm text-primary-foreground/70 mt-1">
                     a 4 cuadras de la estación
                   </p>
@@ -125,8 +126,8 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-accent flex-shrink-0" />
                 <div className="text-primary-foreground/90">
-                  <p>(011) 4248-6259</p>
-                  <p>11 6523-3593</p>
+                  <p>Teléfono 1</p>
+                  <p>Teléfono 2</p>
                 </div>
               </div>
 
@@ -142,8 +143,8 @@ const Footer = () => {
             <div className="bg-white/5 rounded-lg p-4 space-y-2">
               <h5 className="font-semibold text-accent">Horarios de Atención</h5>
               <div className="text-sm text-primary-foreground/80 space-y-1">
-                <p>Lunes a Viernes: 8:00 - 18:00</p>
-                <p>Sábados: Cerrado</p>
+                <p>Lunes a Viernes: HH:MM - HH:MM</p>
+                <p>Sábados: HH:MM - HH:MM</p>
                 <p>Domingos: Cerrado</p>
               </div>
             </div>
@@ -158,12 +159,12 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-primary-foreground/70">
               <p>© 2025 E.E.S.T. N°7 Banfield. Todos los derechos reservados.</p>
               <div className="flex space-x-4">
-                <a href="#" className="hover:text-white transition-colors duration-300">
+                <Link to="/politica-de-privacidad" className="hover:text-white transition-colors duration-300">
                   Política de Privacidad
-                </a>
-                <a href="#" className="hover:text-white transition-colors duration-300">
+                </Link>
+                <Link to="/terminos-de-uso" className="hover:text-white transition-colors duration-300">
                   Términos de Uso
-                </a>
+                </Link>
               </div>
             </div>
             

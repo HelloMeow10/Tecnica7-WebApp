@@ -9,7 +9,7 @@ const ContactoSection = () => {
     {
       icon: Phone,
       title: "Teléfono",
-      details: ["(011) 4242-8950", "(011) 4242-8951"],
+      details: ["Teléfono 1", "Teléfono 2"],
       description: "Llamanos en horario de atención"
     },
     {
@@ -21,13 +21,13 @@ const ContactoSection = () => {
     {
       icon: MapPin,
       title: "Dirección",
-      details: ["Av. Hipólito Yrigoyen 8286", "Banfield, Buenos Aires"],
+      details: ["Dirección de la escuela", "Ciudad, Provincia"],
       description: "A 2 cuadras de la estación"
     },
     {
       icon: Clock,
       title: "Horarios",
-      details: ["Lun a Vie: 8:00 - 18:00", "Sáb: 8:00 - 12:00"],
+      details: ["Lunes a Viernes: HH:MM - HH:MM", "Sábados: HH:MM - HH:MM"],
       description: "Horario de atención al público"
     }
   ];
@@ -92,7 +92,7 @@ const ContactoSection = () => {
                     <MapPin className="h-12 w-12 mx-auto" />
                     <div>
                       <h4 className="font-heading font-bold text-xl">Ubicación</h4>
-                      <p className="text-white/90">Av. Hipólito Yrigoyen 8286, Banfield</p>
+                      <p className="text-white/90">Dirección de la escuela, Ciudad</p>
                       <p className="text-sm text-white/80 mt-2">
                         Fácil acceso por transporte público
                       </p>

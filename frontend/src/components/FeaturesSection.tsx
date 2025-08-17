@@ -21,7 +21,7 @@ const FeaturesSection = () => {
       icon: Laptop,
       title: "Tecnología de Vanguardia", 
       description: "Laboratorios y talleres equipados con la última tecnología para el aprendizaje práctico.",
-      stats: "8 laboratorios modernos"
+      stats: "6 laboratorios modernos"
     },
     {
       icon: Users,
@@ -50,10 +50,10 @@ const FeaturesSection = () => {
   ];
 
   const achievements = [
-    { number: "1200+", label: "Estudiantes Activos" },
-    { number: "45+", label: "Años de Trayectoria" },
-    { number: "8000+", label: "Egresados" },
-    { number: "95%", label: "Empleabilidad" }
+    { number: "XX+", label: "Estudiantes Activos" },
+    { number: "YY+", label: "Años de Trayectoria" },
+    { number: "ZZZZ+", label: "Egresados" },
+    { number: "WW%", label: "Empleabilidad" }
   ];
 
   return (

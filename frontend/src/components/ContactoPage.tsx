@@ -29,7 +29,7 @@ const ContactoPage = () => {
         </div>
         <div className="flex items-center space-x-2">
           <img src={telefono} alt="Teléfono" className="h-8 w-8" />
-          <span className="text-2xl">011 4248-6259</span>
+          <span className="text-2xl">Teléfono 1</span>
         </div>
       </div>
       <div className="flex flex-col items-center mb-8">
