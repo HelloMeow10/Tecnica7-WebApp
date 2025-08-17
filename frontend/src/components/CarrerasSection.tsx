@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { Cpu, Wrench, Zap, Building2, Cog, Monitor, HardHat, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import VocationalTest from './VocationalTest';
 
 const CarrerasSection = () => {
+  const [isTestOpen, setIsTestOpen] = useState(false);
   const cicloBasico = {
     icon: Building2,
     title: "Ciclo Básico",
@@ -127,6 +130,7 @@ const CarrerasSection = () => {
             <Button 
               size="lg"
               className="bg-gradient-primary hover:opacity-90 font-bold px-8 py-3 btn-glow"
+              onClick={() => setIsTestOpen(true)}
             >
               <Lightbulb className="mr-2 h-5 w-5" />
               Test Vocacional
@@ -141,6 +145,7 @@ const CarrerasSection = () => {
           </div>
         </div>
       </div>
+      <VocationalTest open={isTestOpen} onOpenChange={setIsTestOpen} />
     </section>
   );
 };
