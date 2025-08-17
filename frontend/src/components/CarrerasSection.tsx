@@ -1,6 +1,7 @@
 import { Cpu, Wrench, Zap, Building2, Cog, Monitor, HardHat, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const CarrerasSection = () => {
   const cicloBasico = {
@@ -68,12 +69,8 @@ const CarrerasSection = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   {cicloBasico.description}
                 </p>
-                <Button 
-                  variant="outline" 
-                  className="w-full hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-                  onClick={() => window.location.href = cicloBasico.link}
-                >
-                  Conocé Más
+                <Button asChild variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-colors duration-300">
+                  <Link to={cicloBasico.link}>Conocé Más</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -104,12 +101,8 @@ const CarrerasSection = () => {
                   <p className="text-muted-foreground leading-relaxed">
                     {orientacion.description}
                   </p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-                    onClick={() => window.location.href = orientacion.link}
-                  >
-                    Ver Detalles
+                  <Button asChild variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-colors duration-300">
+                    <Link to={orientacion.link}>Ver Detalles</Link>
                   </Button>
                 </CardContent>
               </Card>
