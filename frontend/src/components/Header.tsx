@@ -1,10 +1,23 @@
 import { useState } from 'react';
-import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, LogOut, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logo from '../assets/logo.png';
+import { useAuth } from '@/hooks/useAuth';
+import { Link } from 'react-router-dom';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -18,6 +31,49 @@ const Header = () => {
     { name: 'Centro de Estudiantes', href: '/centro-estudiantes' },
     { name: 'Contacto', href: '#contacto' },
   ];
+
+  const UserNav = () => {
+    if (!isAuthenticated || !user) {
+      return (
+        <Button asChild>
+          <Link to="/login">Login</Link>
+        </Button>
+      );
+    }
+
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+            <Avatar className="h-10 w-10">
+              <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none capitalize">{user.role}</p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {user.email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <Link to="/dashboard" className="flex items-center">
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={logout}>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Cerrar sesión</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -49,7 +105,7 @@ const Header = () => {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and title */}
-          <div className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <img src={logo} alt="Logo" className="h-12 w-12" />
             <div>
               <h1 className="font-heading font-bold text-lg text-foreground">
@@ -59,10 +115,10 @@ const Header = () => {
                 Banfield
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -73,12 +129,13 @@ const Header = () => {
               </a>
             ))}
             <Button 
+              asChild
               variant="default" 
               className="bg-gradient-primary hover:opacity-90 btn-glow font-semibold"
-              onClick={() => window.location.href = '/inscripcion'}
             >
-              Inscripciones
+              <Link to="/inscripcion">Inscripciones</Link>
             </Button>
+            <UserNav />
           </div>
 
           {/* Mobile menu button */}
@@ -106,12 +163,36 @@ const Header = () => {
                 </a>
               ))}
               <Button 
+                asChild
                 variant="default" 
                 className="bg-gradient-primary hover:opacity-90 w-full font-semibold mt-4"
-                onClick={() => window.location.href = '/inscripcion'}
               >
-                Inscripciones
+                <Link to="/inscripcion">Inscripciones</Link>
               </Button>
+              <div className="pt-4 border-t border-border">
+                {isAuthenticated && user ? (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-medium leading-none capitalize">{user.role}</p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="icon" onClick={logout}>
+                      <LogOut className="h-5 w-5" />
+                    </Button>
+                  </div>
+                ) : (
+                  <Button asChild className="w-full">
+                    <Link to="/login">Login</Link>
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         )}
