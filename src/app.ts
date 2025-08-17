@@ -4,6 +4,7 @@ import config from './config';
 import contactRoutes from './routes/contact.route';
 import authRoutes from './routes/auth.route';
 import teacherRoutes from './routes/teacher.route';
+import chatRoutes from './routes/chat.route';
 
 const app: Express = express();
 
@@ -28,6 +29,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/teachers', teacherRoutes);
+app.use('/api', chatRoutes);
 
 // Middleware para manejar errores 404 (Not Found)
 app.use((req: Request, res: Response, next: NextFunction) => {

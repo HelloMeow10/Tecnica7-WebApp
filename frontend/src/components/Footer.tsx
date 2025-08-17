@@ -16,12 +16,12 @@ const Footer = () => {
   ];
 
   const linksUtiles = [
-    { name: "Campus Virtual", href: "#" },
-    { name: "Biblioteca Digital", href: "#" },
-    { name: "Sistema de Gestión", href: "#" },
-    { name: "Bolsa de Trabajo", href: "#" },
-    { name: "Calendario Académico", href: "#" },
-    { name: "Reglamento Interno", href: "#" }
+    { name: "Campus Virtual", href: "/campus-virtual" },
+    { name: "Biblioteca Digital", href: "/biblioteca-digital" },
+    { name: "Sistema de Gestión", href: "/sistema-gestion" },
+    { name: "Bolsa de Trabajo", href: "/bolsa-trabajo" },
+    { name: "Calendario Académico", href: "/calendario-academico" },
+    { name: "Reglamento Interno", href: "/reglamento-interno" }
   ];
 
   const redesSociales = [
