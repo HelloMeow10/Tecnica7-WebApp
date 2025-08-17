@@ -21,10 +21,10 @@ import BolsaTrabajo from "./pages/BolsaTrabajo";
 import CalendarioAcademico from "./pages/CalendarioAcademico";
 import CampusVirtual from "./pages/CampusVirtual";
 import ReglamentoInterno from "./pages/ReglamentoInterno";
-import SistemaGestion from "./pages/SistemaGestion";
 import CentroEstudiantes from "./pages/CentroEstudiantes";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -45,7 +45,6 @@ const App = () => (
             <Route path="/login" element={<LoginPage />} />
             <Route path="/campus-virtual" element={<CampusVirtual />} />
             <Route path="/biblioteca-digital" element={<BibliotecaDigital />} />
-            <Route path="/sistema-gestion" element={<SistemaGestion />} />
             <Route path="/bolsa-trabajo" element={<BolsaTrabajo />} />
             <Route path="/calendario-academico" element={<CalendarioAcademico />} />
             <Route path="/reglamento-interno" element={<ReglamentoInterno />} />
@@ -53,16 +52,21 @@ const App = () => (
             <Route path="/politica-de-privacidad" element={<PrivacyPolicyPage />} />
             <Route path="/terminos-de-uso" element={<TermsOfUsePage />} />
 
-            {/* Rutas Protegidas de Administración */}
-          <Route element={<ProtectedRoute allowedRoles={['DIRECTOR']} />}>
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="teachers" element={<AdminTeachersPage />} />
+            {/* Rutas Protegidas */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Dashboard />} />
             </Route>
-          </Route>
 
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+            {/* Rutas Protegidas de Administración */}
+            <Route element={<ProtectedRoute allowedRoles={['DIRECTOR']} />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="teachers" element={<AdminTeachersPage />} />
+              </Route>
+            </Route>
+
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
