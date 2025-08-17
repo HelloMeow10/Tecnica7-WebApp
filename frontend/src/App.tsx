@@ -16,6 +16,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLayout from "./components/layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminTeachersPage from "./pages/admin/TeachersPage";
+import BibliotecaDigital from "./pages/BibliotecaDigital";
+import BolsaTrabajo from "./pages/BolsaTrabajo";
+import CalendarioAcademico from "./pages/CalendarioAcademico";
+import CampusVirtual from "./pages/CampusVirtual";
+import ReglamentoInterno from "./pages/ReglamentoInterno";
+import SistemaGestion from "./pages/SistemaGestion";
 
 const queryClient = new QueryClient();
 
@@ -29,13 +35,19 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/ciclo-basico" element={<CicloBasico />} />
-          <Route path="/programacion" element={<Programacion />} />
-          <Route path="/multimedios" element={<Multimedios />} />
-          <Route path="/historia" element={<Historia />} />
-          <Route path="/radio" element={<Radio />} />
-          <Route path="/login" element={<LoginPage />} />
+            <Route path="/programacion" element={<Programacion />} />
+            <Route path="/multimedios" element={<Multimedios />} />
+            <Route path="/historia" element={<Historia />} />
+            <Route path="/radio" element={<Radio />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/campus-virtual" element={<CampusVirtual />} />
+            <Route path="/biblioteca-digital" element={<BibliotecaDigital />} />
+            <Route path="/sistema-gestion" element={<SistemaGestion />} />
+            <Route path="/bolsa-trabajo" element={<BolsaTrabajo />} />
+            <Route path="/calendario-academico" element={<CalendarioAcademico />} />
+            <Route path="/reglamento-interno" element={<ReglamentoInterno />} />
 
-          {/* Rutas Protegidas de Administración */}
+            {/* Rutas Protegidas de Administración */}
           <Route element={<ProtectedRoute allowedRoles={['DIRECTOR']} />}>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />

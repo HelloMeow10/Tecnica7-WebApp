@@ -28,6 +28,7 @@ const config = {
     from: process.env.MAIL_FROM || 'noreply@example.com', // Dirección "De" para los correos
     to: process.env.MAIL_TO || 'dominefolcomatiass@gmail.com', // Dirección "Para" por defecto (tomada del PHP original)
   },
+  geminiApiKey: process.env.GEMINI_API_KEY || '',
 };
 
 export default config;
