@@ -14,6 +14,7 @@ const Header = () => {
     { name: 'Multimedios', href: '/multimedios' },
     { name: 'Historia', href: '/historia' },
     { name: 'Radio', href: '/radio' },
+    { name: 'Centro de Estudiantes', href: '/centro-estudiantes' },
     { name: 'Contacto', href: '#contacto' },
   ];
 
@@ -25,7 +26,11 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <Phone className="h-3 w-3" />
-              <span>(011) 4242-8950</span>
+              <span>(011) 4248-6259</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Phone className="h-3 w-3" />
+              <span>11 6523-3593</span>
             </div>
             <div className="flex items-center space-x-1">
               <Mail className="h-3 w-3" />
@@ -34,7 +39,7 @@ const Header = () => {
           </div>
           <div className="hidden md:flex items-center space-x-1">
             <MapPin className="h-3 w-3" />
-            <span>Av. Hipólito Yrigoyen 8286, Banfield</span>
+            <span>Manuel Acevedo 1864, Banfield</span>
           </div>
         </div>
       </div>

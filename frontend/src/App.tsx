@@ -22,6 +22,7 @@ import CalendarioAcademico from "./pages/CalendarioAcademico";
 import CampusVirtual from "./pages/CampusVirtual";
 import ReglamentoInterno from "./pages/ReglamentoInterno";
 import SistemaGestion from "./pages/SistemaGestion";
+import CentroEstudiantes from "./pages/CentroEstudiantes";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/bolsa-trabajo" element={<BolsaTrabajo />} />
             <Route path="/calendario-academico" element={<CalendarioAcademico />} />
             <Route path="/reglamento-interno" element={<ReglamentoInterno />} />
+            <Route path="/centro-estudiantes" element={<CentroEstudiantes />} />
 
             {/* Rutas Protegidas de Administración */}
           <Route element={<ProtectedRoute allowedRoles={['DIRECTOR']} />}>
