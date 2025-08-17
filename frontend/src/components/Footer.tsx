@@ -26,7 +26,7 @@ const Footer = () => {
 
   const redesSociales = [
     { icon: Facebook, name: "Facebook", href: "#", color: "hover:text-blue-500" },
-    { icon: Instagram, name: "Instagram", href: "#", color: "hover:text-pink-500" },
+    { icon: Instagram, name: "Instagram", href: "https://www.instagram.com/tecnica7ldz", color: "hover:text-pink-500" },
     { icon: Youtube, name: "YouTube", href: "#", color: "hover:text-red-500" }
   ];
 
@@ -125,8 +125,8 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-accent flex-shrink-0" />
                 <div className="text-primary-foreground/90">
-                  <p>(011) 4242-8950</p>
-                  <p>(011) 4242-8951</p>
+                  <p>(011) 4248-6259</p>
+                  <p>11 6523-3593</p>
                 </div>
               </div>
 
@@ -143,7 +143,7 @@ const Footer = () => {
               <h5 className="font-semibold text-accent">Horarios de Atención</h5>
               <div className="text-sm text-primary-foreground/80 space-y-1">
                 <p>Lunes a Viernes: 8:00 - 18:00</p>
-                <p>Sábados: 8:00 - 12:00</p>
+                <p>Sábados: Cerrado</p>
                 <p>Domingos: Cerrado</p>
               </div>
             </div>
