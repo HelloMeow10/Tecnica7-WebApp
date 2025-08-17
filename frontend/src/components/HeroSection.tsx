@@ -4,9 +4,9 @@ import heroImage from '@/assets/hero-escuela-tecnica.jpg';
 
 const HeroSection = () => {
   const stats = [
-    { icon: Users, value: "1200+", label: "Estudiantes" },
-    { icon: BookOpen, value: "8", label: "Especialidades" },
-    { icon: Award, value: "45+", label: "Años de Excelencia" }
+    { icon: Users, value: "500+", label: "Estudiantes" },
+    { icon: BookOpen, value: "2", label: "Especialidades" },
+    { icon: Award, value: "110+", label: "Años de Excelencia" }
   ];
 
   return (
@@ -32,7 +32,7 @@ const HeroSection = () => {
                 del Futuro
               </h1>
               <p className="text-xl lg:text-2xl text-white/90 font-medium leading-relaxed">
-                Educación técnica de excelencia en Banfield. Más de 45 años preparando 
+                Educación técnica de excelencia en Banfield. Más de 110 años preparando
                 profesionales con las competencias que demanda el mundo laboral actual.
               </p>
             </div>

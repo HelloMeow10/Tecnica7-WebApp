@@ -11,12 +11,8 @@ import {
 
 const Footer = () => {
   const especialidades = [
-    "Técnico en Computación",
-    "Técnico Electricista", 
-    "Técnico Mecánico",
-    "Técnico en Construcciones",
-    "Técnico Electromecánico",
-    "Técnico en Electrónica"
+    "Técnico en Programación",
+    "Técnico en Multimedios"
   ];
 
   const linksUtiles = [
@@ -52,7 +48,7 @@ const Footer = () => {
                 </div>
               </div>
               <p className="text-primary-foreground/90 leading-relaxed">
-                Formando técnicos especializados desde 1980. Comprometidos con la 
+                Formando técnicos especializados desde 1911. Comprometidos con la
                 excelencia educativa y la inserción laboral exitosa de nuestros egresados.
               </p>
             </div>
@@ -118,10 +114,10 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                 <div className="text-primary-foreground/90">
-                  <p>Av. Hipólito Yrigoyen 8286</p>
-                  <p>Banfield, Buenos Aires</p>
+                  <p>Manuel Acevedo 1864</p>
+                  <p>Banfield, Provincia de Buenos Aires</p>
                   <p className="text-sm text-primary-foreground/70 mt-1">
-                    A 2 cuadras de la estación
+                    a 4 cuadras de la estación
                   </p>
                 </div>
               </div>
