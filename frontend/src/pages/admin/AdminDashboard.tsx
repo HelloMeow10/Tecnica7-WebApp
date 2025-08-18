@@ -8,8 +8,8 @@ const AdminDashboard = () => {
       title: "Gestión de Alumnos",
       description: "Administrar perfiles, inscripciones y notas de alumnos.",
       icon: <Users className="h-8 w-8 text-primary" />,
-      href: "#",
-      disabled: true,
+      href: "/admin/students",
+      disabled: false,
     },
     {
       title: "Gestión de Profesores",

@@ -12,7 +12,7 @@ services:
       - "${APP_PORT:-3000}:3000" # Mapea el puerto del host al puerto del contenedor (3000 es el interno)
     volumes:
       # Para desarrollo, podrías montar el código fuente para hot-reloading con nodemon
-      # - ./src:/usr/src/app/src 
+      - ./src:/usr/src/app/src
       # - ./public:/usr/src/app/public
       # Nota: Si montas src, asegúrate de que nodemon esté en las dependencias de producción
       # o ajusta el Dockerfile para que funcione bien con el montaje de volúmenes en desarrollo.
@@ -25,7 +25,7 @@ services:
       - ./prisma:/usr/src/app/prisma # Montar prisma schema y migraciones por si se quieren ejecutar manualmente desde el host
                                    # o para asegurar que `prisma migrate deploy` funcione correctamente si se ejecuta al inicio.
     environment:
-      - NODE_ENV=production # O 'development' para desarrollo con hot-reloading
+      - NODE_ENV=development # O 'development' para desarrollo con hot-reloading
       - PORT=3000
       - DATABASE_URL=${DATABASE_URL} # Tomada del .env del host
       - MAIL_HOST=${MAIL_HOST}
@@ -54,6 +54,7 @@ services:
       - "${DB_PORT:-5432}:5432" # Mapea el puerto de PostgreSQL del host al contenedor
     volumes:
       - postgres_data:/var/lib/postgresql/data # Persiste los datos de la BD
+      - ./sql:/docker-entrypoint-initdb.d # Monta los scripts de inicialización
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-tecnica7db}"]
       interval: 10s
