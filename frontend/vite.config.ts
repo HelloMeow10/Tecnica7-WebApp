@@ -13,7 +13,14 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     watch: {
       ignored: ['**/*.timestamp-*.mjs'],
-    }
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   plugins: [
     react(),

@@ -54,10 +54,17 @@ const Chatbot = () => {
           prompt: inputValue,
           // We pass the history *before* adding the new user message
           // because the session on the backend will be updated with the prompt.
-          history: messages.map((msg) => ({
-            role: msg.role,
-            parts: [{ text: msg.text }],
-          })),
+          history: (() => {
+            // Filtra todos los mensajes hasta el primer mensaje de usuario
+            const mapped = messages.map((msg) => ({
+              role: msg.role,
+              parts: [{ text: msg.text }],
+            }));
+            const firstUserIdx = mapped.findIndex(m => m.role === 'user');
+            if (firstUserIdx === -1) return []; // No hay mensajes de usuario
+            // Solo envía el historial desde el primer mensaje de usuario en adelante
+            return mapped.slice(firstUserIdx);
+          })(),
           sessionId: sessionId,
         }),
       });
@@ -80,6 +87,15 @@ const Chatbot = () => {
       setIsLoading(false);
     }
   };
+
+  // Sugerencias de preguntas
+  const suggestions = [
+    "¿Cuándo abren las inscripciones?",
+    "¿Qué carreras hay?",
+    "¿Cómo contacto a la escuela?",
+    "¿Cuál es la historia de la escuela?",
+    "¿Cuáles son los horarios de clases?"
+  ];
 
   return (
     <>
@@ -104,6 +120,21 @@ const Chatbot = () => {
               </CardHeader>
               <CardContent className="flex-grow p-4 overflow-y-auto" ref={chatContainerRef}>
                 <div className="space-y-4">
+                  {/* Sugerencias de preguntas */}
+                  {messages.length === 1 && (
+                    <div className="mb-4 flex flex-wrap gap-2 justify-center">
+                      {suggestions.map((s, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs hover:bg-primary/20 transition"
+                          onClick={() => setInputValue(s)}
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                   {messages.map((msg, index) => (
                     <div key={index} className={`flex items-start gap-3 ${msg.role === 'user' ? 'justify-end' : ''}`}>
                       {msg.role === 'model' && <Bot className="h-6 w-6 text-primary flex-shrink-0" />}
@@ -149,7 +180,6 @@ const Chatbot = () => {
       >
         <Button
           size="lg"
-          isIconOnly
           className="rounded-full h-16 w-16 shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
         >
