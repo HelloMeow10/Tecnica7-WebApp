@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, ChatSession, Content } from '@google/generai';
+import { GoogleGenerativeAI, ChatSession, Content } from '@google/generative-ai';
 import config from '../config';
 
 const genAI = new GoogleGenerativeAI(config.geminiApiKey);

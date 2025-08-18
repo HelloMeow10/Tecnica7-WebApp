@@ -8,17 +8,18 @@ const saltRounds = 10;
 const jwtSecret = config.jwtSecret;
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password, firstName, lastName, roleName } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
-  if (!email || !password || !firstName || !lastName || !roleName) {
-    return res.status(400).json({ message: 'Todos los campos son requeridos: email, password, firstName, lastName, roleName' });
+  if (!email || !password || !firstName || !lastName) {
+    return res.status(400).json({ message: 'Todos los campos son requeridos: email, password, firstName, lastName' });
   }
 
   try {
-    // 1. Obtener el role_id a partir del role_name
-    const roleResult = await db.query('SELECT role_id FROM Roles WHERE role_name = $1', [roleName.toUpperCase()]);
+    // 1. Obtener el role_id para 'ALUMNO'
+    const roleResult = await db.query('SELECT role_id FROM Roles WHERE role_name = $1', ['ALUMNO']);
     if (roleResult.rows.length === 0) {
-      return res.status(400).json({ message: 'El rol especificado no es válido.' });
+      // Este es un caso de error grave: los roles iniciales no se cargaron.
+      return res.status(500).json({ message: 'Error interno del servidor: no se pudo encontrar el rol de alumno.' });
     }
     const roleId = roleResult.rows[0].role_id;
 

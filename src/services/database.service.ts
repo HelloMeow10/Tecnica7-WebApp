@@ -17,6 +17,7 @@ const pool = new Pool({
 // lo que centraliza la lógica y facilita el manejo de errores y la depuración.
 export const db = {
   query: (text: string, params?: any[]) => pool.query(text, params),
+  getClient: () => pool.connect(),
 };
 
 // Opcional: Escuchar el evento 'connect' para confirmar la conexión
