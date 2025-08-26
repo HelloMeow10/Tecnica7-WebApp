@@ -1,14 +1,19 @@
-
-
 import React from 'react';
 import logo from '../assets/logo.png';
+import programacion from '../assets/programacion.png'; // Ajusta la extensión si es .jpg
+import Header from "./Header";
+
 const CicloBasicoPage = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
+      <>
+    <Header />
+    
+    <div className="container mx-auto px-4 py-8 pt-24">
       {/* Logo principal */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 bg-black">
         <img src={logo} alt="Logo" className="h-20 w-20" />
       </div>
+    
       {/* Imagen principal de ciclo básico */}
       <div className="mb-6">
         <img src={programacion} alt="Ciclo Básico" className="w-full max-h-[400px] object-cover rounded-lg shadow" />
@@ -30,6 +35,7 @@ const CicloBasicoPage = () => {
         </p>
       </section>
     </div>
+    </>
   );
 };
 

@@ -108,7 +108,7 @@ const Chatbot = () => {
             transition={{ duration: 0.3 }}
             className="fixed bottom-24 right-5 w-80 h-[450px] z-50"
           >
-            <Card className="h-full flex flex-col shadow-lg">
+            <Card className="h-full flex flex-col shadow-lg bg-white">
               <CardHeader className="flex flex-row items-center justify-between p-4 border-b">
                 <div className="flex items-center space-x-2">
                   <Bot className="h-6 w-6 text-primary" />

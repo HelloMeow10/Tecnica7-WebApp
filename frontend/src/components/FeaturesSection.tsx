@@ -80,7 +80,7 @@ const FeaturesSection = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <feature.icon className="h-6 w-6 text-white" />
+                    <feature.icon className="h-6 w-6 text-black" />
                   </div>
                   <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-1 rounded-full">
                     {feature.stats}
@@ -101,12 +101,12 @@ const FeaturesSection = () => {
         </div>
 
         {/* Achievements Section */}
-        <div className="bg-gradient-primary rounded-3xl p-8 lg:p-12 text-white">
+        <div className="bg-gradient-primary rounded-3xl p-8 lg:p-12 text-black">
           <div className="text-center space-y-6 mb-12">
             <h3 className="font-heading font-bold text-3xl lg:text-4xl">
               Nuestra Trayectoria en Números
             </h3>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            <p className="text-xl text-black max-w-2xl mx-auto">
               Cuatro décadas de compromiso con la educación técnica de calidad, 
               formando profesionales que lideran el desarrollo tecnológico.
             </p>
@@ -115,10 +115,10 @@ const FeaturesSection = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
               <div key={index} className="text-center space-y-2">
-                <div className="font-heading font-bold text-4xl lg:text-5xl text-accent-light">
+                <div className="font-heading font-bold text-4xl lg:text-5xl text-black">
                   {achievement.number}
                 </div>
-                <div className="text-lg font-medium text-white/90">
+                <div className="text-lg font-medium text-black">
                   {achievement.label}
                 </div>
               </div>
@@ -140,7 +140,7 @@ const FeaturesSection = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-primary hover:opacity-90 text-white font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 btn-glow">
+            <button className="bg-gradient-primary hover:opacity-90 text-black font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 btn-glow">
               Solicitar Información
             </button>
             <button className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8 py-3 rounded-xl transition-all duration-300">

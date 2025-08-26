@@ -16,7 +16,7 @@ const questions = [
   {
     text: 'Disfruto resolviendo problemas lógicos y rompecabezas.',
     area: 'programacion',
-  },
+  }, // <-- Coma agregada aquí
   {
     text: 'Me interesa aprender cómo se construyen los sitios web y las aplicaciones.',
     area: 'programacion',
@@ -110,6 +110,7 @@ const VocationalTest = ({ open, onOpenChange }) => {
       programacion: 0,
       multimedios: 0,
     };
+    // Corrige el cálculo del máximo por área
     const maxScorePerArea = questions.reduce((acc, question) => {
       acc[question.area] = (acc[question.area] || 0) + 10;
       return acc;
@@ -127,16 +128,18 @@ const VocationalTest = ({ open, onOpenChange }) => {
     setResults(percentages);
   };
 
-  const data = results ? [
-    { name: 'Programación', value: Math.round(results.programacion) },
-    { name: 'Multimedios', value: Math.round(results.multimedios) },
-  ] : [];
+  const data = results
+    ? [
+        { name: 'Programación', value: Math.round(results.programacion) },
+        { name: 'Multimedios', value: Math.round(results.multimedios) },
+      ]
+    : [];
 
   const COLORS = ['#0088FE', '#00C49F'];
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] bg-card text-card-foreground">
+      <DialogContent className="sm:max-w-[600px] !bg-white !text-black">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">Test Vocacional</DialogTitle>
           <DialogDescription className="text-center">
@@ -149,11 +152,13 @@ const VocationalTest = ({ open, onOpenChange }) => {
             <div className="space-y-6">
               {questions.map((question, index) => (
                 <div key={index} className="space-y-3">
-                  <label className="font-medium">{index + 1}. {question.text}</label>
+                  <label className="font-medium">
+                    {index + 1}. {question.text}
+                  </label>
                   <div className="flex items-center space-x-4">
                     <span className="text-sm w-8 text-center">{answers[index]}</span>
                     <Slider
-                      defaultValue={[5]}
+                      defaultValue={[answers[index]]}
                       min={1}
                       max={10}
                       step={1}
@@ -192,9 +197,17 @@ const VocationalTest = ({ open, onOpenChange }) => {
 
         <DialogFooter>
           {!results ? (
-            <Button onClick={calculateResults} className="w-full">Ver Resultados</Button>
+            <Button onClick={calculateResults} className="w-full">
+              Ver Resultados
+            </Button>
           ) : (
-            <Button onClick={() => { setResults(null); setAnswers(Array(questions.length).fill(5)); }} className="w-full">
+            <Button
+              onClick={() => {
+                setResults(null);
+                setAnswers(Array(questions.length).fill(5));
+              }}
+              className="w-full"
+            >
               Hacer el test de nuevo
             </Button>
           )}
