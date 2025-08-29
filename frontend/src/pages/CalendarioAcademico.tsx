@@ -1,6 +1,8 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Calendar } from "lucide-react";
+import { calendarData } from "@/lib/calendarData";
+import CalendarMonth from "@/components/CalendarMonth";
 
 const CalendarioAcademico = () => {
   return (
@@ -12,11 +14,21 @@ const CalendarioAcademico = () => {
             <Calendar className="h-10 w-10 text-white" />
           </div>
           <h1 className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
-            Calendario <span className="text-primary">Académico</span>
+            Calendario <span className="text-primary">Académico 2025</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Esta sección se encuentra en construcción. Vuelve pronto para más novedades.
+            Aquí encontrarás las fechas más importantes del ciclo lectivo 2025 para el nivel secundario.
           </p>
+        </div>
+
+        <div className="mt-16">
+          {calendarData.map((monthData, index) => (
+            <CalendarMonth
+              key={index}
+              month={monthData.month}
+              events={monthData.events}
+            />
+          ))}
         </div>
       </main>
       <Footer />
