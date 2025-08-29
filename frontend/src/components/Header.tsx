@@ -29,7 +29,7 @@ const Header = () => {
     { name: 'Historia', href: '/historia' },
     { name: 'Radio', href: '/radio' },
     { name: 'Centro de Estudiantes', href: '/centro-estudiantes' },
-    { name: 'Contacto', href: '#contacto' },
+    { name: 'Contacto', href: '/contacto' },
   ];
 
   const UserNav = () => {
@@ -91,7 +91,7 @@ const Header = () => {
             </div>
             <div className="flex items-center space-x-1">
               <Mail className="h-3 w-3" />
-              <span>eest7banfield@abc.gob.ar</span>
+              <span>eet7lz@yahoo.com.ar</span>
             </div>
           </div>
           <div className="hidden md:flex items-center space-x-1">

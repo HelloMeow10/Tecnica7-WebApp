@@ -14,7 +14,7 @@ const FeaturesSection = () => {
     {
       icon: Award,
       title: "Excelencia Académica",
-      description: "45+ años formando técnicos con los más altos estándares de calidad educativa.",
+      description: "110+ años formando técnicos con los más altos estándares de calidad educativa.",
       stats: "95% de empleabilidad"
     },
     {
@@ -50,10 +50,9 @@ const FeaturesSection = () => {
   ];
 
   const achievements = [
-    { number: "XX+", label: "Estudiantes Activos" },
-    { number: "YY+", label: "Años de Trayectoria" },
-    { number: "ZZZZ+", label: "Egresados" },
-    { number: "WW%", label: "Empleabilidad" }
+    { number: "500+", label: "Estudiantes Activos" },
+    { number: "110+", label: "Años de Trayectoria" },
+    { number: "Miles de", label: "Egresados" },
   ];
 
   return (
@@ -107,7 +106,7 @@ const FeaturesSection = () => {
               Nuestra Trayectoria en Números
             </h3>
             <p className="text-xl text-black max-w-2xl mx-auto">
-              Cuatro décadas de compromiso con la educación técnica de calidad, 
+              Más de un siglo de compromiso con la educación técnica de calidad,
               formando profesionales que lideran el desarrollo tecnológico.
             </p>
           </div>
