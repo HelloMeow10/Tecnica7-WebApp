@@ -25,6 +25,7 @@ import CentroEstudiantes from "./pages/CentroEstudiantes";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
 import Dashboard from "./pages/Dashboard";
+import ContactoPage from "./pages/Contacto";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/centro-estudiantes" element={<CentroEstudiantes />} />
             <Route path="/politica-de-privacidad" element={<PrivacyPolicyPage />} />
             <Route path="/terminos-de-uso" element={<TermsOfUsePage />} />
+            <Route path="/contacto" element={<ContactoPage />} />
 
             {/* Rutas Protegidas */}
             <Route element={<ProtectedRoute />}>

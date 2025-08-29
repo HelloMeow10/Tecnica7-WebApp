@@ -1,4 +1,4 @@
-import { Cpu, Code, Smartphone, Globe, Database, Shield } from 'lucide-react';
+import { Cpu, Code, Smartphone, Globe, Database, Shield, Briefcase } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -97,6 +97,22 @@ const Programacion = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+            </Card>
+
+            {/* Formato de Consultora */}
+            <Card className="card-elegant p-8 mb-16 bg-gradient-card">
+              <div className="space-y-6">
+                <div className="flex items-center space-x-3">
+                  <Briefcase className="h-8 w-8 text-primary" />
+                  <h2 className="font-heading font-bold text-2xl text-foreground">Formato de Consultora Privada</h2>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  En la E.E.S.T. N°7, trabajamos con un enfoque único que simula una consultora privada. Los estudiantes de 4to a 7mo año forman equipos para desarrollar proyectos reales para clientes internos y externos. Esta metodología de aprendizaje basado en proyectos (ABP) permite a los alumnos adquirir experiencia práctica en todo el ciclo de vida del desarrollo de software, desde la toma de requerimientos hasta la implementación y el mantenimiento.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Este modelo no solo mejora las habilidades técnicas de los estudiantes, sino que también fomenta el trabajo en equipo, la comunicación y la resolución de problemas, preparándolos para los desafíos del mundo laboral actual.
+                </p>
               </div>
             </Card>
 

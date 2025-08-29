@@ -47,6 +47,10 @@ const CicloBasico = () => {
                     <strong className="text-primary">Multimedia</strong>, el alumno recibe el título de Técnico
                     en el área ocupacional específica elegida.
                   </p>
+
+                  <p className="text-muted-foreground leading-relaxed">
+                    A raíz de la nueva normativa de la provincia de Buenos Aires, los ciclos básicos de las escuelas técnicas estarán orientados a las especialidades que ofrece la institución. Esto permitirá a los estudiantes tener un primer acercamiento a las áreas de su interés desde el inicio de su formación.
+                  </p>
                 </div>
               </Card>
 
