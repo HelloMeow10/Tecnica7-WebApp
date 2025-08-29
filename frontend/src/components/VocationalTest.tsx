@@ -111,10 +111,10 @@ const VocationalTest = ({ open, onOpenChange }) => {
       multimedios: 0,
     };
     // Corrige el cálculo del máximo por área
-    const maxScorePerArea = questions.reduce((acc, question) => {
-      acc[question.area] = (acc[question.area] || 0) + 10;
-      return acc;
-    }, {});
+    const maxScorePerArea: { programacion: number; multimedios: number } = { programacion: 0, multimedios: 0 };
+    questions.forEach((question) => {
+      maxScorePerArea[question.area] += 10;
+    });
 
     questions.forEach((question, index) => {
       scores[question.area] += answers[index];

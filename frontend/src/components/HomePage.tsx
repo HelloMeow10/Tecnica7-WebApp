@@ -91,7 +91,7 @@ const HomePage = () => {
             className="w-full h-96"
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13114.721495185673!2d-58.3968068!3d-34.7384502!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc61e14ed0cc44a21!2sEscuela%20Tecnica%207%20Lomas%20de%20Zamora!5e0!3m2!1ses!2sar!4v1650329442413!5m2!1ses!2sar"
             style={{ border: 0 }}
-            allowFullScreen=""
+            allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>

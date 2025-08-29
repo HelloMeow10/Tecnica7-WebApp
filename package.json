@@ -4,7 +4,9 @@
   "description": "Migracion de Tecnica 7 Web App a Typescript y Docker con PostgreSQL",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd src && tsc",
+    "build": "npm run build:frontend && npm run build:backend",
     "start": "concurrently \"npm run dev --prefix frontend\" \"npm run dev\"",
     "dev": "nodemon src/server.ts"
   },
@@ -35,6 +37,8 @@
     "@types/node": "^20.12.7",
     "@types/nodemailer": "^6.4.14",
     "@types/pg": "^8.15.5",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
     "concurrently": "^9.2.0",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
