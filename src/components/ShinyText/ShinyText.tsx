@@ -7,6 +7,7 @@ interface ShinyTextProps {
   className?: string;
 }
 
+// A component that makes text shiny.
 const ShinyText: React.FC<ShinyTextProps> = ({
   text,
   disabled = false,

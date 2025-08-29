@@ -9,11 +9,12 @@ import {
   Heart
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/escudotec.png';
 
 const Footer = () => {
   const especialidades = [
-    "Técnico en Programación",
-    "Técnico en Multimedios"
+    { name: "Técnico en Programación", href: "/programacion" },
+    { name: "Técnico en Multimedios", href: "/multimedios" }
   ];
 
   const linksUtiles = [
@@ -28,7 +29,7 @@ const Footer = () => {
   const redesSociales = [
     { icon: Facebook, name: "Facebook", href: "#", color: "hover:text-blue-500" },
     { icon: Instagram, name: "Instagram", href: "https://www.instagram.com/tecnica7ldz", color: "hover:text-pink-500" },
-    { icon: Youtube, name: "YouTube", href: "#", color: "hover:text-red-500" }
+    { icon: Youtube, name: "YouTube", href: "https://www.youtube.com/@Tecnica7Banfield", color: "hover:text-red-500" }
   ];
 
   return (
@@ -41,7 +42,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                  <span className="font-bold text-lg text-primary">E7</span>
+                  <img src={logo} alt="Logo E.E.S.T. N°7" className="w-10 h-10" />
                 </div>
                 <div>
                   <h3 className="font-heading font-bold text-xl">E.E.S.T. N°7</h3>
@@ -78,13 +79,13 @@ const Footer = () => {
             <ul className="space-y-3">
               {especialidades.map((especialidad, index) => (
                 <li key={index}>
-                  <a 
-                    href="#carreras"
+                  <Link
+                    to={especialidad.href}
                     className="text-primary-foreground/80 hover:text-white transition-colors duration-300 flex items-center group"
                   >
                     <span className="w-2 h-2 bg-accent rounded-full mr-3 group-hover:scale-125 transition-transform duration-300"></span>
-                    {especialidad}
-                  </a>
+                    {especialidad.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -96,13 +97,13 @@ const Footer = () => {
             <ul className="space-y-3">
               {linksUtiles.map((link, index) => (
                 <li key={index}>
-                  <a 
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-primary-foreground/80 hover:text-white transition-colors duration-300 flex items-center group"
                   >
                     {link.name}
                     <ExternalLink className="h-3 w-3 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -115,8 +116,8 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                 <div className="text-primary-foreground/90">
-                  <p>Dirección de la escuela</p>
-                  <p>Ciudad, Provincia</p>
+                  <p>Manuel Acevedo 1864, Banfield</p>
+                  <p>Provincia de Buenos Aires</p>
                   <p className="text-sm text-primary-foreground/70 mt-1">
                     a 4 cuadras de la estación
                   </p>
@@ -126,15 +127,15 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-accent flex-shrink-0" />
                 <div className="text-primary-foreground/90">
-                  <p>Teléfono 1</p>
-                  <p>Teléfono 2</p>
+                  <p>(011) 4248-6259</p>
+                  <p>11 6523-3593</p>
                 </div>
               </div>
 
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-accent flex-shrink-0" />
                 <div className="text-primary-foreground/90">
-                  <p>eest7banfield@abc.gob.ar</p>
+                  <p>eet7lz@yahoo.com.ar</p>
                 </div>
               </div>
             </div>
@@ -143,9 +144,8 @@ const Footer = () => {
             <div className="bg-white/5 rounded-lg p-4 space-y-2">
               <h5 className="font-semibold text-accent">Horarios de Atención</h5>
               <div className="text-sm text-primary-foreground/80 space-y-1">
-                <p>Lunes a Viernes: HH:MM - HH:MM</p>
-                <p>Sábados: HH:MM - HH:MM</p>
-                <p>Domingos: Cerrado</p>
+                <p>Lunes a Viernes: 07:30 a 18:00</p>
+                <p>Sábados y Domingos: Cerrado</p>
               </div>
             </div>
           </div>
