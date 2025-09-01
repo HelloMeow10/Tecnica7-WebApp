@@ -16,7 +16,7 @@ const ReglamentoInterno = () => {
               Reglamento <span className="text-primary">Interno</span>
             </h1>
           </div>
-
+          <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
           <section>
             <h2 className="text-3xl font-bold mb-4">Medidas de Seguridad e Higiene</h2>
             <p className="mb-4">Con el propósito de prevenir accidentes recomendamos:</p>
@@ -30,13 +30,18 @@ const ReglamentoInterno = () => {
             </ul>
             <p className="mt-4 font-semibold">Recuerda que en todo momento, dentro y fuera del establecimiento, representas a la Escuela. Haz que tu conducta la prestigie.</p>
           </section>
+          </div>
 
+         
           <section>
             <h2 className="text-3xl font-bold mb-4">ACUERDO INSTITUCIONAL DE CONVIVENCIA</h2>
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">A) Presentación. Mensaje del Equipo Directivo a la comunidad educativa</h3>
             <p className="mb-4">El AIC es un acuerdo creado en un marco flexible, de retroalimentación, que surge del intercambio de propuestas elaboradas por los distintos actores de la comunidad educativa (estudiantes, docentes, preceptores, EOE, auxiliares, familias y Equipo de Conducción) con el objetivo de respetar y cumplir ciertas pautas establecidas en normativa vigente y aquellos compromisos que hemos consensuado asumir para una mejor convivencia escolar y un adecuado clima de estudio y trabajo en la Institución.</p>
             <p className="mb-4">Nuestra Institución entiende que esta construcción del acuerdo, es posible con la participación efectiva de las/los estudiantes, siendo una práctica útil para la toma de decisiones de aquellos aspectos de la vida escolar que hacen al pleno ejercicio de los derechos como estudiantes y como personas que forman esta comunidad, en un marco democrático, de relaciones más igualitarias, buscando alcanzar la finalidad de habilitar a las y los adolescentes y jóvenes para el ejercicio pleno de la ciudadanía, para el trabajo y la continuidad de estudios superiores.</p>
+            </div>
 
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">B) Diagnóstico participativo de la convivencia escolar</h3>
             <p className="mb-4">Las principales problemáticas detectadas en la institución son:</p>
             <ul className="list-disc list-inside space-y-2">
@@ -45,7 +50,9 @@ const ReglamentoInterno = () => {
               <li>El fomentar buenos hábitos, el cumplimiento de normas básicas y el cuidado del edificio, equipamiento tecnológico e insumos.</li>
               <li>Fortalecimiento del abordaje de la ESI.</li>
             </ul>
+            </div>
 
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">C) Fundamentos y objetivos</h3>
             <p className="mb-4">Con la Ley de Educación 26.206, La Ley de Educación Provincial 13.688, el Decreto 2299/11 y la Resolución 1235/23 en los cuales se establece la obligatoriedad de la educación secundaria, desde nuestra Institución garantizamos el bienestar, la contención, el diálogo que permite desarrollar un sentido de pertenencia para asegurar de este modo su ingreso, permanencia y egreso. Por lo tanto, desde nuestro Proyecto Institucional se propone:</p>
             <ul className="list-disc list-inside space-y-2">
@@ -54,11 +61,15 @@ const ReglamentoInterno = () => {
               <li>Realizamos mejoras de los entornos formativos con la participación activa de todos los cursos de ambos ciclos, ya que eso los motiva a cuidar desde el mobiliario hasta el equipamiento tecnológico tan utilizado en la escuela.</li>
               <li>Las dependencias son lugares abiertos de escucha y reflexión ante cualquier dificultad, brindando contención y atención tanto por el equipo de conducción como preceptores, auxiliares y equipo de conducción.</li>
             </ul>
+            </div>
 
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">D) Elaboración</h3>
             <p className="mb-4">La actualización del A.I.C. comenzó a desarrollarse durante el ciclo lectivo 2014, a partir de la realización de la Jornada de Convivencia Escolar y las propuestas de reformulación realizadas por estudiantes (siendo representados por delegados de curso e integrantes del Centro de Estudiantes), docentes, preceptores, auxiliares, familias, EOE y Equipo de Conducción, en distintas reuniones que se llevaron a cabo con dicha finalidad, entrevistas, la utilización de un buzón de sugerencias, propuestas y comentarios de forma anónima, reuniones con adultos responsable y reuniones con el personal docente y no docente.</p>
             <p className="mb-4">Se continúo este año con la Primer Jornada de Convivencia llevada a cabo el 9 de mayo, donde los y las estudiantes, docentes, no docentes y los/as responsables de los/as estudiantes revisaron y trabajaron los AIC, se conformó el CIC y se calendarizó las reuniones tentativas del CIC para la reformulación del AIC. Las reuniones del CIC con la presencia del EOE que permitieron lograr acuerdos y consensuar modificaciones y actualizaciones de nuestro AIC.</p>
+            </div>
 
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">E) Acuerdos alcanzados por la comunidad educativa para una convivencia escolar democrática, participativa y justa</h3>
             <p className="mb-4">A raíz de todos los encuentros y reuniones con la comunidad educativa hemos acordado que EN NUESTRA ESCUELA:</p>
             <ul className="list-disc list-inside space-y-2">
@@ -70,7 +81,9 @@ const ReglamentoInterno = () => {
               <li>Uso responsable de las redes sociales, sin utilizarlos para generar daño, discriminar o invadir la intimidad de otros y otras; ni difundir imágenes y/o videos sin consentimiento de el/los implicado/os.</li>
               <li>Se acuerda cuidar la higiene de los espacios escolares, así como del mobiliario y los elementos de trabajo, los cuales no deberán ser dañados o escritos. Las aulas y otras dependencias deberán abandonarse en el mismo estado en que se encontraron al ingreso.</li>
             </ul>
+            </div>
 
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">F) Acuerdos Aúlicos</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>Se respetará y cuidará el espacio áulico como ámbito diario de trabajo y lugar de pertenencia.</li>
@@ -81,7 +94,10 @@ const ReglamentoInterno = () => {
               <li>Se permite el pelo de colores y solicitamos prudencia con los piercing y largo de uñas que pueda ponerlos en riesgo en las prácticas de taller.</li>
               <li>A las clases de educación física se asiste con vestimenta y calzado apropiado para evitar lesiones. Téngase presente que realizar actividad física con jeans puede ocasionar desgarros.</li>
             </ul>
+            </div>
 
+
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">G) Acciones Institucionales y sanciones pedagógicas a aplicarse en caso de transgresiones</h3>
             <ul className="list-disc list-inside space-y-2">
               <li>Citación a la familia para comunicar lo sucedido y habilitar un espacio de reflexión fuera del ámbito escolar.</li>
@@ -90,7 +106,9 @@ const ReglamentoInterno = () => {
               <li>Reparación del mobiliario o los elementos dañados por su accionar. Esta acción se llevará a cabo previa notificación a las familias.</li>
               <li>Participación en una propuesta pedagógica que aborden el/los acuerdo/s transgredido/s en forma grupal. Así se podrán fortalecer los acuerdos e involucrar a todos los estudiantes más allá de los que hayan transgredido los presentes AIC.</li>
             </ul>
+            </div>
 
+            <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
             <h3 className="text-2xl font-semibold mb-3">H) Consejo Institucional de Convivencia (CIC)</h3>
             <p className="mb-4">El Consejo Institucional de Convivencia (CIC) es un órgano participativo y dinámico que funciona como instancia de análisis, evaluación y deliberación de todo asunto a proyecto propuesto a su consideración, especialmente aquellos planteados en las Jornadas correspondientes a los AIC. Es un organismo permanente, cuya función se centra en el asesoramiento al Equipo Directivo sobre acciones institucionales que propicien una convivencia basada en el respeto, impulsora de una cultura participativa que reconoce el protagonismo de las/los integrantes de la escuela secundaria. Una de sus tareas centrales es la de propiciar la circulación del AIC, en la mayor amplitud de soportes comunicacionales posibles, de la versión en consulta y los aportes de todos los integrantes de la comunidad educativa, siendo condición indispensable que el borrador del AIC se discuta en el CIC, pudiendo ser impugnado si así no ocurriese. Para ello, se conformará el Consejo Institucional de Convivencia integrado por 5 estudiantes (4 delegados de curso y un representante del Centro de Estudiantes), 2 profesores, 1 cargo base (preceptora, bibliotecaria, EMATP),1 integrante del EOE y 1 integrante personal auxiliar y 1 miembro del Equipo de Conducción, debiéndose respetar la misma proporción de representantes entre adultos y estudiantes y la paridad de género por cada ámbito de representación. Los miembros del CIC serán elegidos democráticamente por sus pares, previendo la elección de titulares y suplentes para cada uno de los sectores. El mandato de las/os consejeras/os será de dos años, renovándose por mitades. Los miembros del CIC podrán ser reelectos hasta dos mandatos consecutivos y la elección se realizará una vez por año durante la primera jornada institucional para el abordaje de la convivencia escolar, a fin de poder realizar la primera sesión anual entre los meses de mayo y junio, pudiendo abordar las inquietudes, intereses y necesidades de la comunidad educativas, planteadas en las jornadas y las acciones propuestas por ellos, estableciéndose una agenda anual tentativa. El CIC deberá reunirse en forma ordinaria al menos una vez cada dos meses, de acuerdo con el cronograma de reuniones anuales establecido en la agenda anual tentativa, pudiendo ser convocado por el Equipo de Conducción a una sesión extraordinaria. Las situaciones que serán abordadas por el CIC deberán estar encuadradas sosteniendo la resolución de conflictos desde las políticas de cuidado, manteniendo el principio de confidencialidad, resguardando la información privada y centrando la problemática a resolver desde una perspectiva institucional. Las sesiones del CIC, junto con las orientaciones y propuestas que de ese espacio surjan, serán debidamente consignadas en un libro de actas habilitado para tal fin.</p>
             <p className="mb-4">El/la estudiante asumirá el compromiso de realizar la acción reparadora acorde a la gravedad de la transgresión cometida, teniendo en cuenta: el contexto dentro del cual se desarrolló el hecho. El personal docente y no docente, será pasible de las acciones o sanciones establecidas.</p>
@@ -101,8 +119,11 @@ const ReglamentoInterno = () => {
             <p className="mb-4">En la sesión extraordinaria la necesidad de modificación deberá ser aprobada por dos tercios de los votos de los integrantes del CIC.</p>
             <p className="mb-4">En un lapso, no mayor a treinta días se volverá a reunir el Consejo y se procederá a la aprobación de las modificaciones propuestas con mayoría simple para cada una de las mismas. Se deberá alcanzar el consenso en caso de empate y el director no podrá modificar los puntos en cuestión hasta que el mismo no sea logrado.</p>
             <p className="mb-4">Aprobada la modificación de él o los puntos actualizados se elevará el texto nuevo a la Inspección del Nivel para que se someta a la evaluación de los organismos competentes y se oficialice el nuevo texto.</p>
+            </div>
           </section>
+          
 
+          <div className="bg-white rounded-xl shadow-md border p-6 mb-8">
           <section>
             <h2 className="text-3xl font-bold mb-4">Acciones vinculadas a la evaluación, acreditación, promoción y cierre del ciclo lectivo 2024 y 2025 en el Nivel Secundario</h2>
             <p className="mb-4">El presente documento tiene como propósito comunicar las principales acciones vinculadas a la evaluación, acreditación y promoción para el cierre del ciclo lectivo 2024-2025 en base al Régimen Académico N° 1650/24 y Anexos</p>
@@ -130,6 +151,7 @@ const ReglamentoInterno = () => {
                 <li>Ahora también se computa la asistencia por materia, que deberá alcanzar el 75%. De lo contrario se deberá participar de los periodos de intensificación.</li>
             </ul>
           </section>
+          </div>
         </div>
       </main>
       <Footer />
