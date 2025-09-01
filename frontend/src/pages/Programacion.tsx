@@ -5,6 +5,14 @@ import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import DisenoCurricular from '@/components/DisenoCurricular';
+import PerfilEgreso from '@/components/PerfilEgreso';
+import SalidaLaboral from '@/components/SalidaLaboral';
+import PracticasProfesionales from '@/components/PracticasProfesionales';
+import ProyectosParticipaciones from '@/components/ProyectosParticipaciones';
+import ImageGallery from '@/components/ImageGallery';
+import programacionImg from '@/assets/programacion.png';
+import codificacionImg from '@/assets/codificacion.png';
+import fotoalumnosImg from '@/assets/fotoalumnos.png';
 
 const Programacion = () => {
   const tecnologias = [
@@ -151,6 +159,67 @@ const Programacion = () => {
                 ))}
               </div>
             </div>
+
+            <PerfilEgreso
+              title="Perfil del Egresado"
+              description="El Técnico en Programación estará capacitado para realizar programas o componentes de sistemas de computación – interpretar especificaciones de diseño, documentar los productos realizados, verificar los componentes programados, buscar causas de malfuncionamiento y corregir los programas o adaptarlos a cambios en las especificaciones – desarrollando las actividades descriptas en el perfil profesional y cumpliendo con los criterios de realización establecidos para las mismas en el marco de un equipo de trabajo organizado por proyecto."
+              items={[
+                "Interpretar especificaciones de diseño o requisitos de las asignaciones a programar.",
+                "Planificar su trabajo en el contexto del equipo de desarrollo del proyecto y de la tecnología a utilizar.",
+                "Producir programas, módulos o componentes de sistemas de computación.",
+                "Verificar y depurar el producto desarrollado.",
+                "Realizar revisiones cruzadas de código o de interfaces.",
+                "Realizar la documentación técnica y de usuarios de acuerdo con los requerimientos funcionales y técnicos de las aplicaciones y sistemas.",
+                "Explotar las funcionalidades de los sistemas de información, hardware, software y redes."
+              ]}
+            />
+
+            <SalidaLaboral
+              title="Salida Laboral"
+              description="Este técnico se ocupa en organizaciones de diversos tipos que tengan que desarrollar software. Empresas que realizan desarrollo de software por encargo de organizaciones locales o extranjeras, que proveen software junto con otros servicios de asesoramiento y consultoría, y, en menor número, que desarrollan sus propios productos de software para vender en el país o en el exterior."
+              items={[
+                "Servicios informáticos para pequeñas y medianas empresas en áreas de análisis y programación de desarrollo y producción de software.",
+                "Empresas de distintos sectores de actividad económica en áreas de informática o de procesamiento de datos.",
+                "Por cuenta propia o en pequeños emprendimientos asociativos de desarrollo y producción de software.",
+                "Empresas de servicios de implantación y mantenimiento de sistemas informáticos.",
+                "Comercialización de equipos y sistemas informáticos.",
+                "Administración pública, en las áreas de mantenimiento y gestión de la información.",
+                "ONGs, en áreas vinculadas con el procesamiento de datos para la gestión.",
+                "Mantenimiento de sistemas informáticos en entornos personales y de redes de área local.",
+                "Asesoramiento técnico y venta de sistemas y aplicaciones informáticas."
+              ]}
+            />
+
+            <PracticasProfesionales
+              title="Prácticas Profesionalizantes"
+              description="Las Prácticas Profesionalizantes son aquellas estrategias formativas integradas en la propuesta curricular, con el propósito de que los estudiantes consoliden, integren y amplíen, las capacidades y saberes que se corresponden con el perfil profesional en el que se están formando, organizadas por la institución educativa, referenciadas en situaciones de trabajo y/o desarrolladas dentro o fuera de la escuela."
+              items={[
+                "Fortalecer los procesos educativos a través de instancias de encuentro y realimentación mutua con organismos del sector socio productivo y/o entidades de la comunidad.",
+                "Fomentar la apertura y participación de la institución en la comunidad.",
+                "Establecer puentes que faciliten a los estudiantes la transición desde la escuela al mundo del trabajo y a los estudios superiores.",
+                "Impulsar el reconocimiento de las demandas del contexto productivo local."
+              ]}
+            />
+
+            <ProyectosParticipaciones
+              title="Proyectos y Participaciones"
+              description="Los estudiantes participan en diversas actividades extracurriculares."
+              items={[
+                "Olimpíadas de Informática y Programación.",
+                "Feria de Ciencias y Tecnología.",
+                "Proyectos de robótica y automatización.",
+                "Participación en eventos y conferencias del sector."
+              ]}
+            />
+
+            <ImageGallery
+              title="Imágenes"
+              images={[
+                programacionImg,
+                codificacionImg,
+                fotoalumnosImg
+              ]}
+            />
 
             {/* Detailed Objectives */}
             <Card className="card-elegant p-8 mb-16">
