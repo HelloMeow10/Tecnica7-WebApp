@@ -5,6 +5,14 @@ import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import DisenoCurricular from '@/components/DisenoCurricular';
+import PerfilEgreso from '@/components/PerfilEgreso';
+import SalidaLaboral from '@/components/SalidaLaboral';
+import PracticasProfesionales from '@/components/PracticasProfesionales';
+import ProyectosParticipaciones from '@/components/ProyectosParticipaciones';
+import ImageGallery from '@/components/ImageGallery';
+import multimediosImg from '@/assets/multimedios.png';
+import teatromalvinasImg from '@/assets/teatromalvinas.jpeg';
+import fotoalumnosImg from '@/assets/fotoalumnos.png';
 
 const Multimedios = () => {
   const talleres = [
@@ -144,6 +152,65 @@ const Multimedios = () => {
                 ))}
               </div>
             </div>
+
+            <PerfilEgreso
+              title="Perfil del Egresado"
+              description="El Técnico en Multimedios estará capacitado para diseñar, producir y realizar productos multimediales, integrando conocimientos de diseño gráfico, producción audiovisual, animación y desarrollo web."
+              items={[
+                "Capacidad de relevar, seleccionar y clasificar la información necesaria para la redacción de un guión original o adaptado.",
+                "Componer correctamente una fotografía y piezas de diseño a color, entendiendo que el color también comunica.",
+                "Generar producciones simbólicas según criterios que los interpelen en la construcción de ideas propias mediante las alternativas tecnológicas disponibles.",
+                "Aplicar técnicas elementales de sonorización, musicalización, y regrabación de diálogos.",
+                "Planificar y diseñar tareas de realización televisión, cine y multimedios.",
+                "Editar, compaginar y evaluar producciones multimediales."
+              ]}
+            />
+
+            <SalidaLaboral
+              title="Salida Laboral"
+              description="El Técnico en Multimedios puede desempeñarse en una amplia gama de industrias creativas y de comunicación, aplicando sus habilidades en la producción de contenido digital y audiovisual."
+              items={[
+                "Productoras de cine y televisión.",
+                "Agencias de publicidad y marketing digital.",
+                "Medios de comunicación (radios, canales de TV, portales de noticias).",
+                "Estudios de diseño gráfico y web.",
+                "Empresas de desarrollo de videojuegos y aplicaciones móviles.",
+                "Postproducción de sonido y video.",
+                "Creación de contenido para redes sociales y plataformas de streaming.",
+                "Emprendimientos propios en el ámbito de la producción multimedial."
+              ]}
+            />
+
+            <PracticasProfesionales
+              title="Prácticas Profesionalizantes"
+              description="Las Prácticas Profesionalizantes son aquellas estrategias formativas integradas en la propuesta curricular, con el propósito de que los estudiantes consoliden, integren y amplíen, las capacidades y saberes que se corresponden con el perfil profesional en el que se están formando, organizadas por la institución educativa, referenciadas en situaciones de trabajo y/o desarrolladas dentro o fuera de la escuela."
+              items={[
+                "Fortalecer los procesos educativos a través de instancias de encuentro y realimentación mutua con organismos del sector socio productivo y/o entidades de la comunidad.",
+                "Fomentar la apertura y participación de la institución en la comunidad.",
+                "Establecer puentes que faciliten a los estudiantes la transición desde la escuela al mundo del trabajo y a los estudios superiores.",
+                "Impulsar el reconocimiento de las demandas del contexto productivo local."
+              ]}
+            />
+
+            <ProyectosParticipaciones
+              title="Proyectos y Participaciones"
+              description="Los estudiantes participan en diversas actividades extracurriculares."
+              items={[
+                "Olimpíadas de Fotografía y Video.",
+                "Muestras de arte y diseño.",
+                "Proyectos de animación y videojuegos.",
+                "Participación en eventos y festivales de cine."
+              ]}
+            />
+
+            <ImageGallery
+              title="Imágenes"
+              images={[
+                multimediosImg,
+                teatromalvinasImg,
+                fotoalumnosImg
+              ]}
+            />
 
             {/* Competencias */}
             <Card className="card-elegant p-8 mb-16">
