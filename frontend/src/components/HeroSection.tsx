@@ -1,6 +1,8 @@
 import { ArrowRight, Award, Users, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import heroImage from '@/assets/hero-escuela-tecnica.jpg';
+import ShinyText from  './ShinyText/ShinyText';
+import GradientText from './GradientText/GradientText';
 
 const HeroSection = () => {
   const stats = [
@@ -11,25 +13,21 @@ const HeroSection = () => {
 
   return (
     <section id="inicio" className="hero-section min-h-screen relative flex items-center pt-24">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
-        <img 
-          src={heroImage}
-          alt="Escuela Técnica N°7 de Banfield"
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-accent/60"></div>
-      </div>
-
+      {/* Fondo gradiente */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-700 via-blue-900 to-gray-900"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-white space-y-8">
             <div className="space-y-4">
               <h1 className="font-heading font-bold text-5xl lg:text-7xl leading-tight">
-                Formando
-                <span className="block text-accent-light">Técnicos</span>
-                del Futuro
+                <GradientText
+                  className="block text-6xl lg:text-7xl"
+                  colors={["#ffffffff", "#130485ff", "#1e00ffff"]}
+                  animationSpeed={5}
+                >
+                Formando Técnicos del Futuro
+                </GradientText>
               </h1>
               <p className="text-xl lg:text-2xl text-white/90 font-medium leading-relaxed">
                 Educación técnica de excelencia en Banfield. Más de 110 años preparando
