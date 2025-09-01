@@ -1,9 +1,10 @@
 import { Monitor, Camera, Palette, Film, Music, Megaphone } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import DisenoCurricular from '@/components/DisenoCurricular';
 
 const Multimedios = () => {
   const talleres = [
@@ -108,6 +109,9 @@ const Multimedios = () => {
                 </div>
               </div>
             </Card>
+
+            {/* Diseño Curricular */}
+            <DisenoCurricular filePath="/diseno_curricular_multimedios.md" />
 
             {/* Areas de Trabajo */}
             <div className="mb-16">

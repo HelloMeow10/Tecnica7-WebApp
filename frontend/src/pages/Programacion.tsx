@@ -1,9 +1,10 @@
 import { Cpu, Code, Smartphone, Globe, Database, Shield, Briefcase } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import DisenoCurricular from '@/components/DisenoCurricular';
 
 const Programacion = () => {
   const tecnologias = [
@@ -99,6 +100,9 @@ const Programacion = () => {
                 </div>
               </div>
             </Card>
+
+            {/* Diseño Curricular */}
+            <DisenoCurricular filePath="/diseno_curricular_programacion.md" />
 
             {/* Formato de Consultora */}
             <Card className="card-elegant p-8 mb-16 bg-gradient-card">
