@@ -165,7 +165,7 @@ const Chatbot = () => {
                     disabled={isLoading}
                   />
                   <Button type="submit" size="icon" disabled={isLoading}>
-                    <Send className="h-5 w-5" />
+                    <Send className="h-5 w-5 " />
                   </Button>
                 </form>
               </CardFooter>
@@ -176,14 +176,14 @@ const Chatbot = () => {
       <motion.div
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-5 right-5 z-50"
+        className="fixed bottom-5 right-5 z-50 "
       >
         <Button
           size="lg"
           className="rounded-full h-16 w-16 shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X className="h-8 w-8" /> : <MessageSquare className="h-8 w-8" />}
+          {isOpen ? <X className="h-8 w-8 text-white" /> : <MessageSquare className="h-8 w-8 text-white" />}
         </Button>
       </motion.div>
     </>

@@ -30,6 +30,8 @@ const Header = () => {
     { name: 'Radio', href: '/radio' },
     { name: 'Centro de Estudiantes', href: '/centro-estudiantes' },
     { name: 'Contacto', href: '/contacto' },
+    
+    
   ];
 
   const UserNav = () => {
