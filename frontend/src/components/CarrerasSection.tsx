@@ -4,6 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import VocationalTest from './VocationalTest';
+import { motion } from 'framer-motion'; // <-- Importa motion
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 }
+};
 
 const CarrerasSection = () => {
   const [isTestOpen, setIsTestOpen] = useState(false);
@@ -39,7 +45,14 @@ const CarrerasSection = () => {
     <section id="carreras" className="py-20 bg-surface">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center space-y-4 mb-16">
+        <motion.div
+          className="text-center space-y-4 mb-16"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.4 }}
+        >
           <h2 className="font-heading font-bold text-4xl lg:text-5xl text-foreground">
             Nuestro <span className="text-primary">Plan de Estudios</span>
           </h2>
@@ -47,10 +60,17 @@ const CarrerasSection = () => {
             Educación técnica de 7 años con dos orientaciones: 3 años de ciclo básico común 
             y 4 años de especialización en la orientación elegida.
           </p>
-        </div>
+        </motion.div>
 
         {/* Ciclo Básico */}
-        <div className="mb-16">
+        <motion.div
+          className="mb-16"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
           <div className="text-center mb-8">
             <h3 className="font-heading font-bold text-2xl text-foreground mb-4">Ciclo Básico</h3>
             <p className="text-muted-foreground">Formación común para todas las orientaciones</p>
@@ -78,43 +98,66 @@ const CarrerasSection = () => {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </motion.div>
 
         {/* Orientaciones */}
-        <div className="mb-16">
+        <motion.div
+          className="mb-16"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+        >
           <div className="text-center mb-8">
             <h3 className="font-heading font-bold text-2xl text-foreground mb-4">Orientaciones del Ciclo Superior</h3>
             <p className="text-muted-foreground">Elegí tu especialización para los últimos 4 años</p>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {orientaciones.map((orientacion, index) => (
-              <Card key={index} className="card-elegant hover:shadow-glow group transition-all duration-500">
-                <CardHeader className="text-center pb-4">
-                  <div className={`w-16 h-16 ${orientacion.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <orientacion.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <CardTitle className="font-heading text-xl text-foreground">
-                    {orientacion.title}
-                  </CardTitle>
-                  <CardDescription className="text-accent font-semibold">
-                    Duración: {orientacion.duration}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-center space-y-4">
-                  <p className="text-muted-foreground leading-relaxed">
-                    {orientacion.description}
-                  </p>
-                  <Button asChild variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-colors duration-300">
-                    <Link to={orientacion.link}>Ver Detalles</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.4, delay: 0.4 + index * 0.2 }}
+              >
+                <Card className="card-elegant hover:shadow-glow group transition-all duration-500">
+                  <CardHeader className="text-center pb-4">
+                    <div className={`w-16 h-16 ${orientacion.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <orientacion.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <CardTitle className="font-heading text-xl text-foreground">
+                      {orientacion.title}
+                    </CardTitle>
+                    <CardDescription className="text-accent font-semibold">
+                      Duración: {orientacion.duration}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-center space-y-4">
+                    <p className="text-muted-foreground leading-relaxed">
+                      {orientacion.description}
+                    </p>
+                    <Button asChild variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-colors duration-300">
+                      <Link to={orientacion.link}>Ver Detalles</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Call to Action */}
-        <div className="text-center space-y-6 bg-gradient-card rounded-2xl p-8 lg:p-12">
+        <motion.div
+          className="text-center space-y-6 bg-gradient-card rounded-2xl p-8 lg:p-12"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+        >
           <div className="space-y-4">
             <HardHat className="h-12 w-12 text-primary mx-auto" />
             <h3 className="font-heading font-bold text-3xl text-foreground">
@@ -143,7 +186,7 @@ const CarrerasSection = () => {
               Agendar Entrevista
             </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
       <VocationalTest open={isTestOpen} onOpenChange={setIsTestOpen} />
     </section>

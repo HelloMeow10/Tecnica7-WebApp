@@ -26,6 +26,21 @@ const TestimoniosSection = () => {
       avatar: fotoalumnos,
       linkedin: "https://www.linkedin.com/in/alejo-mirarchi-b0a13b370/",
     },
+    {
+      nombre: "Juan Zavala",
+      rol: "Limpieza de los electronicos",
+      testimonio: "La Técnica 7 me brindó las herramientas necesarias para destacar en el mundo de la limpieza. Gracias a la formación recibida, hoy trabajo en una empresa líder del sector.",
+      avatar: fotoalumnos,
+      linkedin: "https://www.linkedin.com/in/juan-perez/",
+    },
+    {
+      nombre: "Matias Pichardo",
+      rol: "Limpieza de los electronicos",
+      testimonio: "La Técnica 7 me brindó las herramientas necesarias para destacar en el mundo de la limpieza. Gracias a la formación recibida, hoy trabajo en una empresa líder del sector.",
+      avatar: fotoalumnos,
+      linkedin: "https://www.linkedin.com/in/juan-picha/",
+    },
+
   ];
 
   return (
