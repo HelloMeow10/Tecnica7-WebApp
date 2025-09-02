@@ -14,7 +14,7 @@ import multimediosImg from '@/assets/multimedios.png';
 import teatromalvinasImg from '@/assets/teatromalvinas.jpeg';
 import fotoalumnosImg from '@/assets/fotoalumnos.png';
 import horariosCicloSuperior from '@/assets/Horarios ciclo superior (2).xlsx';
-
+ 
 const Multimedios = () => {
   const talleres = [
     "Sistemas Multimediales", "Guión", "Síntesis de Imagen y Animación", 
