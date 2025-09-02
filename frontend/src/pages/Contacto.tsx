@@ -54,7 +54,7 @@ const ContactoPage = () => {
     {
       icon: Instagram,
       name: "Instagram",
-      url: "https://www.instagram.com/tecnica7banfield/",
+      url: "https://www.instagram.com/tecnica7ldz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
     },
     {
       icon: Facebook,
