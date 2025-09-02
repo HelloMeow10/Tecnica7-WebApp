@@ -66,7 +66,7 @@ const MultimediosPage = () => {
       >
         <h2 className="text-2xl font-bold mb-4">MULTIMEDIOS</h2>
         <p className="mb-4 text-justify">
-          Es una de las s nuevas de la técnica, sus materias se basan sobre todo en la creación audiovisual y diseño digital. En el cual se integran los siguientes talleres: sistemas multimediales, guión, síntesis de imagen y animación, realización audiovisual, diseño gráfico, y más... Estos talleres cuentan con ordenadores junto a programas, aplicaciones y material de trabajo (cámaras, micrófonos, equipos de sonido, etc), que ayudarán en el desarrollo de las materias. Dentro de los proyectos a realizar, podrán aprender sobre la publicidad, cinematografía, editorial e ilustración. Contactar para más información...
+          Es una de las especialidades más nuevas de la técnica, sus materias se basan sobre todo en la creación audiovisual y diseño digital. En el cual se integran los siguientes talleres: sistemas multimediales, guión, síntesis de imagen y animación, realización audiovisual, diseño gráfico, y más... Estos talleres cuentan con ordenadores junto a programas, aplicaciones y material de trabajo (cámaras, micrófonos, equipos de sonido, etc), que ayudarán en el desarrollo de las materias. Dentro de los proyectos a realizar, podrán aprender sobre la publicidad, cinematografía, editorial e ilustración. Contactar para más información...
         </p>
         <h2 className="text-xl font-bold mb-2">TECNICATURA EN MULTIMEDIOS</h2>
         <ul className="list-disc pl-6 text-left">

@@ -58,11 +58,12 @@ const CentroEstudiantes = () => {
                   <strong>Presidente:</strong> {center.president}
                 </p>
                 {center.image && (
-                  <div className="mt-4">
+                  <div className="mt-4 flex justify-center">
                     <img
                       src={center.image}
                       alt={`Imagen de ${center.name}`}
-                      className="rounded-lg"
+                      className="rounded-lg max-h-[28rem] w-auto object-contain"
+                      style={{ maxWidth: "100%" }}
                     />
                   </div>
                 )}

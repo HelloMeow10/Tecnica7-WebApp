@@ -32,7 +32,7 @@ const HeroSection = () => {
                   colors={["#ffffffff", "#130485ff", "#1e00ffff"]}
                   animationSpeed={5}
                 >
-                  Formando Técnicos del F
+                  Formando Técnicos del Futuro
                 </GradientText>
               </motion.h1>
               <motion.p

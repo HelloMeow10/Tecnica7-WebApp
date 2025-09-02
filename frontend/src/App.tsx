@@ -29,51 +29,55 @@ import ContactoPage from "./pages/Contacto";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/ciclo-basico" element={<CicloBasico />} />
-            <Route path="/programacion" element={<Programacion />} />
-            <Route path="/multimedios" element={<Multimedios />} />
-            <Route path="/historia" element={<Historia />} />
-            <Route path="/radio" element={<Radio />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/campus-virtual" element={<CampusVirtual />} />
-            <Route path="/biblioteca-digital" element={<BibliotecaDigital />} />
-            <Route path="/bolsa-trabajo" element={<BolsaTrabajo />} />
-            <Route path="/calendario-academico" element={<CalendarioAcademico />} />
-            <Route path="/reglamento-interno" element={<ReglamentoInterno />} />
-            <Route path="/centro-estudiantes" element={<CentroEstudiantes />} />
-            <Route path="/politica-de-privacidad" element={<PrivacyPolicyPage />} />
-            <Route path="/terminos-de-uso" element={<TermsOfUsePage />} />
-            <Route path="/contacto" element={<ContactoPage />} />
+function App() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-blue-200">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AuthProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/ciclo-basico" element={<CicloBasico />} />
+                <Route path="/programacion" element={<Programacion />} />
+                <Route path="/multimedios" element={<Multimedios />} />
+                <Route path="/historia" element={<Historia />} />
+                <Route path="/radio" element={<Radio />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/campus-virtual" element={<CampusVirtual />} />
+                <Route path="/biblioteca-digital" element={<BibliotecaDigital />} />
+                <Route path="/bolsa-trabajo" element={<BolsaTrabajo />} />
+                <Route path="/calendario-academico" element={<CalendarioAcademico />} />
+                <Route path="/reglamento-interno" element={<ReglamentoInterno />} />
+                <Route path="/centro-estudiantes" element={<CentroEstudiantes />} />
+                <Route path="/politica-de-privacidad" element={<PrivacyPolicyPage />} />
+                <Route path="/terminos-de-uso" element={<TermsOfUsePage />} />
+                <Route path="/contacto" element={<ContactoPage />} />
 
-            {/* Rutas Protegidas */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Route>
+                {/* Rutas Protegidas */}
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                </Route>
 
-            {/* Rutas Protegidas de Administración */}
-            <Route element={<ProtectedRoute allowedRoles={['DIRECTOR']} />}>
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
-                <Route path="teachers" element={<AdminTeachersPage />} />
-              </Route>
-            </Route>
+                {/* Rutas Protegidas de Administración */}
+                <Route element={<ProtectedRoute allowedRoles={['DIRECTOR']} />}>
+                  <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<AdminDashboard />} />
+                    <Route path="teachers" element={<AdminTeachersPage />} />
+                  </Route>
+                </Route>
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </AuthProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </div>
+  );
+}
 
 export default App;
