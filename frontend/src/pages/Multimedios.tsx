@@ -1,4 +1,4 @@
-import { Monitor, Camera, Palette, Film, Music, Megaphone } from 'lucide-react';
+import { Monitor, Camera, Palette, Film, Music, Megaphone, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,7 @@ import ImageGallery from '@/components/ImageGallery';
 import multimediosImg from '@/assets/multimedios.png';
 import teatromalvinasImg from '@/assets/teatromalvinas.jpeg';
 import fotoalumnosImg from '@/assets/fotoalumnos.png';
+import horariosCicloSuperior from '@/assets/Horarios ciclo superior (2).xlsx';
 
 const Multimedios = () => {
   const talleres = [
@@ -120,6 +121,26 @@ const Multimedios = () => {
 
             {/* Diseño Curricular */}
             <DisenoCurricular filePath="/diseno_curricular_multimedios.md" />
+
+            {/* Horarios Section */}
+            <Card className="card-elegant p-8 mb-16">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Download className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-xl text-foreground">Horarios del Ciclo Superior</h3>
+                    <p className="text-muted-foreground">Descargá el cronograma de materias y horarios.</p>
+                  </div>
+                </div>
+                <Button asChild className="bg-gradient-primary hover:opacity-90 font-bold">
+                  <a href={horariosCicloSuperior} download="Horarios Ciclo Superior.xlsx">
+                    Descargar Horarios
+                  </a>
+                </Button>
+              </div>
+            </Card>
 
             {/* Areas de Trabajo */}
             <div className="mb-16">

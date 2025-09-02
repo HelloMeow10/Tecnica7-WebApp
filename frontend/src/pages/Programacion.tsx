@@ -1,4 +1,4 @@
-import { Cpu, Code, Smartphone, Globe, Database, Shield, Briefcase } from 'lucide-react';
+import { Cpu, Code, Smartphone, Globe, Database, Shield, Briefcase, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,7 @@ import ImageGallery from '@/components/ImageGallery';
 import programacionImg from '@/assets/programacion.png';
 import codificacionImg from '@/assets/codificacion.png';
 import fotoalumnosImg from '@/assets/fotoalumnos.png';
+import horariosCicloSuperior from '@/assets/Horarios ciclo superior (2).xlsx';
 
 const Programacion = () => {
   const tecnologias = [
@@ -111,6 +112,26 @@ const Programacion = () => {
 
             {/* Diseño Curricular */}
             <DisenoCurricular filePath="/diseno_curricular_programacion.md" />
+
+            {/* Horarios Section */}
+            <Card className="card-elegant p-8 mb-16">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Download className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-xl text-foreground">Horarios del Ciclo Superior</h3>
+                    <p className="text-muted-foreground">Descargá el cronograma de materias y horarios.</p>
+                  </div>
+                </div>
+                <Button asChild className="bg-gradient-primary hover:opacity-90 font-bold">
+                  <a href={horariosCicloSuperior} download="Horarios Ciclo Superior.xlsx">
+                    Descargar Horarios
+                  </a>
+                </Button>
+              </div>
+            </Card>
 
             {/* Formato de Consultora */}
             <Card className="card-elegant p-8 mb-16 bg-gradient-card">
