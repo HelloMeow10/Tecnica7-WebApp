@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import UnidosPorLaLibertad from "@/assets/UnidosPorLaLibertad.jpeg";
+import CrearMasLibertad from "@/assets/Crear+Libertad.jpeg";
 
 const CentroEstudiantes = () => {
   const studentCenters = [
@@ -15,13 +17,13 @@ const CentroEstudiantes = () => {
       period: "2023-2024",
       name: "Unidos por la Libertad",
       president: "Lucas Ramos",
-      // image: "/path/to/image2.jpg", // Placeholder for image
+      image: UnidosPorLaLibertad,
     },
     {
       period: "2024-2025",
       name: "Crear + Libertad",
       president: "Lucas Ramos",
-      // image: "/path/to/image3.jpg", // Placeholder for image
+      image: CrearMasLibertad,
     },
   ];
 
@@ -32,6 +34,16 @@ const CentroEstudiantes = () => {
         <h1 className="text-3xl font-bold mb-8">
           Centro de Estudiantes - Historia
         </h1>
+        <div className="mb-8">
+          <a
+            href="http://centro.tecnica7ldz.edu.ar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            Visita el blog del Centro de Estudiantes
+          </a>
+        </div>
         <div className="grid gap-8">
           {studentCenters.map((center, index) => (
             <Card key={index}>
@@ -45,14 +57,15 @@ const CentroEstudiantes = () => {
                 <p className="mb-4">
                   <strong>Presidente:</strong> {center.president}
                 </p>
-                {/* Uncomment the following lines when images are available */}
-                {/*
-              {center.image && (
-                <div className="mt-4">
-                  <img src={center.image} alt={`Imagen de ${center.name}`} className="rounded-lg" />
-                </div>
-              )}
-              */}
+                {center.image && (
+                  <div className="mt-4">
+                    <img
+                      src={center.image}
+                      alt={`Imagen de ${center.name}`}
+                      className="rounded-lg"
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}
