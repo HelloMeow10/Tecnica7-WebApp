@@ -4,6 +4,13 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import horariosCicloBasico from '@/assets/Horarios ciclo basico (4).xlsx';
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 }
+};
+const fast = { duration: 0.2 };
 
 const CicloBasico = () => {
   return (
@@ -13,7 +20,14 @@ const CicloBasico = () => {
         <div className="min-h-screen pt-32 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
-            <div className="text-center space-y-6 mb-16">
+            <motion.div
+              className="text-center space-y-6 mb-16"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
               <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
                 <Building2 className="h-10 w-10 text-white" />
               </div>
@@ -24,10 +38,17 @@ const CicloBasico = () => {
                 Los primeros 3 años de formación técnica común a todas las especialidades,
                 donde priorizamos el <strong>HACER Y REFLEXIONAR SOBRE LO QUE SE HACE</strong>.
               </p>
-            </div>
+            </motion.div>
 
             {/* Main Content */}
-            <div className="grid lg:grid-cols-2 gap-12 mb-16">
+            <motion.div
+              className="grid lg:grid-cols-2 gap-12 mb-16"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
               <Card className="card-elegant p-8">
                 <div className="space-y-6">
                   <div className="flex items-center space-x-3 mb-6">
@@ -75,10 +96,17 @@ const CicloBasico = () => {
                   </p>
                 </div>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Features Grid */}
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <motion.div
+              className="grid md:grid-cols-3 gap-8 mb-16"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
               <Card className="card-elegant text-center p-6 hover:shadow-glow transition-all duration-300">
                 <CardHeader>
                   <Users className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -114,50 +142,66 @@ const CicloBasico = () => {
                   </p>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Horarios Section */}
-            <Card className="card-elegant p-8 mb-16">
-              <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <Download className="h-6 w-6 text-primary" />
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
+              <Card className="card-elegant p-8 mb-16">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <Download className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-xl text-foreground">Horarios del Ciclo Básico</h3>
+                      <p className="text-muted-foreground">Descargá el cronograma de materias y horarios.</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-heading font-bold text-xl text-foreground">Horarios del Ciclo Básico</h3>
-                    <p className="text-muted-foreground">Descargá el cronograma de materias y horarios.</p>
-                  </div>
+                  <Button asChild className="bg-gradient-primary hover:opacity-90 font-bold">
+                    <a href={horariosCicloBasico} download="Horarios Ciclo Básico.xlsx">
+                      Descargar Horarios
+                    </a>
+                  </Button>
                 </div>
-                <Button asChild className="bg-gradient-primary hover:opacity-90 font-bold">
-                  <a href={horariosCicloBasico} download="Horarios Ciclo Básico.xlsx">
-                    Descargar Horarios
-                  </a>
-                </Button>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
 
             {/* Important Note */}
-            <Card className="card-elegant bg-gradient-card p-8 text-center">
-              <div className="space-y-4">
-                <BookOpen className="h-12 w-12 text-primary mx-auto" />
-                <h3 className="font-heading font-bold text-2xl text-foreground">
-                  Continuidad Educativa
-                </h3>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  La Formación Técnica Específica en el Ciclo Básico es común a todas las instituciones
-                  de la Provincia de Buenos Aires, independientemente de la oferta educativa que estas
-                  tengan en el Ciclo Superior Técnico, respetando así la movilidad de los estudiantes.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold">
-                    Ver Orientaciones
-                  </Button>
-                  <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold">
-                    Contactar
-                  </Button>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
+              <Card className="card-elegant bg-gradient-card p-8 text-center">
+                <div className="space-y-4">
+                  <BookOpen className="h-12 w-12 text-primary mx-auto" />
+                  <h3 className="font-heading font-bold text-2xl text-foreground">
+                    Continuidad Educativa
+                  </h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    La Formación Técnica Específica en el Ciclo Básico es común a todas las instituciones
+                    de la Provincia de Buenos Aires, independientemente de la oferta educativa que estas
+                    tengan en el Ciclo Superior Técnico, respetando así la movilidad de los estudiantes.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold">
+                      Ver Orientaciones
+                    </Button>
+                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold">
+                      Contactar
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </main>
