@@ -3,6 +3,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 }
+};
+const fast = { duration: 0.2 };
 
 const Radio = () => {
   const objetivos = [
@@ -24,13 +31,49 @@ const Radio = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative overflow-hidden">
+      {/* Fondo animado con framer-motion */}
+      <motion.div
+        className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
+        initial={{ opacity: 0.7 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Círculo rojo */}
+        <motion.div
+          className="absolute top-[-120px] left-[-120px] bg-red-200 rounded-full"
+          style={{ width: 400, height: 400, filter: "blur(80px)" }}
+          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
+          transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+        />
+        {/* Círculo naranja */}
+        <motion.div
+          className="absolute bottom-[-140px] right-[-140px] bg-orange-200 rounded-full"
+          style={{ width: 350, height: 350, filter: "blur(80px)" }}
+          animate={{ x: [0, -40, 0], y: [0, -60, 0] }}
+          transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
+        />
+        {/* Círculo rosado */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 bg-pink-100 rounded-full"
+          style={{ width: 300, height: 300, filter: "blur(60px)", transform: "translate(-50%, -50%)" }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
+          transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        />
+      </motion.div>
+
       <Header />
       <main className="flex-grow">
         <div className="min-h-screen pt-32 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
-            <div className="text-center space-y-6 mb-16">
+            <motion.div
+              className="text-center space-y-6 mb-16"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={fast}
+            >
               <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto">
                 <RadioIcon className="h-10 w-10 text-white" />
               </div>
@@ -41,10 +84,17 @@ const Radio = () => {
                 Un espacio donde nuestros estudiantes de Multimedios <strong>toman y dan la palabra</strong>,
                 desarrollando sus capacidades comunicativas y creativas.
               </p>
-            </div>
+            </motion.div>
 
             {/* Objetivos */}
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <motion.div
+              className="grid md:grid-cols-3 gap-8 mb-16"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
               {objetivos.map((objetivo, index) => (
                 <Card key={index} className="card-elegant hover:shadow-glow transition-all duration-300">
                   <CardHeader className="text-center pb-4">
@@ -62,156 +112,188 @@ const Radio = () => {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+            </motion.div>
 
             {/* Descripción Principal */}
-            <Card className="card-elegant p-8 mb-16">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div className="space-y-6">
-                  <div className="flex items-center space-x-3">
-                    <Mic className="h-8 w-8 text-primary" />
-                    <h2 className="font-heading font-bold text-2xl text-foreground">Nuestro Proyecto Radial</h2>
-                  </div>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
+              <Card className="card-elegant p-8 mb-16">
+                <div className="grid lg:grid-cols-2 gap-8 items-center">
+                  <div className="space-y-6">
+                    <div className="flex items-center space-x-3">
+                      <Mic className="h-8 w-8 text-primary" />
+                      <h2 className="font-heading font-bold text-2xl text-foreground">Nuestro Proyecto Radial</h2>
+                    </div>
 
-                  <p className="text-muted-foreground leading-relaxed">
-                    La radio tiene como objetivo ampliar las trayectorias escolares de los alumnos de la
-                    tecnicatura de Multimedios diversificando el horizonte de oportunidades y experiencias educativas.
-                  </p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      La radio tiene como objetivo ampliar las trayectorias escolares de los alumnos de la
+                      tecnicatura de Multimedios diversificando el horizonte de oportunidades y experiencias educativas.
+                    </p>
 
-                  <p className="text-muted-foreground leading-relaxed">
-                    Constituyen una nueva herramienta pedagógica que permite abordar, con diversos recursos,
-                    los contenidos curriculares a través de un canal de expresión lúdico y, a la vez, reflexivo.
-                  </p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Constituyen una nueva herramienta pedagógica que permite abordar, con diversos recursos,
+                      los contenidos curriculares a través de un canal de expresión lúdico y, a la vez, reflexivo.
+                    </p>
 
-                  <p className="text-muted-foreground leading-relaxed">
-                    El Proyecto propone el desarrollo de diferentes estrategias en tiempos y espacios
-                    complementarios a los de la jornada escolar que estimulen la investigación, la expresión
-                    y el intercambio entre los alumnos, los educadores y la comunidad.
-                  </p>
-                </div>
-
-                <div className="bg-gradient-card rounded-xl p-6">
-                  <div className="text-center space-y-4">
-                    <RadioIcon className="h-16 w-16 text-primary mx-auto" />
-                    <h3 className="font-heading font-bold text-xl text-foreground">
-                      UN LUGAR DONDE TOMAN Y DAN LA PALABRA
-                    </h3>
-                    <p className="text-muted-foreground text-sm">
-                      Fortaleciendo el sentido de pertenencia institucional y mejorando la calidad de los aprendizajes
+                    <p className="text-muted-foreground leading-relaxed">
+                      El Proyecto propone el desarrollo de diferentes estrategias en tiempos y espacios
+                      complementarios a los de la jornada escolar que estimulen la investigación, la expresión
+                      y el intercambio entre los alumnos, los educadores y la comunidad.
                     </p>
                   </div>
+
+                  <div className="bg-gradient-card rounded-xl p-6">
+                    <div className="text-center space-y-4">
+                      <RadioIcon className="h-16 w-16 text-primary mx-auto" />
+                      <h3 className="font-heading font-bold text-xl text-foreground">
+                        UN LUGAR DONDE TOMAN Y DAN LA PALABRA
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        Fortaleciendo el sentido de pertenencia institucional y mejorando la calidad de los aprendizajes
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
 
             {/* Impacto Educativo */}
-            <Card className="card-elegant p-8 mb-16">
-              <div className="text-center mb-8">
-                <h2 className="font-heading font-bold text-2xl text-foreground mb-4">
-                  Impacto en la <span className="text-primary">Formación</span>
-                </h2>
-                <p className="text-muted-foreground">
-                  Beneficios que aporta la radio a nuestros estudiantes
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <h3 className="font-heading font-semibold text-lg text-foreground">Desarrollo Personal</h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Ponen en valor sus capacidades comunicativas</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Fortalecen el sentido de pertenencia a la institución</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Promueven nuevas formas de participación</span>
-                    </li>
-                  </ul>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
+              <Card className="card-elegant p-8 mb-16">
+                <div className="text-center mb-8">
+                  <h2 className="font-heading font-bold text-2xl text-foreground mb-4">
+                    Impacto en la <span className="text-primary">Formación</span>
+                  </h2>
+                  <p className="text-muted-foreground">
+                    Beneficios que aporta la radio a nuestros estudiantes
+                  </p>
                 </div>
+                
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <h3 className="font-heading font-semibold text-lg text-foreground">Desarrollo Personal</h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-start space-x-2">
+                        <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                        <span>Ponen en valor sus capacidades comunicativas</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                        <span>Fortalecen el sentido de pertenencia a la institución</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                        <span>Promueven nuevas formas de participación</span>
+                      </li>
+                    </ul>
+                  </div>
 
-                <div className="space-y-4">
-                  <h3 className="font-heading font-semibold text-lg text-foreground">Aprendizaje Colaborativo</h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Mejoran permanentemente la calidad de los aprendizajes</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Facilitan el intercambio entre estudiantes y educadores</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Conectan la escuela con la comunidad</span>
-                    </li>
-                  </ul>
+                  <div className="space-y-4">
+                    <h3 className="font-heading font-semibold text-lg text-foreground">Aprendizaje Colaborativo</h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-start space-x-2">
+                        <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
+                        <span>Mejoran permanentemente la calidad de los aprendizajes</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
+                        <span>Facilitan el intercambio entre estudiantes y educadores</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <span className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
+                        <span>Conectan la escuela con la comunidad</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
 
             {/* Reproductor de Radio */}
-            <Card className="card-elegant p-8 text-center mb-16">
-              <div className="space-y-6">
-                <div className="flex items-center justify-center space-x-3">
-                  <Play className="h-8 w-8 text-primary" />
-                  <h2 className="font-heading font-bold text-2xl text-foreground">Escuchá Nuestra Radio</h2>
-                </div>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
+              <Card className="card-elegant p-8 text-center mb-16">
+                <div className="space-y-6">
+                  <div className="flex items-center justify-center space-x-3">
+                    <Play className="h-8 w-8 text-primary" />
+                    <h2 className="font-heading font-bold text-2xl text-foreground">Escuchá Nuestra Radio</h2>
+                  </div>
 
-                <p className="text-muted-foreground">
-                  Transmisión en vivo y programas grabados por nuestros estudiantes
-                </p>
-                
-                {/* Placeholder para el reproductor */}
-                <div className="bg-gradient-card rounded-xl p-8 max-w-md mx-auto">
-                  <div className="space-y-4">
-                    <RadioIcon className="h-12 w-12 text-primary mx-auto" />
-                    <p className="text-muted-foreground text-sm">
-                      Reproductor de radio online
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      (Próximamente disponible la transmisión en vivo)
-                    </p>
+                  <p className="text-muted-foreground">
+                    Transmisión en vivo y programas grabados por nuestros estudiantes
+                  </p>
+                  
+                  {/* Placeholder para el reproductor */}
+                  <div className="bg-gradient-card rounded-xl p-8 max-w-md mx-auto">
+                    <div className="space-y-4">
+                      <RadioIcon className="h-12 w-12 text-primary mx-auto" />
+                      <p className="text-muted-foreground text-sm">
+                        Reproductor de radio online
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        (Próximamente disponible la transmisión en vivo)
+                      </p>
 
-                    {/* Ejemplo de embed iframe - reemplazar URL por la real cuando esté disponible */}
-                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                      <div className="text-center space-y-2">
-                        <RadioIcon className="h-8 w-8 text-muted-foreground mx-auto" />
-                        <p className="text-sm text-muted-foreground">
-                          Transmisión no disponible
-                        </p>
+                      {/* Ejemplo de embed iframe - reemplazar URL por la real cuando esté disponible */}
+                      <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+                        <div className="text-center space-y-2">
+                          <RadioIcon className="h-8 w-8 text-muted-foreground mx-auto" />
+                          <p className="text-sm text-muted-foreground">
+                            Transmisión no disponible
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
 
             {/* Call to Action */}
-            <Card className="card-elegant bg-gradient-card p-8 text-center">
-              <div className="space-y-6">
-                <Mic className="h-16 w-16 text-primary mx-auto" />
-                <h3 className="font-heading font-bold text-3xl text-foreground">
-                  ¿Te Interesa la Comunicación?
-                </h3>
-                <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-                  En la especialidad de Multimedios podrás participar de este y otros proyectos
-                  comunicacionales que te prepararán para el mundo profesional.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8">
-                    Conocé Multimedios
-                  </Button>
-                  <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8">
-                    Más Información
-                  </Button>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
+              <Card className="card-elegant bg-gradient-card p-8 text-center">
+                <div className="space-y-6">
+                  <Mic className="h-16 w-16 text-primary mx-auto" />
+                  <h3 className="font-heading font-bold text-3xl text-foreground">
+                    ¿Te Interesa la Comunicación?
+                  </h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+                    En la especialidad de Multimedios podrás participar de este y otros proyectos
+                    comunicacionales que te prepararán para el mundo profesional.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8">
+                      Conocé Multimedios
+                    </Button>
+                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8">
+                      Más Información
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </main>
