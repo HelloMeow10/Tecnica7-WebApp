@@ -4,12 +4,17 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from "framer-motion";
+import BlurText from "@/components/ui/BlurText";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 }
 };
 const fast = { duration: 0.2 };
+
+const handleAnimationComplete = () => {
+  console.log('Animation completed!');
+};
 
 const Historia = () => {
   const hitos = [
@@ -92,12 +97,18 @@ const Historia = () => {
               <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
                 <BookOpen className="h-10 w-10 text-black" />
               </div>
+              {/* BlurText agregado aquí */}
+              <BlurText
+                text="Más de un siglo formando generaciones con excelencia educativa y compromiso social."
+                delay={150}
+                animateBy="words"
+                direction="top"
+                onAnimationComplete={handleAnimationComplete}
+                className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-4"
+              />
               <h1 className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
                 Nuestra <span className="text-primary">Historia</span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Más de un siglo formando generaciones con excelencia educativa y compromiso social.
-              </p>
             </motion.div>
 
             {/* Quienes Somos */}

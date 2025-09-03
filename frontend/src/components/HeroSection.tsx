@@ -4,6 +4,7 @@ import heroImage from '@/assets/hero-escuela-tecnica.jpg';
 import ShinyText from  './ShinyText/ShinyText';
 import GradientText from './GradientText/GradientText';
 import { motion } from "framer-motion";
+import BlurText from "./ui/BlurText";
 
 const HeroSection = () => {
   const stats = [
@@ -27,13 +28,21 @@ const HeroSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <GradientText
+                <BlurText
+                  text="Formando Técnicos del Futuro"
+                  delay={160}
+                  animateBy="words"
+                  direction="top"
+                  className="block text-6xl lg:text-7xl"
+                />
+                
+          {/* <GradientText
                   className="block text-6xl lg:text-7xl"
                   colors={["#ffffffff", "#130485ff", "#1e00ffff"]}
                   animationSpeed={5}
                 >
                   Formando Técnicos del Futuro
-                </GradientText>
+                </GradientText> */}
               </motion.h1>
               <motion.p
                 className="text-xl lg:text-2xl text-white/90 font-medium leading-relaxed"
