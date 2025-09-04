@@ -5,8 +5,16 @@ import ShinyText from  './ShinyText/ShinyText';
 import GradientText from './GradientText/GradientText';
 import { motion } from "framer-motion";
 import BlurText from "./ui/BlurText";
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
+  const handleScroll = () => {
+    const section = document.getElementById('carreras');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const stats = [
     { icon: Users, value: "500+", label: "Estudiantes" },
     { icon: BookOpen, value: "2", label: "Especialidades" },
@@ -64,17 +72,20 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-black text-primary hover:bg-white/10 font-bold text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                onClick={handleScroll}
               >
                 Conocé Nuestras Carreras
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-2 border-white text-gray hover:bg-transparent hover:text-primary font-bold text-lg px-8 py-6 rounded-xl backdrop-blur-sm bg-white/10"
-              >
-                Tour Virtual
-              </Button>
+              <Link to="/tour-virtual">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-white text-gray hover:bg-transparent hover:text-primary font-bold text-lg px-8 py-6 rounded-xl backdrop-blur-sm bg-white/10"
+                >
+                  Tour Virtual
+                </Button>
+              </Link>
             </motion.div>
 
             {/* Stats */}
@@ -146,11 +157,13 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              <Button 
-                className="w-full bg-accent hover:bg-accent-light text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Inscribite Ahora
-              </Button>
+              <Link to="/inscripcion" className="w-full">
+                <Button
+                  className="w-full bg-accent hover:bg-accent-light text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  Inscribite Ahora
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>

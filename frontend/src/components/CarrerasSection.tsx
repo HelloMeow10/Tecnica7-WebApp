@@ -187,13 +187,15 @@ const CarrerasSection = () => {
               <Lightbulb className="mr-2 h-5 w-5" />
               Test Vocacional
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8 py-3"
-            >
-              Agendar Entrevista
-            </Button>
+            <Link to="/contacto">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8 py-3"
+              >
+                Agendar Entrevista
+              </Button>
+            </Link>
           </div>
         </motion.div>
 
