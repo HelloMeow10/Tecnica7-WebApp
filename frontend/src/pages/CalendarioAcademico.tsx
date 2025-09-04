@@ -13,7 +13,7 @@ const CalendarioAcademico = () => {
           <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
             <Calendar className="h-10 w-10 text-white" />
           </div>
-          <h1 className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
+          <h1 className="font-heading font-bold text-6xl lg:text-6xl text-black">
             Calendario <span className="text-primary">Académico 2025</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">

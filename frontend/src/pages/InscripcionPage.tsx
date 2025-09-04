@@ -1,21 +1,20 @@
-
-
+import { Route, Routes } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import inscripcion from '../assets/inscripcion.png';
 
 const InscripcionPage = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-blue-50 via-white to-blue-100 py-8 px-2">
       {/* Logo principal */}
       <div className="flex justify-center mb-6">
         <img src={logo} alt="Logo" className="h-20 w-20" />
       </div>
       {/* Imagen principal de inscripción */}
-      <div className="mb-6">
+      <div className="mb-6 w-full max-w-2xl flex justify-center">
         <img src={inscripcion} alt="Inscripción" className="w-full max-h-[400px] object-cover rounded-lg shadow" />
       </div>
       <h1 className="text-4xl font-bold text-center mb-8">INSCRIPCIONES</h1>
-      <section className="max-w-3xl mx-auto bg-white bg-opacity-80 rounded-lg shadow p-6 mb-8">
+      <section className="w-full max-w-3xl bg-white bg-opacity-90 rounded-lg shadow p-6 mb-8">
         <h2 className="text-2xl font-bold mb-4">DOCUMENTACIÓN PARA INSCRIPCIÓN</h2>
         <h3 className="text-lg font-semibold mb-2">Planilla de inscripción</h3>
         <p className="mb-4">Imprimir la planilla de inscripción que se adjunta en la página, completar y firmar.</p>
@@ -38,4 +37,13 @@ const InscripcionPage = () => {
   );
 };
 
-export default InscripcionPage;
+function App() {
+  return (
+    <Routes>
+      {/* ...otras rutas... */}
+      <Route path="/inscripcion" element={<InscripcionPage />} />
+    </Routes>
+  );
+}
+
+export default App;

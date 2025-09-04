@@ -21,13 +21,13 @@ const TestimoniosSection = () => {
     },
     {
       nombre: "Alejo Mirarchi",
-      rol: "Desarrollador Back-End",
+      rol: "Desarrollador Front-End principal",
       testimonio: "La Técnica 7 no solo me formó como programador, sino que también me enseñó a trabajar en equipo y a liderar proyectos. Estoy orgulloso de haber egresado en 2025 y de contribuir al desarrollo de la página de mi querida escuela.",
       avatar: fotoalumnos,
       linkedin: "https://www.linkedin.com/in/alejo-mirarchi-b0a13b370/",
     },
     {
-      nombre: "Juan Zavala",
+      nombre: "Juan Zapata",
       rol: "Web Development Manager",
       testimonio: "El camino hacia ser Web Development Manager nació en la Tecnica 7, donde la disciplina y el trabajo en equipo marcaron mi forma de liderar. Hoy aplico esas lecciones para transformar ideas en realidades digitales.",
       avatar: fotoalumnos,
@@ -41,7 +41,7 @@ const TestimoniosSection = () => {
       linkedin: "https://www.linkedin.com/in/juan-picha/",
     },
     {
-      nombre: "Gabriel Voss",
+      nombre: "Gabriel Voos",
       rol: "Rol",
       testimonio: "...",
       avatar: fotoalumnos,
