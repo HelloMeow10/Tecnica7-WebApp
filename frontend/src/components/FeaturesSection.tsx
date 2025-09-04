@@ -8,6 +8,7 @@ import {
   Clock,
   TrendingUp 
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FeaturesSection = () => {
   const features = [
@@ -139,12 +140,12 @@ const FeaturesSection = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-primary hover:opacity-90 text-black font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 btn-glow">
+            <Link to="/contacto" className="bg-gradient-primary hover:opacity-90 text-black font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 btn-glow">
               Solicitar Información
-            </button>
-            <button className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8 py-3 rounded-xl transition-all duration-300">
+            </Link>
+            <Link to="/tour-virtual" className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8 py-3 rounded-xl transition-all duration-300">
               Conocer Campus
-            </button>
+            </Link>
           </div>
         </div>
       </div>

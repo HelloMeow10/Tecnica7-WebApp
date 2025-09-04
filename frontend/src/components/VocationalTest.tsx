@@ -197,7 +197,7 @@ const VocationalTest = ({ open, onOpenChange }) => {
 
         <DialogFooter>
           {!results ? (
-            <Button onClick={calculateResults} className="w-full">
+            <Button onClick={calculateResults} className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
               Ver Resultados
             </Button>
           ) : (
@@ -206,7 +206,7 @@ const VocationalTest = ({ open, onOpenChange }) => {
                 setResults(null);
                 setAnswers(Array(questions.length).fill(5));
               }}
-              className="w-full"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
             >
               Hacer el test de nuevo
             </Button>
