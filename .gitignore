@@ -80,6 +80,7 @@ public
 # Nuxt specific files
 .nuxt/
 dist/
+frontend-dist/
 
 # Svelte specific files
 .svelte-kit/
