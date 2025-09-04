@@ -26,6 +26,9 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
 import Dashboard from "./pages/Dashboard";
 import ContactoPage from "./pages/Contacto";
+import InscripcionPage from "./pages/InscripcionPage";
+import TourVirtual from "./pages/TourVirtual";
+import Noticias from "./pages/Noticias";
 
 const queryClient = new QueryClient();
 
@@ -53,10 +56,14 @@ const App = () => (
             <Route path="/politica-de-privacidad" element={<PrivacyPolicyPage />} />
             <Route path="/terminos-de-uso" element={<TermsOfUsePage />} />
             <Route path="/contacto" element={<ContactoPage />} />
+            <Route path="/inscripcion" element={<InscripcionPage />} />
+            <Route path="/tour-virtual" element={<TourVirtual />} />
+            <Route path="/noticias" element={<Noticias />} />
 
             {/* Rutas Protegidas */}
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/sistema-de-gestion" element={<Dashboard />} />
             </Route>
 
             {/* Rutas Protegidas de Administración */}

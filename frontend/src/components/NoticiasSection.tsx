@@ -1,6 +1,7 @@
 import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const NoticiasSection = () => {
   const noticias = [
@@ -102,10 +103,12 @@ const NoticiasSection = () => {
                     {noticias[0].excerpt}
                   </p>
                   
-                  <Button className="bg-gradient-primary hover:opacity-90 btn-glow">
-                    Leer Más
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
+                  <Link to="/noticias">
+                    <Button className="bg-gradient-primary hover:opacity-90 btn-glow">
+                      Leer Más
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -115,7 +118,8 @@ const NoticiasSection = () => {
         {/* News Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {noticias.slice(1).map((noticia) => (
-            <Card key={noticia.id} className="card-elegant group cursor-pointer">
+            <Link to="/noticias" key={noticia.id}>
+            <Card className="card-elegant group cursor-pointer h-full">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-1 rounded-full">
@@ -152,18 +156,21 @@ const NoticiasSection = () => {
                 </div>
               </CardContent>
             </Card>
+            </Link>
           ))}
         </div>
 
         {/* Call to Action */}
         <div className="text-center">
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8 py-3"
-          >
-            Ver Todas las Noticias
-          </Button>
+          <Link to="/noticias">
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8 py-3"
+            >
+              Ver Todas las Noticias
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
