@@ -16,8 +16,25 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const [sessionId, setSessionId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     // Generate a unique session ID when the component mounts
@@ -183,7 +200,7 @@ const Chatbot = () => {
           className="rounded-full h-16 w-16 shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X className="h-8 w-8 text-white" /> : <MessageSquare className="h-8 w-8 text-white" />}
+          {isOpen ? <X className="h-8 w-8 text-white" /> : <MessageSquare className={`h-8 w-8 ${isScrolled ? 'text-black' : 'text-white'}`} />}
         </Button>
       </motion.div>
     </>
