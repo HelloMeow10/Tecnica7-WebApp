@@ -690,20 +690,20 @@ const MagicBento = (props: BentoProps & { cards?: { title: string; content: Reac
               key={index}
               className={`card flex flex-col justify-between w-[340px] min-h-[320px] max-h-[600px] p-5 rounded-[18px] border border-solid font-light overflow-auto transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] card--border-glow`}
               style={{
-                backgroundColor: card.color || 'var(--background-dark)',
-                borderColor: 'var(--border-color)',
-                color: 'var(--white)',
+                background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 60%, #cbd5e1 100%)', // gris con blanco gradiente
+                borderColor: '#222', // borde oscuro
+                color: '#222',
                 minHeight: 'auto',
                 maxHeight: '600px',
                 margin: 0,
-                '--glow-x': '50%',
-                '--glow-y': '50%',
+                '--glow-x': '40%',
+                '--glow-y': '40%',
                 '--glow-intensity': '0',
                 '--glow-radius': '200px'
               } as React.CSSProperties}
               disableAnimations={shouldDisableAnimations}
               particleCount={particleCount}
-              glowColor={glowColor}
+              glowColor="0,0,0" // glow negro
               enableTilt={enableTilt}
               clickEffect={clickEffect}
               enableMagnetism={enableMagnetism}
@@ -712,10 +712,10 @@ const MagicBento = (props: BentoProps & { cards?: { title: string; content: Reac
                 <div className="text-[0.92rem] leading-relaxed">{card.content}</div>
               ) : (
                 <>
-                  <div className="card__header flex justify-between gap-3 relative text-white">
+                  <div className="card__header flex justify-between gap-3 relative text-black">
                     <span className="card__label text-base">{card.label}</span>
                   </div>
-                  <div className="card__content flex flex-col relative text-white">
+                  <div className="card__content flex flex-col relative text-black">
                     <h3 className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? 'text-clamp-1' : ''}`}>
                       {card.title}
                     </h3>

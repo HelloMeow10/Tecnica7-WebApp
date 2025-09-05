@@ -4,6 +4,15 @@ import { motion } from 'framer-motion';
 import BlurText from '@/components/ui/BlurText';
 import MagicBento from '@/components/ui/MagicBento';
 
+const sidebarItems = [
+  { label: "Inicio", href: "/" },
+  { label: "Inscripción", href: "/inscripcion" },
+  { label: "Documentos", href: "/documentos" },
+  { label: "Fechas", href: "/fechas" },
+  { label: "Contacto", href: "/contacto" },
+  { label: "Vacantes", href: "/vacantes" },
+];
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 }
@@ -125,58 +134,43 @@ const bentoCards = [
 const InscripcionPage = () => {
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden">
-      {/* Fondo animado suave */}
-      <motion.div
-        className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
-        initial={{ opacity: 0.7 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        {/* Círculo azul */}
-        <motion.div
-          className="absolute top-[-120px] left-[-120px] bg-blue-200 rounded-full"
-          style={{ width: 400, height: 400, filter: "blur(80px)" }}
-          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-          transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-        />
-        {/* Círculo amarillo */}
-        <motion.div
-          className="absolute bottom-[-140px] right-[-140px] bg-yellow-200 rounded-full"
-          style={{ width: 350, height: 350, filter: "blur(80px)" }}
-          animate={{ x: [0, -40, 0], y: [0, -60, 0] }}
-          transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
-        />
-        {/* Círculo celeste */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 bg-blue-100 rounded-full"
-          style={{ width: 300, height: 300, filter: "blur(60px)", transform: "translate(-50%, -50%)" }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
-          transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-        />
-      </motion.div>
-
       <Header />
-      <main className="flex-grow">
-        <div className="min-h-screen pt-32 pb-6">
-          <div className="container mx-auto px-4">
-            {/* MagicBento Section con más bloques */}
-            <section className="w-full max-w-6xl mx-auto mb-8">
-              <MagicBento
-                cards={bentoCards}
-                textAutoHide={true}
-                enableStars={true}
-                enableSpotlight={true}
-                enableBorderGlow={true}
-                enableTilt={true}
-                enableMagnetism={true}
-                clickEffect={true}
-                spotlightRadius={300}
-                particleCount={12}
-                glowColor="132, 0, 255"
-              />
-            </section>
+      <main className="flex-grow flex flex-row">
+        {/* Sidebar */}
+        <aside className="hidden md:flex flex-col w-56 min-w-48 max-w-xs bg-gradient-to-b from-gray-100 to-gray-200 border-r border-gray-300 py-8 px-4 sticky top-0 h-[calc(100vh-64px)] z-20">
+          <nav>
+            <ul className="space-y-4">
+              {sidebarItems.map(item => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="block text-gray-700 hover:text-primary font-medium transition-colors px-2 py-1 rounded hover:bg-gray-300"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+        {/* MagicBento y contenido principal */}
+        <section className="flex-1 flex flex-col items-center justify-start">
+          <div className="w-full max-w-[1800px] px-2 pt-32 pb-6 mx-auto">
+            <MagicBento
+              cards={bentoCards}
+              textAutoHide={true}
+              enableStars={true}
+              enableSpotlight={true}
+              enableBorderGlow={true}
+              enableTilt={true}
+              enableMagnetism={true}
+              clickEffect={true}
+              spotlightRadius={300}
+              particleCount={12}
+              glowColor="0,0,0"
+            />
           </div>
-        </div>
+        </section>
       </main>
       <Footer />
     </div>
