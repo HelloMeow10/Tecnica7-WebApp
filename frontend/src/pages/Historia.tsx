@@ -1,4 +1,5 @@
 import { BookOpen, School, Calendar, Building } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -274,11 +275,14 @@ const Historia = () => {
                     de técnicos que continúan escribiendo esta historia.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8">
-                      Conocé Nuestras Carreras
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8" asChild>
+                      <Link to="/programacion">Programación</Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8">
-                      Contactanos
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8" asChild>
+                      <Link to="/multimedios">Multimedios</Link>
+                    </Button>
+                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8" asChild>
+                      <Link to="/contacto">Contactanos</Link>
                     </Button>
                   </div>
                 </div>

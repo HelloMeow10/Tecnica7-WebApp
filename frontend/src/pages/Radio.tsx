@@ -1,4 +1,5 @@
 import { Radio as RadioIcon, Mic, Users, Lightbulb, Play } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -12,6 +13,16 @@ const fadeUp = {
 const fast = { duration: 0.2 };
 
 const Radio = () => {
+  const historicalRadios = [
+    { name: "Viveza Criolla", url: "https://www.youtube.com/@VivezaCriolla1204" },
+    { name: "Revueltos", url: "https://www.youtube.com/@revueltosoficial" },
+    { name: "El Último Remate", url: "https://www.youtube.com/@ElUltimoRemate" },
+    { name: "Cortémosla", url: "https://www.youtube.com/@cortemosla" },
+    { name: "Multivibes", url: "https://www.youtube.com/@multivibes_tec7" },
+    { name: "Voces Rebeldes", url: "https://www.youtube.com/@VocesRebeldes" },
+    { name: "Voz Popular", url: "https://www.youtube.com/@vozpopular-pk9oy/" },
+  ];
+
   const objetivos = [
     {
       icon: Users,
@@ -238,31 +249,60 @@ const Radio = () => {
                   <p className="text-muted-foreground">
                     Transmisión en vivo y programas grabados por nuestros estudiantes
                   </p>
-                  
-                  {/* Placeholder para el reproductor */}
-                  <div className="bg-gradient-card rounded-xl p-8 max-w-md mx-auto">
-                    <div className="space-y-4">
-                      <RadioIcon className="h-12 w-12 text-primary mx-auto" />
-                      <p className="text-muted-foreground text-sm">
-                        Reproductor de radio online
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        (Próximamente disponible la transmisión en vivo)
-                      </p>
 
-                      {/* Ejemplo de embed iframe - reemplazar URL por la real cuando esté disponible */}
-                      <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                        <div className="text-center space-y-2">
-                          <RadioIcon className="h-8 w-8 text-muted-foreground mx-auto" />
-                          <p className="text-sm text-muted-foreground">
-                            Transmisión no disponible
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+                    <iframe
+                      className="w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/live_stream?channel=CHANNEL_ID"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
                   </div>
                 </div>
               </Card>
+            </motion.div>
+
+            {/* Radios Históricas */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
+            >
+              <div className="mb-16">
+                <div className="text-center mb-12">
+                  <h2 className="font-heading font-bold text-3xl text-foreground mb-4">
+                    Radios <span className="text-primary">Históricas</span>
+                  </h2>
+                  <p className="text-muted-foreground text-lg">
+                    Proyectos de radio de 7mos años anteriores
+                  </p>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {historicalRadios.map((radio, index) => (
+                    <Card key={index} className="card-elegant hover:shadow-glow transition-all duration-300">
+                      <CardHeader className="text-center pb-4">
+                        <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-2">
+                          <RadioIcon className="h-6 w-6 text-red-600" />
+                        </div>
+                        <CardTitle className="font-heading text-xl text-primary font-bold">
+                          {radio.name}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <Button asChild>
+                          <a href={radio.url} target="_blank" rel="noopener noreferrer">
+                            Ver Canal
+                          </a>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
             {/* Call to Action */}
@@ -284,11 +324,11 @@ const Radio = () => {
                     comunicacionales que te prepararán para el mundo profesional.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8">
-                      Conocé Multimedios
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8" asChild>
+                      <Link to="/multimedios">Conocé Multimedios</Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8">
-                      Más Información
+                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8" asChild>
+                      <Link to="/contacto">Más Información</Link>
                     </Button>
                   </div>
                 </div>
