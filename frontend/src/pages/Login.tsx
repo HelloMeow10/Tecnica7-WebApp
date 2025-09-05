@@ -20,6 +20,34 @@ import { toast } from 'sonner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
+import {
+  FaRegCircle,
+  FaRegSquare,
+  FaRegStar,
+  FaRegHeart,
+  FaTimes,
+  FaPlus,
+  FaRegGem,
+  FaRegSmile,
+  FaRegSun,
+  FaRegMoon,
+  FaCode,
+  FaLaptopCode,
+  FaDatabase,
+  FaNetworkWired,
+  FaRobot,
+  FaCamera,
+  FaVideo,
+  FaPalette,
+  FaMusic,
+  FaMicrophoneAlt,
+  FaRegKeyboard,
+  FaMobileAlt,
+  FaCloud,
+  FaTerminal,
+  FaProjectDiagram,
+} from "react-icons/fa";
+import { SiAdobephotoshop, SiAdobepremierepro, SiJavascript, SiPython, SiHtml5, SiCss3, SiReact, SiFigma } from "react-icons/si";
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
@@ -59,21 +87,6 @@ const forgotPassword = async (values: z.infer<typeof forgotSchema>) => {
 
   return response.json();
 };
-
-const PARTICLE_COUNT = 18;
-const particleColors = [
-  "#3b82f6", // azul
-  "#60a5fa", // celeste
-  "#a78bfa", // violeta
-  "#fbbf24", // amarillo
-  "#f472b6", // rosa
-  "#34d399", // verde
-  "#f87171", // rojo
-  "#38bdf8", // azul claro
-  "#f59e42", // naranja
-];
-
-const particles = Array.from({ length: PARTICLE_COUNT });
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -124,54 +137,59 @@ export function LoginPage() {
     forgotMutation.mutate(values);
   };
 
+  // Fondo de iconos animados estilo programación y multimedios
+  const icons = [
+    { icon: <FaCode size={90} />, color: "text-blue-400", x: "8%", y: "18%", delay: 0 },
+    { icon: <FaLaptopCode size={80} />, color: "text-green-400", x: "75%", y: "20%", delay: 0.7 },
+    { icon: <FaDatabase size={70} />, color: "text-yellow-300", x: "15%", y: "70%", delay: 1.2 },
+    { icon: <FaNetworkWired size={100} />, color: "text-pink-400", x: "80%", y: "65%", delay: 0.4 },
+    { icon: <FaRobot size={110} />, color: "text-blue-500", x: "50%", y: "10%", delay: 1.5 },
+    { icon: <FaCamera size={80} />, color: "text-red-400", x: "60%", y: "80%", delay: 1.1 },
+    { icon: <FaVideo size={70} />, color: "text-green-300", x: "35%", y: "50%", delay: 0.9 },
+    { icon: <FaPalette size={90} />, color: "text-purple-400", x: "15%", y: "85%", delay: 1.7 },
+    { icon: <FaMusic size={60} />, color: "text-yellow-400", x: "30%", y: "30%", delay: 0.5 },
+    { icon: <FaMicrophoneAlt size={80} />, color: "text-yellow-200", x: "70%", y: "75%", delay: 1.3 },
+    { icon: <FaRegKeyboard size={70} />, color: "text-blue-200", x: "85%", y: "40%", delay: 0.8 },
+    { icon: <FaMobileAlt size={60} />, color: "text-blue-300", x: "20%", y: "10%", delay: 0.2 },
+    { icon: <FaCloud size={50} />, color: "text-green-200", x: "60%", y: "15%", delay: 1.6 },
+    { icon: <FaTerminal size={55} />, color: "text-yellow-200", x: "40%", y: "80%", delay: 1.9 },
+    { icon: <FaProjectDiagram size={65} />, color: "text-pink-200", x: "10%", y: "60%", delay: 1.4 },
+    { icon: <SiAdobephotoshop size={60} />, color: "text-blue-400", x: "80%", y: "10%", delay: 1.8 },
+    { icon: <SiAdobepremierepro size={50} />, color: "text-purple-500", x: "30%", y: "85%", delay: 1.1 },
+    { icon: <SiJavascript size={60} />, color: "text-yellow-400", x: "55%", y: "60%", delay: 0.6 },
+    { icon: <SiPython size={50} />, color: "text-blue-400", x: "65%", y: "50%", delay: 1.2 },
+    { icon: <SiHtml5 size={55} />, color: "text-orange-500", x: "45%", y: "25%", delay: 0.3 },
+    { icon: <SiCss3 size={55} />, color: "text-blue-500", x: "25%", y: "60%", delay: 1.1 },
+    { icon: <SiReact size={60} />, color: "text-cyan-400", x: "10%", y: "40%", delay: 1.5 },
+    { icon: <SiFigma size={60} />, color: "text-pink-500", x: "70%", y: "50%", delay: 1.7 },
+  ];
+
   return (
     <div className="relative flex flex-col min-h-screen overflow-hidden">
-      {/* Fondo dinámico de partículas coloridas centradas */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute inset-0 -z-10 pointer-events-none"
-      >
-        {particles.map((_, i) => {
-          const color = particleColors[i % particleColors.length];
-          const size = 60 + Math.random() * 40;
-          const xCenter = window.innerWidth / 2 + (Math.random() - 0.5) * 320;
-          const yCenter = window.innerHeight / 2 + (Math.random() - 0.5) * 220;
-          return (
-            <motion.div
-              key={i}
-              className="absolute rounded-full"
-              style={{
-                width: `11000px`,
-                height: `100px`,
-                background: `radial-gradient(circle, ${color} 60%, rgba(21, 21, 210, 0.27) 80%)`,
-                opacity: 0.22 + Math.random() * 0.18,
-                filter: 'blur(22px)',
-                left: xCenter,
-                top: yCenter,
-                zIndex: 0,
-              }}
-              initial={{
-                scale: 0.10 + Math.random() * 0.4,
-                opacity: 0.22 + Math.random() * 0.18,
-              }}
-              animate={{
-                scale: [1, 1.15, 1],
-                opacity: [0.22 + Math.random() * 0.18, 0.36, 0.22 + Math.random() * 0.18],
-                x: [0, (Math.random() - 0.5) * 40, 0],
-                y: [0, (Math.random() - 0.5) * 40, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 10 + Math.random() * 6,
-                ease: "easeInOut",
-                delay: Math.random() * 2,
-              }}
-            />
-          );
-        })}
-      </motion.div>
+      {/* Fondo de iconos animados tipo PlayStation */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        {icons.map((item, i) => (
+          <motion.div
+            key={i}
+            className={`absolute ${item.color}`}
+            style={{ left: item.x, top: item.y, filter: "drop-shadow(0 0 18px rgba(59,130,246,0.18))" }}
+            animate={{
+              y: [0, 30, -30, 0],
+              x: [0, 18, -18, 0],
+              rotate: [0, 12, -12, 0],
+              opacity: [0.75, 1, 0.75],
+            }}
+            transition={{
+              duration: 10 + Math.random() * 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: item.delay,
+            }}
+          >
+            {item.icon}
+          </motion.div>
+        ))}
+      </div>
       <Header />
       <main className="flex items-center justify-center min-h-[70vh]">
         <motion.div
