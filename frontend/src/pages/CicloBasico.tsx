@@ -1,4 +1,5 @@
 import { Building2, BookOpen, Users, Target, Download } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -222,11 +223,14 @@ const CicloBasico = () => {
                     tengan en el Ciclo Superior Técnico, respetando así la movilidad de los estudiantes.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold">
-                      Ver Orientaciones
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold" asChild>
+                      <Link to="/programacion">Programación</Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold">
-                      Contactar
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold" asChild>
+                      <Link to="/multimedios">Multimedios</Link>
+                    </Button>
+                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold" asChild>
+                      <Link to="/contacto">Contactar</Link>
                     </Button>
                   </div>
                 </div>

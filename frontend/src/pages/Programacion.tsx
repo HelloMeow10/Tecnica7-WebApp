@@ -1,4 +1,5 @@
 import { Cpu, Code, Smartphone, Globe, Database, Shield, Briefcase, Download } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -444,11 +445,11 @@ const Programacion = () => {
                     sobre esta especialidad y los proyectos que podrás realizar.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8">
-                      Más Información
+                    <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8" asChild>
+                      <Link to="/contacto">Más Información</Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8">
-                      Ver Inscripciones
+                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8" asChild>
+                      <Link to="/inscripcion">Ver Inscripciones</Link>
                     </Button>
                   </div>
                 </div>
