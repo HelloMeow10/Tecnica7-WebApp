@@ -49,17 +49,17 @@ const BibliotecaDigital = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="max-w-2xl mx-auto mb-16">
+        <div className="max-w-2xl mx-auto mb-16 animate-fade-in">
           <form className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Buscar libros, artículos, guías..."
-              className="w-full pl-12 pr-4 py-3 h-14 text-lg rounded-full shadow-lg"
+              className="w-full pl-12 pr-32 py-3 h-16 text-lg rounded-full shadow-lg border-2 border-transparent focus:border-primary transition-all"
             />
              <Button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full h-10 w-24"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full h-12 w-28 bg-gradient-primary text-white font-bold"
             >
               Buscar
             </Button>
@@ -67,15 +67,16 @@ const BibliotecaDigital = () => {
         </div>
 
         {/* Featured Resources */}
-        <div>
+        <div className="animate-slide-in-from-top">
           <h2 className="font-heading text-3xl font-bold text-foreground mb-8 text-center">
             Recursos Destacados
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredResources.map((resource) => (
+            {featuredResources.map((resource, index) => (
               <Card
                 key={resource.title}
-                className="flex flex-col hover:shadow-lg transition-shadow duration-300"
+                className="card-elegant flex flex-col transition-all duration-300 transform hover:-translate-y-2"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardHeader>
                   <CardTitle className="font-heading text-xl">

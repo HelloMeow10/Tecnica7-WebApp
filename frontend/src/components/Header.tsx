@@ -28,6 +28,7 @@ const Header = () => {
     { name: 'Multimedios', href: '/multimedios' },
     { name: 'Historia', href: '/historia' },
     { name: 'Radio', href: '/radio' },
+    { name: 'Enlaces Útiles', href: '/enlaces-utiles' },
     { name: 'Centro de Estudiantes', href: '/centro-estudiantes' },
     { name: 'Contacto', href: '/contacto' },
     
