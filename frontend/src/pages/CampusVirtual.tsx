@@ -57,10 +57,10 @@ const CampusVirtual = () => {
               onClick={(e) => feature.disabled && e.preventDefault()}
             >
               <Card
-                className={`card-elegant h-full transition-all duration-300 transform hover:-translate-y-2 ${
+                className={`h-full transition-shadow duration-300 ${
                   feature.disabled
-                    ? "bg-muted/50 opacity-50"
-                    : "hover:shadow-xl"
+                    ? "bg-muted/50"
+                    : "hover:shadow-lg"
                 }`}
               >
                 <CardHeader>

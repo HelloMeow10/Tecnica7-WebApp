@@ -1,5 +1,3 @@
-// This component is also used for the "Sistema de Gestión" page.
-
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,7 +41,7 @@ const Dashboard = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature) => (
             <Link to={feature.href} key={feature.title} className="group">
-              <Card className="card-elegant h-full transition-all duration-300 transform hover:-translate-y-2">
+              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="font-heading text-2xl text-foreground">

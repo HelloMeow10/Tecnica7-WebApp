@@ -30,7 +30,6 @@ import ContactoPage from "./pages/Contacto";
 import InscripcionPage from "./pages/InscripcionPage";
 import TourVirtual from "./pages/TourVirtual";
 import Noticias from "./pages/Noticias";
-import EnlacesUtiles from "./pages/EnlacesUtiles";
 
 const queryClient = new QueryClient();
 
@@ -62,7 +61,6 @@ const App = () => (
             <Route path="/inscripcion" element={<InscripcionPage />} />
             <Route path="/tour-virtual" element={<TourVirtual />} />
             <Route path="/noticias" element={<Noticias />} />
-            <Route path="/enlaces-utiles" element={<EnlacesUtiles />} />
 
             {/* Rutas Protegidas */}
             <Route element={<ProtectedRoute />}>
