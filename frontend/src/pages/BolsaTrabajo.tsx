@@ -43,7 +43,7 @@ const BolsaTrabajo = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-16">
+      <main className="flex-grow container mx-auto px-4 py-16 pt-32">
         <motion.div
           className="text-center space-y-6"
           initial={{ opacity: 0, y: -20 }}
