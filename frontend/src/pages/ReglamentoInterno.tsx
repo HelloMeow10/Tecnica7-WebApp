@@ -111,7 +111,7 @@ const ReglamentoInterno = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="w-24 h-24 bg-gradient-to-br from-primary to-blue-700 rounded-3xl flex items-center justify-center mx-auto shadow-lg">
-            <FileText className="h-12 w-12 text-white" />
+            <FileText className="h-12 w-12 text-black" />
           </div>
           <h1 className="font-heading font-bold text-4xl lg:text-5xl text-foreground">
             Reglamento <span className="text-primary">Interno</span>
