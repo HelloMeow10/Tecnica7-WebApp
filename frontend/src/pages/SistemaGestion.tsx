@@ -39,7 +39,7 @@ const SistemaGestion = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-16">
+      <main className="flex-grow container mx-auto px-4 py-16 pt-32">
         <div className="text-center mb-12">
           <h1 className="font-heading font-bold text-4xl lg:text-5xl text-foreground">
             Sistema de <span className="text-primary">Gestión</span>
