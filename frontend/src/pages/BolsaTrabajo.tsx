@@ -1,85 +1,99 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Building, Code, Film, Handshake } from "lucide-react";
+import { motion } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const BolsaTrabajo = () => {
+  const pasantias = [
+    { name: "BACOPE S.A.", description: "Fabricación de equipos de refrigeración." },
+    { name: "Hangar", description: "Centro de servicios para mantenimiento de vehículos." },
+    { name: "CreaPack", description: "Soluciones de packaging innovadoras." },
+    { name: "EGEO", description: "Equipamiento e instrumental odontológico." },
+    { name: "Municipalidad de Lomas de Zamora", description: "Gestión pública y proyectos comunitarios." },
+  ];
+
+  const opportunities = [
+    {
+      icon: <Building className="w-10 h-10 text-primary" />,
+      title: "Pasantías Educativas",
+      description: "Nuestros estudiantes de 7º año realizan pasantías en empresas de primer nivel, aplicando sus conocimientos en un entorno laboral real.",
+      details: pasantias.map(p => p.name).join(", ") + ".",
+    },
+    {
+      icon: <Code className="w-10 h-10 text-primary" />,
+      title: "Oportunidades para Programadores",
+      description: "Recomendamos el curso de Oracle ONE, que brinda acceso a una bolsa de trabajos exclusiva con empresas aliadas de Oracle.",
+      details: "Una excelente puerta de entrada al mundo laboral de la tecnología.",
+    },
+    {
+      icon: <Handshake className="w-10 h-10 text-primary" />,
+      title: "Actividades y Colaboraciones",
+      description: "Fomentamos el contacto con el mundo profesional a través de visitas a empresas como Oracle (Junior Achievement) y proyectos con la Municipalidad.",
+      details: "Experiencia práctica en cortometrajes, visitas al teatro y más.",
+    },
+    {
+      icon: <Film className="w-10 h-10 text-primary" />,
+      title: "Trabajo Freelance",
+      description: "Preparamos a los estudiantes para el mundo del trabajo independiente, desarrollando y vendiendo software o servicios de edición de video.",
+      details: "Nuestros egresados son emprendedores y creativos.",
+    },
+  ];
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-16">
-        <div className="text-center space-y-6">
-          <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-            <Briefcase className="h-10 w-10 text-white" />
+        <motion.div
+          className="text-center space-y-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="w-24 h-24 bg-gradient-to-br from-primary to-blue-700 rounded-3xl flex items-center justify-center mx-auto shadow-lg">
+            <Briefcase className="h-12 w-12 text-white" />
           </div>
           <h1 className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
             Bolsa de <span className="text-primary">Trabajo</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Descubre las oportunidades laborales y de desarrollo profesional que te esperan al egresar de nuestra escuela.
+            Descubre las oportunidades laborales y de desarrollo profesional que te esperan.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="mt-16 space-y-12">
-          {/* Pasantías */}
-          <div className="space-y-4">
-            <h2 className="font-heading font-bold text-3xl text-foreground">Pasantías Educativas</h2>
-            <p className="text-lg text-muted-foreground">
-              Nuestros estudiantes de 7º año tienen la oportunidad de realizar pasantías en empresas de primer nivel del municipio de Lomas de Zamora, aplicando sus conocimientos en un entorno laboral real. Algunas de las empresas con las que colaboramos son:
-            </p>
-            <div className="space-y-4">
-              <h3 className="font-semibold text-xl text-foreground">BACOPE S.A.</h3>
-              <p className="text-muted-foreground">Fundada en 1960, se especializa en la fabricación de unidades condensadoras, motocompresores y equipos comerciales de refrigeración. Pioneros en el desarrollo de dispensers de agua frío-calor en Argentina.</p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold text-xl text-foreground">Hangar</h3>
-              <p className="text-muted-foreground">Un centro de servicios para el mantenimiento de vehículos que además cuenta con un local de comidas, ofreciendo una experiencia integral a sus clientes.</p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold text-xl text-foreground">CreaPack</h3>
-              <p className="text-muted-foreground">Empresa dedicada a la creación y fabricación de soluciones de packaging innovadoras y a medida para diversos productos.</p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold text-xl text-foreground">EGEO</h3>
-              <p className="text-muted-foreground">Líderes en el sector de equipamiento e instrumental odontológico, proveyendo a profesionales de la salud con tecnología de punta.</p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold text-xl text-foreground">Municipalidad de Lomas de Zamora</h3>
-              <p className="text-muted-foreground">Ofrece a los estudiantes la oportunidad de experimentar el funcionamiento interno de la gestión pública y participar en proyectos de impacto comunitario.</p>
-            </div>
-          </div>
-
-          {/* Oportunidades para Programadores */}
-          <div className="space-y-4">
-            <h2 className="font-heading font-bold text-3xl text-foreground">Oportunidades para Programadores</h2>
-            <p className="text-lg text-muted-foreground">
-              Recomendamos a nuestros estudiantes de programación iniciar el curso de <a href="https://www.oracle.com/ar/education/oracle-next-education/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Oracle ONE</a>. Este programa les brinda acceso a una bolsa de trabajos exclusiva con empresas aliadas de Oracle, una excelente puerta de entrada al mundo laboral de la tecnología.
-            </p>
-          </div>
-
-          {/* Actividades y Colaboraciones */}
-          <div className="space-y-4">
-            <h2 className="font-heading font-bold text-3xl text-foreground">Actividades y Colaboraciones</h2>
-            <p className="text-lg text-muted-foreground">
-              Fomentamos el contacto directo con el mundo profesional a través de diversas actividades:
-            </p>
-            <ul className="list-disc list-inside text-lg text-muted-foreground space-y-2">
-              <li><b>Junior Achievement:</b> Visitas a empresas líderes como Oracle y capacitaciones que acercan a los estudiantes a la realidad del sector.</li>
-              <li><b>Colaboraciones con la Municipalidad:</b> Los estudiantes de multimedios participan en proyectos reales como la creación de cortometrajes, visitas al teatro municipal y la realización de presentaciones, ganando experiencia práctica invaluable.</li>
-            </ul>
-          </div>
-
-          {/* Trabajo Freelance */}
-          <div className="space-y-4">
-            <h2 className="font-heading font-bold text-3xl text-foreground">Trabajo Freelance</h2>
-            <p className="text-lg text-muted-foreground">
-              Además de las oportunidades tradicionales, ambas orientaciones preparan a los estudiantes para el mundo del trabajo independiente.
-            </p>
-            <ul className="list-disc list-inside text-lg text-muted-foreground space-y-2">
-              <li><b>Programadores:</b> Muchos de nuestros egresados desarrollan y venden soluciones de software por su cuenta.</li>
-              <li><b>Multimedios:</b> Es común que nuestros estudiantes ofrezcan servicios de edición de video para influencers, youtubers y empresas.</li>
-            </ul>
-          </div>
-        </div>
+        <motion.div
+          className="mt-20 grid md:grid-cols-2 gap-10"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+        >
+          {opportunities.map((opp, index) => (
+            <motion.div
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0 },
+              }}
+            >
+              <Card className="h-full bg-white rounded-xl shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="flex-shrink-0">{opp.icon}</div>
+                  <CardTitle className="font-heading text-2xl text-foreground">{opp.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-base text-muted-foreground">{opp.description}</p>
+                  <p className="text-sm text-gray-500 pt-2 border-t border-gray-200">{opp.details}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
       </main>
       <Footer />
     </div>

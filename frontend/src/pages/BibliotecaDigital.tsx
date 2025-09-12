@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Search } from "lucide-react";
+import { motion } from "framer-motion";
 
 const BibliotecaDigital = () => {
   const featuredResources = [
@@ -29,72 +30,108 @@ const BibliotecaDigital = () => {
       category: "Multimedios",
     },
     {
-      title: "Redes de Computadoras: Un Enfoque Descendente",
+      title: "Redes de Computadoras",
       description: "El libro de referencia para entender las redes.",
       category: "Programación",
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+      },
+    },
+  };
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="font-heading font-bold text-4xl lg:text-5xl text-foreground">
             Biblioteca <span className="text-primary">Digital</span>
           </h1>
           <p className="text-xl text-muted-foreground mt-2">
             Tu centro de conocimiento y recursos académicos.
           </p>
-        </div>
+        </motion.div>
 
         {/* Search Bar */}
-        <div className="max-w-2xl mx-auto mb-16">
+        <motion.div
+          className="max-w-2xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <form className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Buscar libros, artículos, guías..."
-              className="w-full pl-12 pr-4 py-3 h-14 text-lg rounded-full shadow-lg"
+              className="w-full pl-16 pr-32 py-4 h-16 text-lg rounded-full shadow-lg border-2 border-transparent focus:border-primary focus:ring-primary"
             />
-             <Button
+            <Button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full h-10 w-24"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full h-12 w-28 text-base"
             >
               Buscar
             </Button>
           </form>
-        </div>
+        </motion.div>
 
         {/* Featured Resources */}
         <div>
           <h2 className="font-heading text-3xl font-bold text-foreground mb-8 text-center">
             Recursos Destacados
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {featuredResources.map((resource) => (
-              <Card
-                key={resource.title}
-                className="flex flex-col hover:shadow-lg transition-shadow duration-300"
-              >
-                <CardHeader>
-                  <CardTitle className="font-heading text-xl">
-                    {resource.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-muted-foreground text-sm">
-                    {resource.description}
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <span className="text-xs font-semibold bg-primary/10 text-primary px-2 py-1 rounded-full">
-                    {resource.category}
-                  </span>
-                </CardFooter>
-              </Card>
+              <motion.div key={resource.title} variants={itemVariants}>
+                <Card className="flex flex-col h-full bg-white rounded-xl shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
+                  <CardHeader>
+                    <CardTitle className="font-heading text-xl text-foreground">
+                      {resource.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-muted-foreground text-sm">
+                      {resource.description}
+                    </p>
+                  </CardContent>
+                  <CardFooter>
+                    <span className="text-xs font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">
+                      {resource.category}
+                    </span>
+                  </CardFooter>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </main>
       <Footer />

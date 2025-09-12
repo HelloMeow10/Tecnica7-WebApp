@@ -22,6 +22,7 @@ import BolsaTrabajo from "./pages/BolsaTrabajo";
 import CalendarioAcademico from "./pages/CalendarioAcademico";
 import CampusVirtual from "./pages/CampusVirtual";
 import ReglamentoInterno from "./pages/ReglamentoInterno";
+import SistemaGestion from "./pages/SistemaGestion";
 import CentroEstudiantes from "./pages/CentroEstudiantes";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/bolsa-trabajo" element={<BolsaTrabajo />} />
             <Route path="/calendario-academico" element={<CalendarioAcademico />} />
             <Route path="/reglamento-interno" element={<ReglamentoInterno />} />
+            <Route path="/sistema-gestion" element={<SistemaGestion />} />
             <Route path="/centro-estudiantes" element={<CentroEstudiantes />} />
             <Route path="/politica-de-privacidad" element={<PrivacyPolicyPage />} />
             <Route path="/terminos-de-uso" element={<TermsOfUsePage />} />

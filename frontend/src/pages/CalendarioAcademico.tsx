@@ -3,23 +3,29 @@ import Header from "@/components/Header";
 import { Calendar } from "lucide-react";
 import { calendarData } from "@/lib/calendarData";
 import CalendarMonth from "@/components/CalendarMonth";
+import { motion } from "framer-motion";
 
 const CalendarioAcademico = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-16">
-        <div className="text-center space-y-6">
-          <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-            <Calendar className="h-10 w-10 text-white" />
+        <motion.div
+          className="text-center space-y-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="w-24 h-24 bg-gradient-to-br from-primary to-blue-700 rounded-3xl flex items-center justify-center mx-auto shadow-lg">
+            <Calendar className="h-12 w-12 text-white" />
           </div>
-          <h1 className="font-heading font-bold text-6xl lg:text-6xl text-black">
+          <h1 className="font-heading font-bold text-4xl lg:text-5xl text-foreground">
             Calendario <span className="text-primary">Académico 2025</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Aquí encontrarás las fechas más importantes del ciclo lectivo 2025 para el nivel secundario.
+            Aquí encontrarás las fechas más importantes del ciclo lectivo 2025.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-16">
           {calendarData.map((monthData, index) => (
