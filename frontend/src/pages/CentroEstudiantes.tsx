@@ -59,41 +59,47 @@ const CentroEstudiantes = () => {
                   <strong>Presidente:</strong> {center.president}
                 </p>
                 {center.image && (
-                  <div className="mt-4 flex justify-center relative overflow-hidden" style={{ minHeight: "18rem" }}>
-                    {/* Fondo animado detrás de la imagen */}
+                  <div className="mt-4 flex justify-center relative overflow-hidden">
+                    {/* Fondo animado con framer-motion */}
                     <motion.div
-                      className="absolute inset-0 w-full h-full pointer-events-none"
+                      className="absolute inset-0 w-full h-full pointer-events-none rounded-lg"
                       initial={{ opacity: 0.9 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 2 }}
+                      transition={{ duration: 1 }}
                     >
-                      {/* Círculo azul */}
                       <motion.div
-                        className="absolute top-[-40px] left-[-40px] bg-blue-200 rounded-full"
-                        style={{ width: 540, height: 480, filter: "blur(40px)" }}
-                        animate={{ x: [0, 30, 20], y: [0, 20, 0] }}
-                        transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
-                      />
-                      {/* Círculo violeta */}
-                      <motion.div
-                        className="absolute bottom-[-50px] right-[-50px] bg-purple-200 rounded-full"
-                        style={{ width: 540, height: 480, filter: "blur(40px)" }}
-                        animate={{ x: [0, -20, 0], y: [0, -30, 0] }}
-                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                      />
-                      {/* Círculo celeste */}
-                      <motion.div
-                        className="absolute top-1/2 left-1/2 bg-blue-100 rounded-full"
-                        style={{ width: 120, height: 120, filter: "blur(30px)", transform: "translate(-50%, -50%)" }}
-                        animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
-                        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                        className="w-full h-full"
+                        style={{
+                          background:
+                            center.name === "Unidos por la Libertad"
+                              ? "linear-gradient(135deg, #2563eb 0%, #fde047 100%)"
+                              : "linear-gradient(135deg, #000000 0%, #ffffff 100%)",
+                          borderRadius: "0.5rem",
+                          position: "absolute",
+                          inset: 0,
+                          zIndex: 1,
+                        }}
+                        animate={{
+                          scale: [1, 1.05, 1],
+                          rotate: [0, 2, -2, 0],
+                          filter: [
+                            "brightness(1)",
+                            "brightness(1.08)",
+                            "brightness(1)",
+                          ],
+                        }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 7,
+                          ease: "easeInOut",
+                        }}
                       />
                     </motion.div>
                     {/* Imagen */}
                     <img
                       src={center.image}
                       alt={`Imagen de ${center.name}`}
-                      className="rounded-lg max-h-[28rem] w-auto object-contain relative z-10"
+                      className="rounded-lg max-h-[28rem] w-auto object-contain relative z-10 shadow-xl transition-transform duration-500 hover:scale-105"
                       style={{ maxWidth: "100%" }}
                     />
                   </div>

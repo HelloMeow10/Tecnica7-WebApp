@@ -5,57 +5,69 @@ import {
   BookOpen, 
   Laptop, 
   Globe,
-  Clock,
   TrendingUp 
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const features = [
+  {
+    icon: BookOpen,
+    title: "Ciclo Básico",
+    description: (
+      <>
+        <span className="font-semibold">Duración: 3 años</span>
+        <br />
+        Primeros 3 años comunes a todas las tecnicaturas. Formación fundamental donde priorizamos el <span className="font-semibold">HACER Y REFLEXIONAR SOBRE LO QUE SE HACE.</span>
+      </>
+    ),
+    stats: "Común a todas"
+  },
+  {
+    icon: Award,
+    title: "Excelencia Académica",
+    description: "110+ años formando técnicos con los más altos estándares de calidad educativa.",
+    stats: "95% de empleabilidad"
+  },
+  {
+    icon: Laptop,
+    title: "Tecnología de Vanguardia", 
+    description: "Laboratorios y talleres equipados con la última tecnología para el aprendizaje práctico.",
+    stats: "6 laboratorios modernos"
+  },
+  {
+    icon: Users,
+    title: "Docentes Especializados",
+    description: "Profesores con experiencia profesional y académica en cada área técnica.",
+    stats: "100+ docentes expertos"
+  },
+  {
+    icon: Briefcase,
+    title: "Inserción Laboral",
+    description: "Convenios con empresas líderes para prácticas profesionales y empleo.",
+    stats: "50+ empresas aliadas"
+  },
+  {
+    icon: Globe,
+    title: "Proyección Internacional",
+    description: "Programas de intercambio y certificaciones reconocidas internacionalmente.",
+    stats: "Certificación ISO"
+  },
+  {
+    icon: TrendingUp,
+    title: "Formación Continua",
+    description: "Cursos de capacitación y actualización profesional para egresados.",
+    stats: "Educación permanente"
+  }
+];
+
+const achievements = [
+  { number: "500+", label: "Estudiantes Activos" },
+  { number: "110+", label: "Años de Trayectoria" },
+  { number: "Miles de", label: "Egresados" },
+  { number: "100+", label: "Docentes y Técnicos" }
+];
+
 const FeaturesSection = () => {
-  const features = [
-    {
-      icon: Award,
-      title: "Excelencia Académica",
-      description: "110+ años formando técnicos con los más altos estándares de calidad educativa.",
-      stats: "95% de empleabilidad"
-    },
-    {
-      icon: Laptop,
-      title: "Tecnología de Vanguardia", 
-      description: "Laboratorios y talleres equipados con la última tecnología para el aprendizaje práctico.",
-      stats: "6 laboratorios modernos"
-    },
-    {
-      icon: Users,
-      title: "Docentes Especializados",
-      description: "Profesores con experiencia profesional y académica en cada área técnica.",
-      stats: "100+ docentes expertos"
-    },
-    {
-      icon: Briefcase,
-      title: "Inserción Laboral",
-      description: "Convenios con empresas líderes para prácticas profesionales y empleo.",
-      stats: "50+ empresas aliadas"
-    },
-    {
-      icon: Globe,
-      title: "Proyección Internacional",
-      description: "Programas de intercambio y certificaciones reconocidas internacionalmente.",
-      stats: "Certificación ISO"
-    },
-    {
-      icon: TrendingUp,
-      title: "Formación Continua",
-      description: "Cursos de capacitación y actualización profesional para egresados.",
-      stats: "Educación permanente"
-    }
-  ];
-
-  const achievements = [
-    { number: "500+", label: "Estudiantes Activos" },
-    { number: "110+", label: "Años de Trayectoria" },
-    { number: "Miles de", label: "Egresados" },
-  ];
-
   return (
     <section id="institucional" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -72,32 +84,20 @@ const FeaturesSection = () => {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {features.map((feature, index) => (
-            <div 
-              key={index} 
-              className="group p-6 rounded-2xl bg-gradient-card border border-card-border hover:shadow-custom-lg transition-all duration-500 hover:-translate-y-2"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <feature.icon className="h-6 w-6 text-black" />
-                  </div>
-                  <span className="text-xs font-semibold text-accent bg-accent/10 px-2 py-1 rounded-full">
-                    {feature.stats}
-                  </span>
-                </div>
-                
-                <div className="space-y-2">
-                  <h3 className="font-heading font-bold text-xl text-foreground group-hover:text-primary transition-colors duration-300">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div 
+                key={index} 
+                className="flex flex-col items-center text-center p-6 rounded-xl shadow-lg bg-white h-full"
+              >
+                <Icon className="w-10 h-10 text-black mb-4" />
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <div className="text-gray-700 mb-2">{feature.description}</div>
+                <div className="text-sm text-blue-600 font-semibold">{feature.stats}</div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Achievements Section */}

@@ -7,6 +7,15 @@ import TestimoniosSection from '@/components/TestimoniosSection';
 import Footer from '@/components/Footer';
 import Chatbot from '@/components/Chatbot';
 import { motion } from 'framer-motion'; // Si usas animaciones
+import { 
+  Users, 
+  Award, 
+  Briefcase, 
+  BookOpen, 
+  Laptop, 
+  Globe,
+  TrendingUp 
+} from 'lucide-react';
 
 const Index = () => {
   return (
