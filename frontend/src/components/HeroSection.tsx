@@ -32,9 +32,9 @@ const HeroSection = () => {
             <div className="space-y-4">
               <motion.h1
                 className="font-heading font-bold text-5xl lg:text-7xl leading-tight"
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 <BlurText
                   text="Formando Técnicos del Futuro"
@@ -54,9 +54,9 @@ const HeroSection = () => {
               </motion.h1>
               <motion.p
                 className="text-xl lg:text-2xl text-white/90 font-medium leading-relaxed"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+                transition={{ duration: 0.3, delay: 0.15, ease: "easeOut" }}
               >
                 Educación técnica de excelencia en Banfield. Más de 110 años preparando
                 profesionales con las competencias que demanda el mundo laboral actual.
@@ -65,9 +65,9 @@ const HeroSection = () => {
 
             <motion.div
               className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.3, delay: 0.3, ease: "easeOut" }}
             >
               <Button 
                 size="lg" 
@@ -106,9 +106,9 @@ const HeroSection = () => {
                 <motion.div
                   key={index}
                   className="text-center space-y-2"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
+                  transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
                 >
                   <stat.icon className="h-8 w-8 mx-auto text-accent-light" />
                   <div className="font-heading font-bold text-2xl lg:text-3xl">
@@ -125,9 +125,9 @@ const HeroSection = () => {
           {/* Featured Card */}
           <motion.div
             className="lg:flex justify-center hidden"
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.3, delay: 0.35, ease: "easeOut" }}
           >
             <div className="glass p-8 rounded-2xl max-w-md space-y-6">
               <div className="text-center space-y-3">
@@ -172,21 +172,21 @@ const HeroSection = () => {
       {/* Floating Elements */}
       <motion.div
         className="absolute top-1/4 left-10 w-20 h-20 bg-white/10 rounded-full blur-sm animate-pulse hidden lg:block"
-        initial={{ opacity: 0, scale: 0.7 }}
+        initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 1.2 }}
+        transition={{ duration: 0.4, delay: 0.6 }}
       ></motion.div>
       <motion.div
         className="absolute bottom-1/3 right-20 w-12 h-12 bg-accent/20 rounded-full blur-sm animate-pulse hidden lg:block"
-        initial={{ opacity: 0, scale: 0.7 }}
+        initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 1.4 }}
+        transition={{ duration: 0.4, delay: 0.7 }}
       ></motion.div>
       <motion.div
         className="absolute top-1/2 right-1/4 w-6 h-6 bg-white/20 rounded-full blur-sm animate-pulse hidden lg:block"
-        initial={{ opacity: 0, scale: 0.7 }}
+        initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 1.6 }}
+        transition={{ duration: 0.4, delay: 0.8 }}
       ></motion.div>
     </section>
   );

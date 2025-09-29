@@ -9,7 +9,7 @@ import LogoLoop from '@/components/ui/LogoLoop';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
 };
 
@@ -60,7 +60,7 @@ const CarrerasSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.2 }}
         >
           <h2 className="font-heading font-bold text-4xl lg:text-5xl text-foreground">
             Nuestro <span className="text-primary">Plan de Estudios</span>
@@ -78,7 +78,7 @@ const CarrerasSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+          transition={{ duration: 0.2, delay: 0.1 }}
         >
           <div className="text-center mb-8">
             <h3 className="font-heading font-bold text-2xl text-foreground mb-4">Ciclo Básico</h3>
@@ -116,7 +116,7 @@ const CarrerasSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          transition={{ duration: 0.2, delay: 0.15 }}
         >
           <div className="text-center mb-8">
             <h3 className="font-heading font-bold text-2xl text-foreground mb-4">Orientaciones del Ciclo Superior</h3>
@@ -130,7 +130,7 @@ const CarrerasSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.4, delay: 0.4 + index * 0.2 }}
+                transition={{ duration: 0.2, delay: 0.2 + index * 0.1 }}
               >
                 <Card className="card-elegant hover:shadow-glow group transition-all duration-500">
                   <CardHeader className="text-center pb-4">
@@ -165,7 +165,7 @@ const CarrerasSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
+          transition={{ duration: 0.2, delay: 0.25 }}
         >
           <div className="space-y-4">
             <HardHat className="h-12 w-12 text-primary mx-auto" />

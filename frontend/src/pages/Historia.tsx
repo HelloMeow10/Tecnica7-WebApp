@@ -8,10 +8,10 @@ import { motion } from "framer-motion";
 import BlurText from "@/components/ui/BlurText";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 15 },
   visible: { opacity: 1, y: 0 }
 };
-const fast = { duration: 0.2 };
+const fast = { duration: 0.15 };
 
 const handleAnimationComplete = () => {
   console.log('Animation completed!');

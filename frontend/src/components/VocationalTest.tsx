@@ -92,7 +92,7 @@ const questions = [
   {
     text: 'Me veo trabajando en un estudio de animación o una productora de cine.',
     area: 'multimedios',
-  },
+  }, 
 ];
 
 const VocationalTest = ({ open, onOpenChange }) => {
@@ -110,7 +110,6 @@ const VocationalTest = ({ open, onOpenChange }) => {
       programacion: 0,
       multimedios: 0,
     };
-    // Corrige el cálculo del máximo por área
     const maxScorePerArea: { programacion: number; multimedios: number } = { programacion: 0, multimedios: 0 };
     questions.forEach((question) => {
       maxScorePerArea[question.area] += 10;
@@ -156,13 +155,14 @@ const VocationalTest = ({ open, onOpenChange }) => {
                     {index + 1}. {question.text}
                   </label>
                   <div className="flex items-center space-x-4">
-                    <span className="text-sm w-8 text-center">{answers[index]}</span>
+                    <span className="text-sm w-8 text-center font-bold text-blue-600">{answers[index]}</span>
                     <Slider
                       defaultValue={[answers[index]]}
                       min={1}
                       max={10}
                       step={1}
                       onValueChange={(value) => handleSliderChange(index, value)}
+                      className="[&_[role=slider]]:bg-blue-600 [&_[role=slider]]:border-blue-600 [&_[data-orientation=horizontal]]:bg-gray-200 [&_[data-orientation=horizontal]>[data-range=true]]:bg-blue-600"
                     />
                   </div>
                 </div>

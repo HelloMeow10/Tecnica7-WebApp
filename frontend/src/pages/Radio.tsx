@@ -7,10 +7,10 @@ import Footer from '@/components/Footer';
 import { motion } from "framer-motion";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 15 },
   visible: { opacity: 1, y: 0 }
 };
-const fast = { duration: 0.2 };
+const fast = { duration: 0.15 };
 
 const Radio = () => {
   const historicalRadios = [

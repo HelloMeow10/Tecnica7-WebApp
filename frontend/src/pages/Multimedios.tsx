@@ -18,11 +18,11 @@ import horariosCicloSuperior from '@/assets/Horarios ciclo superior (2).xlsx';
 import { motion } from "framer-motion";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 15 },
   visible: { opacity: 1, y: 0 }
 };
 
-const fast = { duration: 0.2 };
+const fast = { duration: 0.15 };
 
 const Multimedios = () => {
   const talleres = [
@@ -174,15 +174,7 @@ const Multimedios = () => {
             </motion.div>
 
             {/* Diseño Curricular */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
-            >
-              <DisenoCurricular filePath="/diseno_curricular_multimedios.md" />
-            </motion.div>
+        
 
             {/* Horarios Section */}
             <motion.div

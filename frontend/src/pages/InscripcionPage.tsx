@@ -96,7 +96,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: "easeInOut"
     }
   }
@@ -132,7 +132,7 @@ const InscripcionPage = () => {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.2 }}
               className="mb-16 text-center"
             >
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">

@@ -26,9 +26,9 @@ const TourVirtual = () => {
       <Header />
       <main className="flex-grow container mx-auto px-4 py-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2 }}
           className="text-center mb-12"
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Tour Virtual</h1>
@@ -41,9 +41,9 @@ const TourVirtual = () => {
           {images.map((image, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.2, delay: index * 0.05 }}
               className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
               <img src={image.src} alt={image.alt} className="w-full h-64 object-cover" />

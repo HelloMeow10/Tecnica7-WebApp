@@ -7,14 +7,14 @@ const TestimoniosSection = () => {
   const testimonios = [
     {
       nombre: "Lucas Ramos",
-      rol: "Desarrollador Full-Stack",
+      rol: "Desarrollador Scratch y fundador de la página",
       testimonio: "Egresar de la Técnica 7 fue una de las mejores decisiones de mi vida. La formación que recibí me abrió las puertas al mundo laboral y me dio las herramientas para co-fundar la página de la escuela. ¡Una experiencia inolvidable!",
       avatar: fotoalumnos,
       linkedin: "https://www.linkedin.com/in/lucas-sebastian-ramos/",
     },
     {
       nombre: "Abril Lezcano",
-      rol: "Diseñadora UX/UI",
+      rol: "Diseñadora back-end",
       testimonio: "La especialidad de Multimedios me permitió explorar mi creatividad y potenciar mis habilidades en diseño. Hoy, como egresada y desarrolladora de la página, puedo decir que la escuela me dio las bases para mi carrera profesional.",
       avatar: fotoalumnos,
       linkedin: "https://www.linkedin.com/in/abril-lezcano-98b39633b/",
@@ -33,20 +33,7 @@ const TestimoniosSection = () => {
       avatar: fotoalumnos,
       linkedin: "https://www.linkedin.com/in/juan-perez/",
     },
-    {
-      nombre: "Matias Martinez",
-      rol: "Ingeniero DevOps",
-      testimonio: "Egresar de la Técnica 7 me impulsó a crecer como profesional. Hoy, como Ingeniero DevOps, valoro todo lo aprendido y me enorgullece haber aportado a la página de la escuela.",
-      avatar: fotoalumnos,
-      linkedin: "https://www.linkedin.com/in/juan-picha/",
-    },
-    {
-      nombre: "Gabriel Voos",
-      rol: "Rol",
-      testimonio: "...",
-      avatar: fotoalumnos,
-      linkedin: "https://www.linkedin.com/in/juan-picha/",
-    },
+    
 
   ];
 
