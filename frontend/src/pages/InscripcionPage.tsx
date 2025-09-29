@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
+import { FileText, Files, CalendarDays, Phone, ThumbsUp, Users, Clock } from 'lucide-react';
 
 const sidebarItems = [
   { label: "Inicio", href: "#inicio" },
@@ -14,6 +15,7 @@ const sidebarItems = [
 const cardData = [
   {
     id: "inscripcion",
+    icon: FileText,
     title: "Planilla de inscripción",
     content: "Imprimir la planilla de inscripción que se adjunta en la página, completar y firmar.",
     action: {
@@ -23,6 +25,7 @@ const cardData = [
   },
   {
     id: "documentacion",
+    icon: Files,
     title: "Documentación requerida",
     content: "Documentación que debe presentar junto con la planilla de inscripción:",
     list: [
@@ -38,6 +41,7 @@ const cardData = [
   },
   {
     id: "fechas",
+    icon: CalendarDays,
     title: "Fechas importantes",
     content: "Fechas de inscripción:",
     list: [
@@ -48,6 +52,7 @@ const cardData = [
   },
   {
     id: "contacto",
+    icon: Phone,
     title: "Contacto y consultas",
     content: "¿Dudas o consultas? Puedes comunicarte con la Secretaría:",
     list: [
@@ -58,6 +63,7 @@ const cardData = [
   },
   {
     id: "recomendaciones",
+    icon: ThumbsUp,
     title: "Recomendaciones",
     content: "Recomendaciones para la inscripción:",
     list: [
@@ -68,11 +74,13 @@ const cardData = [
   },
   {
     id: "vacantes",
+    icon: Users,
     title: "Vacantes y cupos",
     content: "Las vacantes se asignan por orden de llegada y cumplimiento de requisitos. En caso de no obtener vacante, puedes consultar por lista de espera."
   },
   {
     id: "turnos",
+    icon: Clock,
     title: "Turnos y horarios",
     content: "Turnos disponibles:",
     list: [
@@ -98,10 +106,10 @@ const InscripcionPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
+      <main className="flex-grow container mx-auto px-4 pt-32 pb-16">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Sidebar */}
-          <aside className="lg:w-1/4 sticky top-24 h-fit bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <aside className="lg:w-1/4 sticky top-28 h-fit bg-white p-6 rounded-lg shadow-sm border border-gray-200">
             <h2 className="text-xl font-bold mb-4 text-gray-800">Navegación</h2>
             <nav>
               <ul className="space-y-3">
@@ -125,18 +133,18 @@ const InscripcionPage = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-12 text-center"
+              className="mb-16 text-center"
             >
-              <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 Inscripciones <span className="text-primary">2025</span>
               </h1>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Inscribite y comenzá tu camino técnico en la E.E.S.T N°7. Encuentra toda la información que necesitas para completar tu inscripción.
               </p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {cardData.map((card, index) => (
+              {cardData.map((card) => (
                 <motion.div
                   key={card.id}
                   id={card.id}
@@ -144,9 +152,12 @@ const InscripcionPage = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
-                  className="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                  className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-300 flex flex-col"
                 >
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">{card.title}</h3>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <card.icon className="w-6 h-6 mr-3 text-primary" />
+                    {card.title}
+                  </h3>
                   <p className="text-gray-600 mb-4 flex-grow">{card.content}</p>
                   {card.list && (
                     <ul className="list-disc pl-6 text-left text-gray-600 space-y-2 mb-4 flex-grow">
