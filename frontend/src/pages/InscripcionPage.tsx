@@ -1,176 +1,172 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
-import BlurText from '@/components/ui/BlurText';
-import MagicBento from '@/components/ui/MagicBento';
 
 const sidebarItems = [
-  { label: "Inicio", href: "/" },
-  { label: "Inscripción", href: "/inscripcion" },
-  { label: "Documentos", href: "/documentos" },
-  { label: "Fechas", href: "/fechas" },
-  { label: "Contacto", href: "/contacto" },
-  { label: "Vacantes", href: "/vacantes" },
+  { label: "Inicio", href: "#inicio" },
+  { label: "Inscripción", href: "#inscripcion" },
+  { label: "Documentos", href: "#documentacion" },
+  { label: "Fechas", href: "#fechas" },
+  { label: "Contacto", href: "#contacto" },
+  { label: "Vacantes", href: "#vacantes" },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 }
-};
-const fast = { duration: 0.3 };
-
-const bentoCards = [
+const cardData = [
   {
-    title: "¿Cómo inscribirse?",
-    content: (
-      <>
-        <BlurText
-          text="Inscribite y comenzá tu camino técnico en la E.E.S.T N°7"
-          delay={120}
-          animateBy="words"
-          direction="top"
-          className="text-lg text-muted-foreground leading-relaxed mb-2"
-        />
-        <h1 className="font-heading font-bold text-3xl text-foreground mb-2">
-          Inscripciones <span className="text-primary">2025</span>
-        </h1>
-      </>
-    ),
-  },
-  {
+    id: "inscripcion",
     title: "Planilla de inscripción",
-    content: (
-      <>
-        <h3 className="text-lg font-semibold mb-2">Planilla de inscripción</h3>
-        <p>Imprimir la planilla de inscripción que se adjunta en la página, completar y firmar.</p>
-        <div className="flex justify-center mt-4">
-          <a href="/PlanillaInscripcion.pdf" download className="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">Descargar Inscripción</a>
-        </div>
-      </>
-    ),
+    content: "Imprimir la planilla de inscripción que se adjunta en la página, completar y firmar.",
+    action: {
+      href: "/PlanillaInscripcion.pdf",
+      text: "Descargar Planilla",
+    }
   },
   {
+    id: "documentacion",
     title: "Documentación requerida",
-    content: (
-      <>
-        <h3 className="text-lg font-semibold mb-2">Documentación que debe presentar junto con la planilla de inscripción:</h3>
-        <ul className="list-disc pl-6 text-left">
-          <li>DNI del alumno (Original y Fotocopia).</li>
-          <li>Constancia de CUIL del alumno.</li>
-          <li>Partida de nacimiento del alumno (Original y Fotocopia).</li>
-          <li>Vacunas (Original y Fotocopia).</li>
-          <li>Título de Primaria o Constancia de finalización de 6° Grado. (Original y Fotocopia).</li>
-          <li>Certificado de <b>ANALITICO INCOMPLETO EN TRAMITE</b> (Para ingresantes en 2°, 3° o 4° AÑO).</li>
-          <li>DNI del Padre/Madre o Tutor (Original y Fotocopia).</li>
-          <li>Dos Folios tamaño oficio.</li>
-        </ul>
-      </>
-    ),
+    content: "Documentación que debe presentar junto con la planilla de inscripción:",
+    list: [
+      "DNI del alumno (Original y Fotocopia).",
+      "Constancia de CUIL del alumno.",
+      "Partida de nacimiento del alumno (Original y Fotocopia).",
+      "Vacunas (Original y Fotocopia).",
+      "Título de Primaria o Constancia de finalización de 6° Grado. (Original y Fotocopia).",
+      "Certificado de ANALITICO INCOMPLETO EN TRAMITE (Para ingresantes en 2°, 3° o 4° AÑO).",
+      "DNI del Padre/Madre o Tutor (Original y Fotocopia).",
+      "Dos Folios tamaño oficio."
+    ]
   },
   {
+    id: "fechas",
     title: "Fechas importantes",
-    content: (
-      <>
-        <h3 className="text-lg font-semibold mb-2">Fechas de inscripción</h3>
-        <ul className="list-disc pl-6 text-left">
-          <li>Inscripción presencial: del 10 al 20 de noviembre.</li>
-          <li>Horario: 8:30 a 12:00 y 13:30 a 16:00 hs.</li>
-          <li>Consultas: Secretaría de la escuela.</li>
-        </ul>
-      </>
-    ),
+    content: "Fechas de inscripción:",
+    list: [
+      "Inscripción presencial: del 10 al 20 de noviembre.",
+      "Horario: 8:30 a 12:00 y 13:30 a 16:00 hs.",
+      "Consultas: Secretaría de la escuela."
+    ]
   },
   {
+    id: "contacto",
     title: "Contacto y consultas",
-    content: (
-      <>
-        <h3 className="text-lg font-semibold mb-2">¿Dudas o consultas?</h3>
-        <p>Puedes comunicarte con la Secretaría:</p>
-        <ul className="list-disc pl-6 text-left">
-          <li>Teléfono: (011) 4248-6259</li>
-          <li>Email: eet7lz@yahoo.com.ar</li>
-          <li>Dirección: Manuel Acevedo 1864, Banfield</li>
-        </ul>
-      </>
-    ),
+    content: "¿Dudas o consultas? Puedes comunicarte con la Secretaría:",
+    list: [
+      "Teléfono: (011) 4248-6259",
+      "Email: eet7lz@yahoo.com.ar",
+      "Dirección: Manuel Acevedo 1864, Banfield"
+    ]
   },
   {
+    id: "recomendaciones",
     title: "Recomendaciones",
-    content: (
-      <>
-        <h3 className="text-lg font-semibold mb-2">Recomendaciones para la inscripción</h3>
-        <ul className="list-disc pl-6 text-left">
-          <li>Verifica que toda la documentación esté completa antes de presentarla.</li>
-          <li>Trae fotocopias legibles y originales.</li>
-          <li>Consulta por vacantes y requisitos específicos según el año de ingreso.</li>
-        </ul>
-      </>
-    ),
+    content: "Recomendaciones para la inscripción:",
+    list: [
+        "Verifica que toda la documentación esté completa antes de presentarla.",
+        "Trae fotocopias legibles y originales.",
+        "Consulta por vacantes y requisitos específicos según el año de ingreso."
+    ]
   },
   {
+    id: "vacantes",
     title: "Vacantes y cupos",
-    content: (
-      <>
-        <h3 className="text-lg font-semibold mb-2">Información sobre vacantes</h3>
-        <p>Las vacantes se asignan por orden de llegada y cumplimiento de requisitos.</p>
-        <p>En caso de no obtener vacante, puedes consultar por lista de espera.</p>
-      </>
-    ),
+    content: "Las vacantes se asignan por orden de llegada y cumplimiento de requisitos. En caso de no obtener vacante, puedes consultar por lista de espera."
   },
   {
+    id: "turnos",
     title: "Turnos y horarios",
-    content: (
-      <>
-        <h3 className="text-lg font-semibold mb-2">Turnos disponibles</h3>
-        <ul className="list-disc pl-6 text-left">
-          <li>Turno mañana: 8:00 a 12:30 hs.</li>
-          <li>Turno tarde: 13:00 a 17:30 hs.</li>
-        </ul>
-      </>
-    ),
-  },
+    content: "Turnos disponibles:",
+    list: [
+        "Turno mañana: 8:00 a 12:30 hs.",
+        "Turno tarde: 13:00 a 17:30 hs."
+    ]
+  }
 ];
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut"
+    }
+  }
+};
 
 const InscripcionPage = () => {
   return (
-    <div className="flex flex-col min-h-screen relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      <main className="flex-grow flex flex-row">
-        {/* Sidebar */}
-        <aside className="hidden md:flex flex-col w-56 min-w-48 max-w-xs bg-gradient-to-b from-gray-100 to-gray-200 border-r border-gray-300 py-8 px-4 sticky top-0 h-[calc(100vh-64px)] z-20">
-          <nav>
-            <ul className="space-y-4">
-              {sidebarItems.map(item => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className="block text-gray-700 hover:text-primary font-medium transition-colors px-2 py-1 rounded hover:bg-gray-300"
-                  >
-                    {item.label}
-                  </a>
-                </li>
+      <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* Sidebar */}
+          <aside className="lg:w-1/4 sticky top-24 h-fit bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">Navegación</h2>
+            <nav>
+              <ul className="space-y-3">
+                {sidebarItems.map(item => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="block text-gray-600 hover:text-primary font-medium transition-colors duration-300"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+
+          {/* Main Content */}
+          <section id="inicio" className="lg:w-3/4">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-12 text-center"
+            >
+              <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                Inscripciones <span className="text-primary">2025</span>
+              </h1>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Inscribite y comenzá tu camino técnico en la E.E.S.T N°7. Encuentra toda la información que necesitas para completar tu inscripción.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {cardData.map((card, index) => (
+                <motion.div
+                  key={card.id}
+                  id={card.id}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  className="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                >
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">{card.title}</h3>
+                  <p className="text-gray-600 mb-4 flex-grow">{card.content}</p>
+                  {card.list && (
+                    <ul className="list-disc pl-6 text-left text-gray-600 space-y-2 mb-4 flex-grow">
+                      {card.list.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {card.action && (
+                    <div className="mt-auto">
+                      <a href={card.action.href} download className="inline-block bg-blue-600 text-white rounded-md px-6 py-2 font-semibold hover:bg-blue-700 transition-colors duration-300">
+                        {card.action.text}
+                      </a>
+                    </div>
+                  )}
+                </motion.div>
               ))}
-            </ul>
-          </nav>
-        </aside>
-        {/* MagicBento y contenido principal */}
-        <section className="flex-1 flex flex-col items-center justify-start">
-          <div className="w-full max-w-[1800px] px-2 pt-32 pb-6 mx-auto">
-            <MagicBento
-              cards={bentoCards}
-              textAutoHide={true}
-              enableStars={true}
-              enableSpotlight={true}
-              enableBorderGlow={true}
-              enableTilt={true}
-              enableMagnetism={true}
-              clickEffect={true}
-              spotlightRadius={300}
-              particleCount={12}
-              glowColor="0,0,0"
-            />
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
       </main>
       <Footer />
     </div>
