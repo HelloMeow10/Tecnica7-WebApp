@@ -5,7 +5,17 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from "framer-motion";
-import { fadeUp, staggerContainer, textVariant } from '@/lib/animations';
+import BlurText from "@/components/ui/BlurText";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 }
+};
+const fast = { duration: 0.2 };
+
+const handleAnimationComplete = () => {
+  console.log('Animation completed!');
+};
 
 const Historia = () => {
   const hitos = [
@@ -15,7 +25,7 @@ const Historia = () => {
       description: "Fundada como Escuela Secundaria de Mujeres Julia Moreno de Moreno el 24 de diciembre"
     },
     {
-      year: "1924",
+      year: "1924", 
       title: "Incorporación",
       description: "Se incorpora al Consejo Nacional de Mujeres de la Confederación Nacional de Beneficencia"
     },
@@ -42,7 +52,37 @@ const Historia = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative overflow-hidden">
+      {/* Fondo animado con framer-motion */}
+      <motion.div
+        className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
+        initial={{ opacity: 0.7 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Círculo azul */}
+        <motion.div
+          className="absolute top-[-120px] left-[-120px] bg-blue-200 rounded-full"
+          style={{ width: 400, height: 400, filter: "blur(80px)" }}
+          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
+          transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+        />
+        {/* Círculo violeta */}
+        <motion.div
+          className="absolute bottom-[-140px] right-[-140px] bg-purple-200 rounded-full"
+          style={{ width: 350, height: 350, filter: "blur(80px)" }}
+          animate={{ x: [0, -40, 0], y: [0, -60, 0] }}
+          transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
+        />
+        {/* Círculo celeste */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 bg-blue-100 rounded-full"
+          style={{ width: 300, height: 300, filter: "blur(60px)", transform: "translate(-50%, -50%)" }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
+          transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        />
+      </motion.div>
+
       <Header />
       <main className="flex-grow">
         <div className="min-h-screen pt-32 pb-20">
@@ -50,57 +90,65 @@ const Historia = () => {
             {/* Hero Section */}
             <motion.div
               className="text-center space-y-6 mb-16"
-              variants={staggerContainer}
+              variants={fadeUp}
               initial="hidden"
               animate="visible"
+              transition={fast}
             >
-              <motion.div variants={fadeUp} className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
+              <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
                 <BookOpen className="h-10 w-10 text-black" />
-              </motion.div>
-              <motion.p variants={textVariant} className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-4">
-                Más de un siglo formando generaciones con excelencia educativa y compromiso social.
-              </motion.p>
-              <motion.h1 variants={textVariant} className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
+              </div>
+              {/* BlurText agregado aquí */}
+              <BlurText
+                text="Más de un siglo formando generaciones con excelencia educativa y compromiso social."
+                delay={150}
+                animateBy="words"
+                direction="top"
+                onAnimationComplete={handleAnimationComplete}
+                className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-4"
+              />
+              <h1 className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
                 Nuestra <span className="text-primary">Historia</span>
-              </motion.h1>
+              </h1>
             </motion.div>
 
             {/* Quienes Somos */}
             <motion.div
-              variants={staggerContainer}
+              variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
             >
               <Card className="card-elegant p-8 mb-16">
                 <div className="grid lg:grid-cols-2 gap-8 items-center">
-                  <motion.div className="space-y-6" variants={staggerContainer}>
-                    <motion.div variants={textVariant} className="flex items-center space-x-3">
+                  <div className="space-y-6">
+                    <div className="flex items-center space-x-3">
                       <School className="h-8 w-8 text-primary" />
                       <h2 className="font-heading font-bold text-2xl text-foreground">¿Quiénes Somos?</h2>
-                    </motion.div>
+                    </div>
 
-                    <motion.p variants={textVariant} className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed">
                       La E.E.S.T N°7 tiene el propósito de atraer a jóvenes egresados y formarlos con
                       conocimientos útiles mediante talleres especializados y una formación integral
                       que combina teoría y práctica.
-                    </motion.p>
+                    </p>
 
-                    <motion.p variants={textVariant} className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed">
                       Los ciclos electivos tienen las materias comunes, junto a talleres fundamentales
                       para el ciclo básico. En el ciclo superior tendrán la oportunidad de elegir
                       especialización entre <strong className="text-primary">Multimedios</strong> y{' '}
                       <strong className="text-primary">Programación</strong>, con talleres específicos
                       de cada tecnicatura.
-                    </motion.p>
+                    </p>
 
-                    <motion.p variants={textVariant} className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed">
                       Durante el último año (7mo) se llevan a cabo las prácticas profesionalizantes
                       (pasantías) para desarrollar sus oportunidades laborales y su futuro profesional.
-                    </motion.p>
-                  </motion.div>
+                    </p>
+                  </div>
                   
-                  <motion.div className="bg-gradient-card rounded-xl p-6" variants={fadeUp}>
+                  <div className="bg-gradient-card rounded-xl p-6">
                     <div className="text-center space-y-4">
                       <Building className="h-12 w-12 text-primary mx-auto" />
                       <h3 className="font-heading font-bold text-xl text-foreground">
@@ -110,70 +158,70 @@ const Historia = () => {
                         Formando técnicos capacitados con conocimientos que demanda el mercado laboral actual
                       </p>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </Card>
             </motion.div>
 
             {/* Línea de Tiempo */}
             <motion.div
-              variants={staggerContainer}
+              variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
             >
               <div className="mb-16">
-                <motion.div variants={staggerContainer} className="text-center mb-12">
-                  <motion.h2 variants={textVariant} className="font-heading font-bold text-3xl text-foreground mb-4">
+                <div className="text-center mb-12">
+                  <h2 className="font-heading font-bold text-3xl text-foreground mb-4">
                     Un Poco Más de <span className="text-primary">Historia</span>
-                  </motion.h2>
-                  <motion.p variants={textVariant} className="text-muted-foreground text-lg">
+                  </h2>
+                  <p className="text-muted-foreground text-lg">
                     Más de un siglo de trayectoria educativa y evolución constante
-                  </motion.p>
-                </motion.div>
+                  </p>
+                </div>
                 
-                <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer}>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {hitos.map((hito, index) => (
-                    <motion.div key={index} variants={fadeUp}>
-                      <Card className="card-elegant hover:shadow-glow transition-all duration-300 h-full">
-                        <CardHeader className="text-center pb-4">
-                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <Calendar className="h-6 w-6 text-primary" />
-                          </div>
-                          <CardTitle className="font-heading text-2xl text-primary font-bold">
-                            {hito.year}
-                          </CardTitle>
-                          <CardDescription className="font-semibold text-foreground">
-                            {hito.title}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="text-center">
-                          <p className="text-muted-foreground text-sm leading-relaxed">
-                            {hito.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
+                    <Card key={index} className="card-elegant hover:shadow-glow transition-all duration-300">
+                      <CardHeader className="text-center pb-4">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                          <Calendar className="h-6 w-6 text-primary" />
+                        </div>
+                        <CardTitle className="font-heading text-2xl text-primary font-bold">
+                          {hito.year}
+                        </CardTitle>
+                        <CardDescription className="font-semibold text-foreground">
+                          {hito.title}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                          {hito.description}
+                        </p>
+                      </CardContent>
+                    </Card>
                   ))}
-                </motion.div>
+                </div>
               </div>
             </motion.div>
 
             {/* Historia Detallada */}
             <motion.div
-              variants={staggerContainer}
+              variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
             >
               <Card className="card-elegant p-8 mb-16">
-                <motion.div className="space-y-6" variants={staggerContainer}>
-                  <motion.h2 variants={textVariant} className="font-heading font-bold text-2xl text-foreground text-center mb-8">
+                <div className="space-y-6">
+                  <h2 className="font-heading font-bold text-2xl text-foreground text-center mb-8">
                     Historia Detallada
-                  </motion.h2>
+                  </h2>
 
-                  <motion.div className="grid md:grid-cols-2 gap-8" variants={staggerContainer}>
-                    <motion.div className="space-y-4" variants={fadeUp}>
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-4">
                       <h3 className="font-heading font-semibold text-lg text-foreground">Los Primeros Años</h3>
                       <p className="text-muted-foreground leading-relaxed text-sm">
                         La institución originalmente se llamaba Escuela Secundaria de Mujeres Julia Moreno de Moreno,
@@ -187,9 +235,9 @@ const Historia = () => {
                         incorpora al Consejo Nacional de Mujeres de la Confederación Nacional de Beneficencia.
                         En 1937 se agregaron taquigrafía, mecanografía, lectura selecta, artística, etc.
                       </p>
-                    </motion.div>
+                    </div>
 
-                    <motion.div className="space-y-4" variants={fadeUp}>
+                    <div className="space-y-4">
                       <h3 className="font-heading font-semibold text-lg text-foreground">Modernización</h3>
                       <p className="text-muted-foreground leading-relaxed text-sm">
                         En 1960 se modifican los planes de estudio y la escuela pasa a ser E.N.E.T. N°1.
@@ -202,32 +250,31 @@ const Historia = () => {
                         la construcción del nuevo edificio, después de 20 años, se finalizó la obra de
                         la nueva escuela E.E.S.T N°7 de Lomas de Zamora.
                       </p>
-                    </motion.div>
-                  </motion.div>
-                </motion.div>
+                    </div>
+                  </div>
+                </div>
               </Card>
             </motion.div>
 
             {/* Call to Action */}
             <motion.div
-              variants={staggerContainer}
+              variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={fast}
             >
               <Card className="card-elegant bg-gradient-card p-8 text-center">
-                <motion.div className="space-y-6" variants={staggerContainer}>
-                  <motion.div variants={fadeUp}>
-                    <BookOpen className="h-16 w-16 text-primary mx-auto" />
-                  </motion.div>
-                  <motion.h3 variants={textVariant} className="font-heading font-bold text-3xl text-foreground">
+                <div className="space-y-6">
+                  <BookOpen className="h-16 w-16 text-primary mx-auto" />
+                  <h3 className="font-heading font-bold text-3xl text-foreground">
                     Formá Parte de Nuestra Historia
-                  </motion.h3>
-                  <motion.p variants={textVariant} className="text-muted-foreground max-w-2xl mx-auto text-lg">
+                  </h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
                     Más de un siglo de excelencia educativa nos respalda. Sumate a las nuevas generaciones
                     de técnicos que continúan escribiendo esta historia.
-                  </motion.p>
-                  <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8" asChild>
                       <Link to="/programacion">Programación</Link>
                     </Button>
@@ -237,8 +284,8 @@ const Historia = () => {
                     <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8" asChild>
                       <Link to="/contacto">Contactanos</Link>
                     </Button>
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
               </Card>
             </motion.div>
           </div>
