@@ -16,18 +16,12 @@ import teatromalvinasImg from '@/assets/teatromalvinas.jpeg';
 import fotoalumnosImg from '@/assets/fotoalumnos.png';
 import horariosCicloSuperior from '@/assets/Horarios ciclo superior (2).xlsx';
 import { motion } from "framer-motion";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 }
-};
-
-const fast = { duration: 0.2 };
+import { fadeUp, staggerContainer, textVariant } from '@/lib/animations';
 
 const Multimedios = () => {
   const talleres = [
-    "Sistemas Multimediales", "Guión", "Síntesis de Imagen y Animación", 
-    "Realización Audiovisual", "Diseño Gráfico", "Edición de Video", 
+    "Sistemas Multimediales", "Guión", "Síntesis de Imagen y Animación",
+    "Realización Audiovisual", "Diseño Gráfico", "Edición de Video",
     "Fotografía Digital", "Audio y Sonido"
   ];
 
@@ -73,37 +67,7 @@ const Multimedios = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen relative overflow-hidden">
-      {/* Fondo animado con framer-motion */}
-      <motion.div
-        className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
-        initial={{ opacity: 0.8 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        {/* Círculo violeta grande */}
-        <motion.div
-          className="absolute top-[-120px] left-[-120px] bg-purple-300 rounded-full"
-          style={{ width: 420, height: 420, filter: "blur(90px)" }}
-          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-          transition={{ repeat: Infinity, duration: 13, ease: "easeInOut" }}
-        />
-        {/* Círculo azul claro */}
-        <motion.div
-          className="absolute bottom-[-140px] right-[-140px] bg-blue-200 rounded-full"
-          style={{ width: 370, height: 370, filter: "blur(80px)" }}
-          animate={{ x: [0, -40, 0], y: [0, -60, 0] }}
-          transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }}
-        />
-        {/* Círculo violeta suave */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 bg-purple-100 rounded-full"
-          style={{ width: 320, height: 320, filter: "blur(70px)", transform: "translate(-50%, -50%)" }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
-          transition={{ repeat: Infinity, duration: 11, ease: "easeInOut" }}
-        />
-      </motion.div>
-
+    <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
         <div className="min-h-screen pt-32 pb-20">
@@ -111,64 +75,62 @@ const Multimedios = () => {
             {/* Hero Section */}
             <motion.div
               className="text-center space-y-6 mb-16"
-              variants={fadeUp}
+              variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.5 }}
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto">
+              <motion.div variants={fadeUp} className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto">
                 <Monitor className="h-10 w-10 text-white" />
-              </div>
-              <h1 className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
+              </motion.div>
+              <motion.h1 variants={textVariant} className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
                 Técnico en <span className="text-primary">Multimedios</span>
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              </motion.h1>
+              <motion.p variants={textVariant} className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 Una de las especialidades más nuevas de la técnica, enfocada en la creación
                 audiovisual y diseño digital con tecnología de vanguardia.
-              </p>
+              </motion.p>
             </motion.div>
 
             {/* Main Description */}
             <motion.div
-              variants={fadeUp}
+              variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.5 }}
             >
               <Card className="card-elegant p-8 mb-16">
                 <div className="grid lg:grid-cols-2 gap-8 items-center">
-                  <div className="space-y-6">
-                    <div className="flex items-center space-x-3">
+                  <motion.div className="space-y-6" variants={staggerContainer}>
+                    <motion.div variants={textVariant} className="flex items-center space-x-3">
                       <Film className="h-8 w-8 text-primary" />
                       <h2 className="font-heading font-bold text-2xl text-foreground">¿Qué es Multimedios?</h2>
-                    </div>
+                    </motion.div>
 
-                    <p className="text-muted-foreground leading-relaxed">
+                    <motion.p variants={textVariant} className="text-muted-foreground leading-relaxed">
                       Es una de las especialidades más nuevas de la técnica, sus materias se basan
                       sobre todo en la creación audiovisual y diseño digital. Se integran talleres
                       como: sistemas multimediales, guión, síntesis de imagen y animación, realización
                       audiovisual, diseño gráfico, y más.
-                    </p>
+                    </motion.p>
 
-                    <p className="text-muted-foreground leading-relaxed">
+                    <motion.p variants={textVariant} className="text-muted-foreground leading-relaxed">
                       Estos talleres cuentan con ordenadores junto a programas, aplicaciones y material
                       de trabajo (cámaras, micrófonos, equipos de sonido, etc), que ayudarán en el
                       desarrollo de las materias.
-                    </p>
-                  </div>
+                    </motion.p>
+                  </motion.div>
 
-                  <div className="space-y-4">
-                    <h3 className="font-heading font-bold text-xl text-foreground">Talleres Especializados</h3>
-                    <div className="flex flex-wrap gap-2">
+                  <motion.div className="space-y-4" variants={staggerContainer}>
+                    <motion.h3 variants={textVariant} className="font-heading font-bold text-xl text-foreground">Talleres Especializados</motion.h3>
+                    <motion.div variants={fadeUp} className="flex flex-wrap gap-2">
                       {talleres.map((taller, index) => (
                         <Badge key={index} variant="secondary" className="bg-purple-100 text-purple-700 hover:bg-purple-200">
                           {taller}
                         </Badge>
                       ))}
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
                 </div>
               </Card>
             </motion.div>
@@ -178,8 +140,7 @@ const Multimedios = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <DisenoCurricular filePath="/diseno_curricular_multimedios.md" />
             </motion.div>
@@ -189,8 +150,7 @@ const Multimedios = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.5 }}
             >
               <Card className="card-elegant p-8 mb-16">
                 <div className="flex items-center justify-between flex-wrap gap-4">
@@ -214,41 +174,42 @@ const Multimedios = () => {
 
             {/* Areas de Trabajo */}
             <motion.div
-              variants={fadeUp}
+              variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <div className="mb-16">
-                <div className="text-center mb-12">
-                  <h2 className="font-heading font-bold text-3xl text-foreground mb-4">
+                <motion.div variants={staggerContainer} className="text-center mb-12">
+                  <motion.h2 variants={textVariant} className="font-heading font-bold text-3xl text-foreground mb-4">
                     Áreas de <span className="text-primary">Desarrollo</span>
-                  </h2>
-                  <p className="text-muted-foreground text-lg">
+                  </motion.h2>
+                  <motion.p variants={textVariant} className="text-muted-foreground text-lg">
                     Proyectos y disciplinas que podrás dominar durante la tecnicatura
-                  </p>
-                </div>
+                  </motion.p>
+                </motion.div>
                 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" variants={staggerContainer}>
                   {areas.map((area, index) => (
-                    <Card key={index} className="card-elegant hover:shadow-glow group transition-all duration-500">
-                      <CardHeader className="text-center pb-4">
-                        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
-                          <area.icon className="h-6 w-6 text-purple-600" />
-                        </div>
-                        <CardTitle className="font-heading text-lg text-foreground">
-                          {area.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="text-center">
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {area.description}
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <motion.div key={index} variants={fadeUp}>
+                      <Card className="card-elegant hover:shadow-glow group transition-all duration-500 h-full">
+                        <CardHeader className="text-center pb-4">
+                          <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
+                            <area.icon className="h-6 w-6 text-purple-600" />
+                          </div>
+                          <CardTitle className="font-heading text-lg text-foreground">
+                            {area.title}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                          <p className="text-muted-foreground text-sm leading-relaxed">
+                            {area.description}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
             </motion.div>
 
@@ -256,8 +217,7 @@ const Multimedios = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <PerfilEgreso
                 title="Perfil del Egresado"
@@ -277,8 +237,7 @@ const Multimedios = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <SalidaLaboral
                 title="Salida Laboral"
@@ -300,8 +259,7 @@ const Multimedios = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <PracticasProfesionales
                 title="Prácticas Profesionalizantes"
@@ -319,8 +277,7 @@ const Multimedios = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <ProyectosParticipaciones
                 title="Proyectos y Participaciones"
@@ -338,8 +295,7 @@ const Multimedios = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <ImageGallery
                 title="Imágenes"
@@ -353,15 +309,14 @@ const Multimedios = () => {
 
             {/* Competencias */}
             <motion.div
-              variants={fadeUp}
+              variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <Card className="card-elegant p-8 mb-16">
-                <div className="space-y-6">
-                  <div className="text-center mb-8">
+                <motion.div className="space-y-6" variants={staggerContainer}>
+                  <motion.div variants={textVariant} className="text-center mb-8">
                     <div className="flex items-center justify-center space-x-3 mb-4">
                       <Camera className="h-8 w-8 text-primary" />
                       <h2 className="font-heading font-bold text-2xl text-foreground">Tecnicatura en Multimedios</h2>
@@ -369,10 +324,10 @@ const Multimedios = () => {
                     <p className="text-muted-foreground">
                       Competencias que desarrollarás como Técnico en Multimedios
                     </p>
-                  </div>
+                  </motion.div>
 
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-4">
+                  <motion.div className="grid md:grid-cols-2 gap-8" variants={staggerContainer}>
+                    <motion.div className="space-y-4" variants={fadeUp}>
                       <ul className="space-y-3">
                         {competencias.map((competencia, index) => (
                           <li key={index} className="flex items-start space-x-3">
@@ -381,9 +336,9 @@ const Multimedios = () => {
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    </motion.div>
 
-                    <div className="space-y-4">
+                    <motion.div className="space-y-4" variants={fadeUp}>
                       <h3 className="font-heading font-semibold text-lg text-foreground">Herramientas y Equipamiento:</h3>
                       <div className="bg-gradient-card rounded-lg p-6">
                         <ul className="space-y-2 text-muted-foreground">
@@ -409,39 +364,40 @@ const Multimedios = () => {
                           </li>
                         </ul>
                       </div>
-                    </div>
-                  </div>
-                </div>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               </Card>
             </motion.div>
 
             {/* Call to Action */}
             <motion.div
-              variants={fadeUp}
+              variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
+              viewport={{ once: true, amount: 0.5 }}
             >
               <Card className="card-elegant bg-gradient-card p-8 text-center">
-                <div className="space-y-6">
-                  <Monitor className="h-16 w-16 text-primary mx-auto" />
-                  <h3 className="font-heading font-bold text-3xl text-foreground">
+                <motion.div className="space-y-6" variants={staggerContainer}>
+                  <motion.div variants={fadeUp}>
+                    <Monitor className="h-16 w-16 text-primary mx-auto" />
+                  </motion.div>
+                  <motion.h3 variants={textVariant} className="font-heading font-bold text-3xl text-foreground">
                     ¿Te Apasiona la Creatividad Digital?
-                  </h3>
-                  <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+                  </motion.h3>
+                  <motion.p variants={textVariant} className="text-muted-foreground max-w-2xl mx-auto text-lg">
                     Desarrollá tu talento artístico y técnico en el mundo audiovisual. Contactanos para
                     más información sobre esta especialidad y los proyectos creativos que podrás realizar.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  </motion.p>
+                  <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <Button size="lg" className="bg-gradient-primary hover:opacity-90 font-bold px-8" asChild>
                       <Link to="/contacto">Más Información</Link>
                     </Button>
                     <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8" asChild>
                       <Link to="/inscripcion">Ver Inscripciones</Link>
                     </Button>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </Card>
             </motion.div>
           </div>
