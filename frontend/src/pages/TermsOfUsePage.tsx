@@ -5,20 +5,83 @@ const TermsOfUsePage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-center mb-8">Términos de Uso</h1>
-        <div className="max-w-3xl mx-auto bg-white bg-opacity-80 rounded-lg shadow p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-4">Contenido de los Términos de Uso</h2>
-          <p>
-            Este es un contenido de marcador de posición para los Términos de Uso.
-            Por favor, reemplace este texto con los términos de uso reales de la institución.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+      <main className="flex-grow container mx-auto px-4 pt-32 pb-24">
+        <h1 className="text-5xl font-bold text-center mb-16 font-heading mt-16">
+          <span className="border-primary pb-2">Términos de Uso</span>
+        </h1>
+        <div className="max-w-4xl mx-auto bg-white/95 rounded-xl shadow-lg p-12 mb-8">
+          <div className="space-y-12">
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Aceptación de los Términos</h2>
+              <p className="text-gray-700 mb-4">
+                Al acceder y utilizar el sitio web de la E.E.S.T. N°7 "Taller Regional Quilmes", usted acepta cumplir con estos términos de uso. Si no está de acuerdo con alguna parte de estos términos, le pedimos que no utilice nuestro sitio web.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Uso del Contenido</h2>
+              <p className="text-gray-700 mb-4">
+                Todo el contenido publicado en este sitio web, incluyendo texto, imágenes, logotipos, fotografías y material multimedia, es propiedad de la E.E.S.T. N°7 o se utiliza con los permisos correspondientes.
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+                <li>El contenido está protegido por las leyes de propiedad intelectual y derechos de autor.</li>
+                <li>No está permitida la reproducción total o parcial sin autorización expresa.</li>
+                <li>El contenido solo puede ser utilizado para fines informativos y educativos.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Privacidad y Datos Personales</h2>
+              <p className="text-gray-700 mb-4">
+                Protegemos la privacidad de nuestros usuarios según la legislación vigente. La información personal recopilada a través de formularios se utiliza únicamente para los fines específicos indicados en cada caso, como:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+                <li>Proceso de inscripción y matriculación</li>
+                <li>Comunicaciones institucionales</li>
+                <li>Gestión académica y administrativa</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Responsabilidades del Usuario</h2>
+              <p className="text-gray-700 mb-4">
+                Al utilizar este sitio web, usted se compromete a:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-2">
+                <li>Proporcionar información veraz y actualizada en los formularios</li>
+                <li>Utilizar el sitio de manera responsable y ética</li>
+                <li>No realizar acciones que puedan dañar o comprometer la seguridad del sitio</li>
+                <li>Respetar los derechos de propiedad intelectual</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Enlaces Externos</h2>
+              <p className="text-gray-700 mb-4">
+                Nuestro sitio puede contener enlaces a sitios web de terceros. No nos hacemos responsables por el contenido, políticas de privacidad o prácticas de sitios web externos. La inclusión de cualquier enlace no implica respaldo o aprobación por parte de la E.E.S.T. N°7.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Modificaciones</h2>
+              <p className="text-gray-700 mb-4">
+                La E.E.S.T. N°7 se reserva el derecho de modificar estos términos de uso en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en el sitio web. El uso continuado del sitio después de dichos cambios constituirá su aceptación de los mismos.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Legislación Aplicable</h2>
+              <p className="text-gray-700 mb-4">
+                Estos términos de uso se rigen por las leyes de la República Argentina. Cualquier disputa relacionada con el uso del sitio web estará sujeta a la jurisdicción de los tribunales competentes de Quilmes, Buenos Aires.
+              </p>
+            </section>
+
+            <section className="mt-12 pt-6 border-t border-gray-200">
+              <p className="text-sm text-gray-600 italic">
+                Última actualización: Septiembre 2025
+              </p>
+            </section>
+          </div>
         </div>
       </main>
       <Footer />
