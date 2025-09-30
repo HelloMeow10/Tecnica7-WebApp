@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from "framer-motion";
 import BlurText from "@/components/ui/BlurText";
+import {HistoryIcon} from "lucide-react"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 15 },
@@ -95,9 +96,10 @@ const Historia = () => {
               animate="visible"
               transition={fast}
             >
-              <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-                <BookOpen className="h-10 w-10 text-black" />
+              <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto">
+                <HistoryIcon className="h-10 w-10 text-white" />
               </div>
+    
               {/* BlurText agregado aquí */}
               <BlurText
                 text="Más de un siglo formando generaciones con excelencia educativa y compromiso social."

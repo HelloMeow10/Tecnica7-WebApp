@@ -6,6 +6,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import horariosCicloBasico from '@/assets/Horarios ciclo basico (4).xlsx';
 import { motion } from "framer-motion";
+import {Cpu} from "lucide-react";
+import { BookOpen as BookOpen2 } from 'lucide-react';
+import {HistoryIcon} from "lucide-react"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 15 },
@@ -59,8 +62,8 @@ const CicloBasico = () => {
               viewport={{ once: true, amount: 0.7 }}
               transition={fast}
             >
-              <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto">
-                <Building2 className="h-10 w-10 text-black" />
+              <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto">
+                <BookOpen className="h-10 w-10 text-white" />
               </div>
               <h1 className="font-heading font-bold text-4xl lg:text-6xl text-foreground">
                 Ciclo <span className="text-primary">Básico</span>

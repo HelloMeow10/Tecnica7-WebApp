@@ -3,6 +3,7 @@ import logo from '../assets/logo.png';
 import programacion from '../assets/programacion.png';
 import Header from "./Header";
 import { motion } from "framer-motion";
+import { Cpu } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,16 +16,9 @@ const CicloBasicoPage = () => {
       <Header />
       <div className="container mx-auto px-4 py-8 pt-24">
         {/* Logo principal */}
-        <motion.div
-          className="flex justify-center mb-6 bg-black"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.7 }}
-          transition={{ duration: 0.7 }}
-        >
-          <img src={logo} alt="Logo" className="h-20 w-20" />
-        </motion.div>
+       <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto">
+                <Cpu className="h-10 w-10 text-white" />
+              </div>
 
         {/* Imagen principal de ciclo básico */}
         <motion.div

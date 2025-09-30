@@ -91,7 +91,6 @@ const forgotPassword = async (values: z.infer<typeof forgotSchema>) => {
 export function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [isFocused, setIsFocused] = useState(false);
   const [view, setView] = useState<'login' | 'forgot'>('login');
 
   // Login
@@ -198,13 +197,8 @@ export function LoginPage() {
           transition={{ duration: 1, type: "spring", bounce: 0.4 }}
           className="w-full flex justify-center"
         >
-          <motion.div
-            layout
-            whileHover={{ scale: 1.03, boxShadow: "0 8px 32px 0 rgba(59,130,246,0.25)" }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full flex justify-center"
-          >
-            <Card className="w-full max-w-xs sm:max-w-sm bg-white border border-blue-300 shadow-xl rounded-2xl px-5 py-6 sm:px-8 sm:py-8 mt-36 mb-10">
+          <div className="w-full flex justify-center">
+            <Card className="w-full max-w-xs sm:max-w-sm bg-white border border-gray-200 shadow-sm px-5 py-6 sm:px-8 sm:py-8 mt-36 mb-10">
               <CardHeader>
                 <div className="flex flex-col items-center mb-2">
                   <motion.div
@@ -218,35 +212,20 @@ export function LoginPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A9.001 9.001 0 0112 15c2.21 0 4.21.805 5.879 2.146M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                  >
-                    <CardTitle className="text-xl sm:text-2xl font-bold text-blue-700">
+                  <div>
+                    <CardTitle className="text-xl sm:text-2xl font-semibold text-gray-900">
                       {view === 'login' && 'Iniciar Sesión'}
                       {view === 'forgot' && 'Recuperar Contraseña'}
                     </CardTitle>
-                  </motion.div>
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                    className="text-gray-500 text-xs sm:text-sm mt-1 text-center"
-                  >
+                  </div>
+                  <p className="text-gray-600 text-xs sm:text-sm mt-2 text-center">
                     {view === 'login' && 'Accede con tu cuenta institucional'}
                     {view === 'forgot' && 'Ingresa tu email para recuperar tu contraseña'}
-                  </motion.p>
+                  </p>
                 </div>
               </CardHeader>
               <CardContent>
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 30 }}
-                  transition={{ duration: 0.5 }}
-                >
+                <div>
                   {view === 'login' && (
                     <Form {...loginForm}>
                       <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-4">
@@ -255,13 +234,13 @@ export function LoginPage() {
                           name="email"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-gray-700 text-sm">Email</FormLabel>
+                              <FormLabel className="text-gray-900 text-sm font-medium">Email</FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder="tu@email.com"
                                   {...field}
                                   disabled={loginMutation.isPending}
-                                  className="pl-9 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-150 text-sm shadow-sm"
+                                  className="pl-3 bg-white border-0 border-b-2 border-gray-300 focus:border-blue-600 focus:ring-0 transition-all duration-200 text-sm py-3 rounded-none"
                                 />
                               </FormControl>
                               <FormMessage />
@@ -273,62 +252,36 @@ export function LoginPage() {
                           name="password"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-gray-700 text-sm">Contraseña</FormLabel>
+                              <FormLabel className="text-gray-900 text-sm font-medium">Contraseña</FormLabel>
                               <FormControl>
                                 <Input
                                   type="password"
                                   placeholder="********"
                                   {...field}
                                   disabled={loginMutation.isPending}
-                                  className="pl-9 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-150 text-sm shadow-sm"
+                                  className="pl-3 bg-white border-0 border-b-2 border-gray-300 focus:border-blue-600 focus:ring-0 transition-all duration-200 text-sm py-3 rounded-none"
                                 />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
-                        <motion.button
+                        <Button
                           type="submit"
-                          className="w-full text-white font-semibold py-2 rounded-lg transition-colors duration-200 text-sm shadow"
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 transition-colors duration-200 text-sm rounded-none border-0"
                           disabled={loginMutation.isPending}
-                          style={{
-                            background: isFocused ? "linear-gradient(45deg, #3b82f6, #60a5fa, #3b82f6)" : "#2563eb",
-                            backgroundSize: "200% 200%",
-                          }}
-                          whileHover={{
-                            scale: 1.04,
-                            background: isFocused ? "linear-gradient(45deg, #3b82f6, #60a5fa, #3b82f6)" : "#3b82f6",
-                          }}
-                          whileTap={{ scale: 0.98 }}
-                          animate={{
-                            backgroundPosition: isFocused ? ["0% 50%", "100% 50%"] : "0% 50%",
-                          }}
-                          transition={{
-                            backgroundPosition: {
-                              duration: 3,
-                              ease: "easeInOut",
-                              repeat: isFocused ? Infinity : 0,
-                            },
-                          }}
-                          onFocus={() => setIsFocused(true)}
-                          onBlur={() => setIsFocused(false)}
                         >
                           {loginMutation.isPending ? 'Ingresando...' : 'Entrar'}
-                        </motion.button>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.8, duration: 0.5 }}
-                          className="text-center mt-2"
-                        >
+                        </Button>
+                        <div className="text-center mt-4">
                           <a
                             href="#"
-                            className="text-blue-600 hover:underline text-xs"
+                            className="text-blue-600 hover:text-blue-800 text-xs transition-colors duration-200"
                             onClick={e => { e.preventDefault(); setView('forgot'); }}
                           >
                             ¿Olvidaste tu contraseña?
                           </a>
-                        </motion.div>
+                        </div>
                       </form>
                     </Form>
                   )}
@@ -340,68 +293,42 @@ export function LoginPage() {
                           name="email"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-gray-700 text-sm">Email</FormLabel>
+                              <FormLabel className="text-gray-900 text-sm font-medium">Email</FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder="tu@email.com"
                                   {...field}
                                   disabled={forgotMutation.isPending}
-                                  className="bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-150 text-sm shadow-sm"
+                                  className="pl-3 bg-white border-0 border-b-2 border-gray-300 focus:border-blue-600 focus:ring-0 transition-all duration-200 text-sm py-3 rounded-none"
                                 />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
-                        <motion.button
+                        <Button
                           type="submit"
-                          className="w-full text-white font-semibold py-2 rounded-lg transition-colors duration-200 text-sm shadow"
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 transition-colors duration-200 text-sm rounded-none border-0"
                           disabled={forgotMutation.isPending}
-                          style={{
-                            background: isFocused ? "linear-gradient(45deg, #3b82f6, #60a5fa, #3b82f6)" : "#2563eb",
-                            backgroundSize: "200% 200%",
-                          }}
-                          whileHover={{
-                            scale: 1.04,
-                            background: isFocused ? "linear-gradient(45deg, #3b82f6, #60a5fa, #3b82f6)" : "#3b82f6",
-                          }}
-                          whileTap={{ scale: 0.98 }}
-                          animate={{
-                            backgroundPosition: isFocused ? ["0% 50%", "100% 50%"] : "0% 50%",
-                          }}
-                          transition={{
-                            backgroundPosition: {
-                              duration: 3,
-                              ease: "easeInOut",
-                              repeat: isFocused ? Infinity : 0,
-                            },
-                          }}
-                          onFocus={() => setIsFocused(true)}
-                          onBlur={() => setIsFocused(false)}
                         >
                           {forgotMutation.isPending ? 'Enviando...' : 'Recuperar'}
-                        </motion.button>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.8, duration: 0.5 }}
-                          className="text-center mt-2"
-                        >
+                        </Button>
+                        <div className="text-center mt-4">
                           <a
                             href="#"
-                            className="text-blue-600 hover:underline text-xs"
+                            className="text-blue-600 hover:text-blue-800 text-xs transition-colors duration-200"
                             onClick={e => { e.preventDefault(); setView('login'); }}
                           >
                             Volver a iniciar sesión
                           </a>
-                        </motion.div>
+                        </div>
                       </form>
                     </Form>
                   )}
-                </motion.div>
+                </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         </motion.div>
       </main>
       <Footer />
