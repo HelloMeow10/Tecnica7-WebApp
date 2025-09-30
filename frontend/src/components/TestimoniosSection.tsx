@@ -1,7 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Linkedin } from 'lucide-react';
-import fotoalumnos from '@/assets/fotoalumnos.png';
+import fotoLucas from '@/assets/fotoperfilgato.jpg';
+import fotoAbril from '@/assets/ftotoperfilAgua.jpg';
+import fotoAlejo from '@/assets/fotoperfilworms.jpg';
+import fotoJuan from '@/assets/fotoperfilzorro.jpg';
 
 const TestimoniosSection = () => {
   const testimonios = [
@@ -9,28 +12,28 @@ const TestimoniosSection = () => {
       nombre: "Lucas Ramos",
       rol: "Desarrollador Scratch y fundador de la página",
       testimonio: "Egresar de la Técnica 7 fue una de las mejores decisiones de mi vida. La formación que recibí me abrió las puertas al mundo laboral y me dio las herramientas para co-fundar la página de la escuela. ¡Una experiencia inolvidable!",
-      avatar: fotoalumnos,
+      avatar: fotoLucas,
       linkedin: "https://www.linkedin.com/in/lucas-sebastian-ramos/",
     },
     {
       nombre: "Abril Lezcano",
-      rol: "Diseñadora back-end",
-      testimonio: "La especialidad de Multimedios me permitió explorar mi creatividad y potenciar mis habilidades en diseño. Hoy, como egresada y desarrolladora de la página, puedo decir que la escuela me dio las bases para mi carrera profesional.",
-      avatar: fotoalumnos,
+      rol: "Desarrolladora Backend",
+      testimonio: "En la Técnica 7 descubrí mi pasión por el desarrollo backend y las bases de datos. Los conocimientos en SQL y programación que adquirí me permitieron diseñar e implementar la arquitectura del servidor y la base de datos de esta página. La escuela me dio las herramientas fundamentales para mi desarrollo profesional en el mundo del backend.",
+      avatar: fotoAbril,
       linkedin: "https://www.linkedin.com/in/abril-lezcano-98b39633b/",
     },
     {
       nombre: "Alejo Mirarchi",
       rol: "Desarrollador Front-End principal",
       testimonio: "La Técnica 7 no solo me formó como programador, sino que también me enseñó a trabajar en equipo y a liderar proyectos. Estoy orgulloso de haber egresado en 2025 y de contribuir al desarrollo de la página de mi querida escuela.",
-      avatar: fotoalumnos,
+      avatar: fotoAlejo,
       linkedin: "https://www.linkedin.com/in/alejo-mirarchi-b0a13b370/",
     },
     {
       nombre: "Juan Zapata",
       rol: "Web Development Manager",
       testimonio: "El camino hacia ser Web Development Manager nació en la Tecnica 7, donde la disciplina y el trabajo en equipo marcaron mi forma de liderar. Hoy aplico esas lecciones para transformar ideas en realidades digitales.",
-      avatar: fotoalumnos,
+      avatar: fotoJuan,
       linkedin: "https://www.linkedin.com/in/juan-perez/",
     },
     
