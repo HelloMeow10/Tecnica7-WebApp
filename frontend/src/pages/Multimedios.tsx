@@ -14,6 +14,7 @@ import ImageGallery from '@/components/ImageGallery';
 import multimediosImg from '@/assets/multimedios.png';
 import teatromalvinasImg from '@/assets/teatromalvinas.jpeg';
 import fotoalumnosImg from '@/assets/fotoalumnos.png';
+import multimediaImg from '@/assets/multimedia.png';
 import horariosCicloSuperior from '@/assets/Horarios ciclo superior (2).xlsx';
 import { motion } from "framer-motion";
 
@@ -338,7 +339,7 @@ const Multimedios = () => {
                 images={[
                   multimediosImg,
                   teatromalvinasImg,
-                  fotoalumnosImg
+                  multimediaImg
                 ]}
               />
             </motion.div>
