@@ -164,16 +164,7 @@ const Programacion = () => {
             </motion.div>
 
             {/* Diseño Curricular */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.7 }}
-              transition={fast}
-            >
-              <DisenoCurricular filePath="/diseno_curricular_programacion.md" />
-            </motion.div>
-
+            
             {/* Horarios Section */}
             <motion.div
               variants={fadeUp}
