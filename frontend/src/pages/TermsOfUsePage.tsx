@@ -1,11 +1,14 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
+import {FileText}  from "lucide-react";  
 const TermsOfUsePage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow container mx-auto px-4 pt-32 pb-24">
+        <div className="w-28 h-28 bg-gradient-to-br from-blue-400 via-blue-500 to-gray-500 rounded-3xl flex items-center justify-center mx-auto shadow-xl relative overflow-hidden">
+          <FileText className="mx-auto mb-4 h-12 w-12 text-primary" />
+        </div>
         <h1 className="text-5xl font-bold text-center mb-16 font-heading mt-16">
           <span className="border-primary pb-2">Términos de Uso</span>
         </h1>
