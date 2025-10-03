@@ -35,13 +35,15 @@ const api = async (url: string, method: string, token: string | null, body?: any
 };
 
 const CoursesPage: React.FC = () => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const qc = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const [editing, setEditing] = useState<CourseRow | null>(null);
   const [search, setSearch] = useState('');
   const [manageOpen, setManageOpen] = useState(false);
   const [manageCourse, setManageCourse] = useState<CourseRow | null>(null);
+  const [subjectsOpen, setSubjectsOpen] = useState(false);
+  const [subjectsCourse, setSubjectsCourse] = useState<CourseRow | null>(null);
 
   const { data, isLoading, error } = useQuery<CourseRow[]>({
     queryKey: ['courses'],
@@ -95,6 +97,29 @@ const CoursesPage: React.FC = () => {
       qc.invalidateQueries({ queryKey: ['courses'] });
       if (manageCourse) qc.invalidateQueries({ queryKey: ['course', manageCourse.course_id] });
     },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  // Subjects logic
+  type Subject = { id: number; course_id: number; name: string; order_index: number };
+  const { data: subjects } = useQuery<Subject[]>({
+    queryKey: ['subjects', subjectsCourse?.course_id],
+    queryFn: async () => api(`/api/courses/${subjectsCourse?.course_id}/subjects`, 'GET', token),
+    enabled: !!token && !!subjectsCourse && subjectsOpen,
+  });
+  const addSubjectMutation = useMutation({
+    mutationFn: (payload: { name: string }) => api(`/api/courses/${subjectsCourse?.course_id}/subjects`, 'POST', token, payload),
+    onSuccess: () => { toast.success('Materia agregada'); if (subjectsCourse) qc.invalidateQueries({ queryKey: ['subjects', subjectsCourse.course_id] }); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+  const updateSubjectMutation = useMutation({
+    mutationFn: ({ subjectId, data }: { subjectId: number; data: Partial<Subject> }) => api(`/api/courses/${subjectsCourse?.course_id}/subjects/${subjectId}`, 'PUT', token, data),
+    onSuccess: () => { if (subjectsCourse) qc.invalidateQueries({ queryKey: ['subjects', subjectsCourse.course_id] }); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+  const deleteSubjectMutation = useMutation({
+    mutationFn: (subjectId: number) => api(`/api/courses/${subjectsCourse?.course_id}/subjects/${subjectId}`, 'DELETE', token),
+    onSuccess: () => { toast.success('Materia eliminada'); if (subjectsCourse) qc.invalidateQueries({ queryKey: ['subjects', subjectsCourse.course_id] }); },
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -184,6 +209,12 @@ const CoursesPage: React.FC = () => {
                   size="sm"
                   onClick={() => { setManageCourse(c); setManageOpen(true); }}
                 >Gestionar</Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="ml-2"
+                  onClick={() => { setSubjectsCourse(c); setSubjectsOpen(true); }}
+                >Materias</Button>
               </TableCell>
               <TableCell className="text-right">
                 <Button variant="outline" size="sm" className="mr-2" onClick={() => { setEditing(c); setIsOpen(true); }}>Editar</Button>
@@ -256,6 +287,99 @@ const CoursesPage: React.FC = () => {
                   </TableBody>
                 </Table>
               </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Manage Subjects Dialog */}
+        <Dialog open={subjectsOpen} onOpenChange={(o) => { setSubjectsOpen(o); if (!o) setSubjectsCourse(null); }}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Materias {subjectsCourse ? `- ${subjectsCourse.name}` : ''}</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              {user?.role === 'DIRECTOR' && (
+              <form
+                className="flex gap-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const form = new FormData(e.currentTarget as HTMLFormElement);
+                  const name = String(form.get('name') || '').trim();
+                  if (!name || !subjectsCourse) return;
+                  addSubjectMutation.mutate({ name });
+                  (e.currentTarget as HTMLFormElement).reset();
+                }}
+              >
+                <Input name="name" placeholder="Nueva materia..." className="w-full" />
+                <Button type="submit" disabled={addSubjectMutation.isPending}>Agregar</Button>
+              </form>
+              )}
+
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Orden</TableHead>
+                    <TableHead>Nombre</TableHead>
+                    <TableHead className="text-right">Acciones</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {subjects?.length ? subjects.map((s) => (
+                    <TableRow key={s.id}>
+                      <TableCell>{s.order_index + 1}</TableCell>
+                      <TableCell>
+                        {user?.role === 'DIRECTOR' ? (
+                          <input
+                            defaultValue={s.name}
+                            className="w-full border rounded px-2 py-1"
+                            onBlur={(e) => {
+                              const val = e.target.value.trim();
+                              if (val && val !== s.name) updateSubjectMutation.mutate({ subjectId: s.id, data: { name: val } });
+                            }}
+                          />
+                        ) : (
+                          <span>{s.name}</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right space-x-2">
+                        {user?.role === 'DIRECTOR' ? (
+                          <>
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              onClick={() => {
+                                const idx = s.order_index;
+                                if (!subjects || idx === 0) return;
+                                const prev = subjects.find(x => x.order_index === idx - 1);
+                                if (!prev) return;
+                                updateSubjectMutation.mutate({ subjectId: prev.id, data: { order_index: idx } });
+                                updateSubjectMutation.mutate({ subjectId: s.id, data: { order_index: idx - 1 } });
+                              }}
+                            >▲</Button>
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              onClick={() => {
+                                if (!subjects) return;
+                                const idx = s.order_index;
+                                const next = subjects.find(x => x.order_index === idx + 1);
+                                if (!next) return;
+                                updateSubjectMutation.mutate({ subjectId: next.id, data: { order_index: idx } });
+                                updateSubjectMutation.mutate({ subjectId: s.id, data: { order_index: idx + 1 } });
+                              }}
+                            >▼</Button>
+                            <Button variant="destructive" size="sm" onClick={() => deleteSubjectMutation.mutate(s.id)}>Eliminar</Button>
+                          </>
+                        ) : null}
+                      </TableCell>
+                    </TableRow>
+                  )) : (
+                    <TableRow>
+                      <TableCell colSpan={3} className="text-center text-muted-foreground">Sin materias</TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             </div>
           </DialogContent>
         </Dialog>

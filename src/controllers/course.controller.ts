@@ -46,10 +46,14 @@ export const getCourse = async (req: Request, res: Response, next: NextFunction)
 };
 
 export const createCourse = async (req: Request, res: Response, next: NextFunction) => {
-  const { name, description, year, division, teacher_id } = req.body as {
-    name: string; description?: string; year?: number; division?: string; teacher_id?: number;
+  const { description, year, division, teacher_id } = req.body as {
+    description?: string; year?: number; division?: string; teacher_id?: number;
   };
-  if (!name) return res.status(400).json({ message: 'El nombre es requerido.' });
+  const allowed: Record<number, string[]> = { 1: ['1','2','3'], 2: ['1','2','3'], 3: ['1','2','3'], 4: ['2','3'], 5: ['2','3'], 6: ['2','3'], 7: ['2','3'] };
+  if (!year || !division || !allowed[year]?.includes(division)) {
+    return res.status(400).json({ message: 'Solo se permiten cursos: 1°1,1°2,1°3,2°1,2°2,2°3,3°1,3°2,3°3,4°2,4°3,5°2,5°3,6°2,6°3,7°2,7°3.' });
+  }
+  const name = `${year}°${division}`;
   try {
     const course = await prisma.courses.create({
       data: { name, description, year, division, teacher_id },
@@ -62,13 +66,24 @@ export const createCourse = async (req: Request, res: Response, next: NextFuncti
 export const updateCourse = async (req: Request, res: Response, next: NextFunction) => {
   const id = Number(req.params.id);
   if (!Number.isInteger(id)) return res.status(400).json({ message: 'ID inválido.' });
-  const { name, description, year, division, teacher_id } = req.body as {
-    name?: string; description?: string; year?: number; division?: string; teacher_id?: number | null;
+  const { description, year, division, teacher_id } = req.body as {
+    description?: string; year?: number; division?: string; teacher_id?: number | null;
   };
   try {
+    let computedName: string | undefined = undefined;
+    if (year !== undefined || division !== undefined) {
+      const allowed: Record<number, string[]> = { 1: ['1','2','3'], 2: ['1','2','3'], 3: ['1','2','3'], 4: ['2','3'], 5: ['2','3'], 6: ['2','3'], 7: ['2','3'] };
+      const current = await prisma.courses.findUnique({ where: { course_id: id }, select: { year: true, division: true } });
+      const y = year ?? current?.year ?? undefined;
+      const d = division ?? current?.division ?? undefined;
+      if (!y || !d || !allowed[y]?.includes(String(d))) {
+        return res.status(400).json({ message: 'Combinación año/división no permitida.' });
+      }
+      computedName = `${y}°${d}`;
+    }
     await prisma.courses.update({
       where: { course_id: id },
-      data: { name, description, year, division, teacher_id: teacher_id === undefined ? undefined : teacher_id },
+      data: { name: computedName, description, year, division, teacher_id: teacher_id === undefined ? undefined : teacher_id },
     });
     res.json({ message: 'Curso actualizado con éxito.' });
   } catch (err) { next(err); }

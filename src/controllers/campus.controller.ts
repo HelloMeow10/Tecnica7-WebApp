@@ -24,8 +24,16 @@ export const getMyCourses = async (req: AuthenticatedRequest, res: Response, nex
       return res.json(myCourses);
     }
     if (me?.Teacher) {
-      const courses = await prisma.courses.findMany({ where: { teacher_id: me.Teacher.teacher_id } });
-      return res.json(courses);
+      const courses = await prisma.courses.findMany({ where: { teacher_id: me.Teacher.teacher_id }, include: { enrollments: true } });
+      return res.json(courses.map(c => ({
+        course_id: c.course_id,
+        name: c.name,
+        description: c.description,
+        year: c.year,
+        division: c.division,
+        students_count: c.enrollments.length,
+        created_at: c.created_at,
+      })));
     }
     return res.json([]);
   } catch (err) { next(err); }
@@ -84,5 +92,72 @@ export const deleteCourseMaterial = async (req: AuthenticatedRequest, res: Respo
 
     await prisma.courseMaterials.delete({ where: { id } });
     res.json({ message: 'Material eliminado' });
+  } catch (err) { next(err); }
+};
+
+export const listCourseSubjects = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  try {
+    const courseId = Number(req.params.courseId);
+    if (!Number.isInteger(courseId)) return res.status(400).json({ message: 'ID inválido' });
+
+    // Access rules: Director always allowed; Teacher only if owns course; Student only if enrolled
+    const role = req.user?.role;
+    if (role === 'DIRECTOR') {
+      const subs = await prisma.courseSubjects.findMany({ where: { course_id: courseId }, orderBy: { order_index: 'asc' } });
+      return res.json(subs);
+    }
+
+    const me = await prisma.users.findUnique({
+      where: { user_id: req.user!.userId },
+      select: { Student: { select: { student_id: true } }, Teacher: { select: { teacher_id: true } } }
+    });
+
+    // Teacher owns this course?
+    if (me?.Teacher) {
+      const owns = await prisma.courses.findFirst({ where: { course_id: courseId, teacher_id: me.Teacher.teacher_id }, select: { course_id: true } });
+      if (owns) {
+        const subs = await prisma.courseSubjects.findMany({ where: { course_id: courseId }, orderBy: { order_index: 'asc' } });
+        return res.json(subs);
+      }
+    }
+
+    // Student enrolled?
+    if (me?.Student) {
+      const enrolled = await prisma.enrollments.findFirst({ where: { course_id: courseId, student_id: me.Student.student_id }, select: { id: true } });
+      if (enrolled) {
+        const subs = await prisma.courseSubjects.findMany({ where: { course_id: courseId }, orderBy: { order_index: 'asc' } });
+        return res.json(subs);
+      }
+    }
+
+    return res.status(403).json({ message: 'Acceso prohibido.' });
+  } catch (err) { next(err); }
+};
+
+export const getMyRecentMaterials = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  try {
+    // For students: materials from enrolled courses. For teachers: materials from their courses.
+    const me = await prisma.users.findUnique({
+      where: { user_id: req.user!.userId },
+      select: { Student: { select: { student_id: true } }, Teacher: { select: { teacher_id: true } } }
+    });
+
+    let courseIds: number[] = [];
+    if (me?.Student) {
+      const enrolls = await prisma.enrollments.findMany({ where: { student_id: me.Student.student_id }, select: { course_id: true } });
+      courseIds = enrolls.map(e => e.course_id);
+    } else if (me?.Teacher) {
+      const teaches = await prisma.courses.findMany({ where: { teacher_id: me.Teacher.teacher_id }, select: { course_id: true } });
+      courseIds = teaches.map(c => c.course_id);
+    }
+
+    if (courseIds.length === 0) return res.json([]);
+
+    const materials = await prisma.courseMaterials.findMany({
+      where: { course_id: { in: courseIds } },
+      orderBy: { created_at: 'desc' },
+      take: 10,
+    });
+    res.json(materials);
   } catch (err) { next(err); }
 };
