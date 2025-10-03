@@ -1,17 +1,35 @@
 import { Request, Response, NextFunction } from 'express';
-import { db } from '../services/database.service';
 import bcrypt from 'bcrypt';
+import prisma from '../services/prisma.service';
+import { Prisma } from '@prisma/client';
 
 // Obtener todos los alumnos
 export const getAllStudents = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const query = `
-      SELECT s.student_id, u.user_id, u.first_name, u.last_name, u.email, s.enrollment_date
-      FROM Students s
-      JOIN Users u ON s.user_id = u.user_id;
-    `;
-    const result = await db.query(query);
-    res.json(result.rows);
+    const students = await prisma.students.findMany({
+      select: {
+        student_id: true,
+        user_id: true,
+        enrollment_date: true,
+        user: {
+          select: { first_name: true, last_name: true, email: true }
+        }
+      }
+    });
+
+    const rows = students.map((s: {
+      student_id: number; user_id: number; enrollment_date: Date | null;
+      user: { first_name: string | null; last_name: string | null; email: string } | null;
+    }) => ({
+      student_id: s.student_id,
+      user_id: s.user_id,
+      first_name: s.user?.first_name ?? null,
+      last_name: s.user?.last_name ?? null,
+      email: s.user?.email ?? null,
+      enrollment_date: s.enrollment_date,
+    }));
+
+    res.json(rows);
   } catch (error: any) {
     console.error('Error fetching students:', error);
     next(error);
@@ -20,19 +38,33 @@ export const getAllStudents = async (req: Request, res: Response, next: NextFunc
 
 // Obtener un alumno por ID
 export const getStudentById = async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id)) {
+    return res.status(400).json({ message: 'ID inválido.' });
+  }
   try {
-    const query = `
-      SELECT s.student_id, u.user_id, u.first_name, u.last_name, u.email, s.enrollment_date
-      FROM Students s
-      JOIN Users u ON s.user_id = u.user_id
-      WHERE s.student_id = $1;
-    `;
-    const result = await db.query(query, [id]);
-    if (result.rows.length === 0) {
+    const s = await prisma.students.findUnique({
+      where: { student_id: id },
+      select: {
+        student_id: true,
+        user_id: true,
+        enrollment_date: true,
+        user: { select: { first_name: true, last_name: true, email: true } }
+      }
+    });
+
+    if (!s) {
       return res.status(404).json({ message: 'Alumno no encontrado.' });
     }
-    res.json(result.rows[0]);
+
+    return res.json({
+      student_id: s.student_id,
+      user_id: s.user_id,
+      first_name: s.user?.first_name ?? null,
+      last_name: s.user?.last_name ?? null,
+      email: s.user?.email ?? null,
+      enrollment_date: s.enrollment_date,
+    });
   } catch (error: any) {
     console.error(`Error fetching student ${id}:`, error);
     next(error);
@@ -41,109 +73,120 @@ export const getStudentById = async (req: Request, res: Response, next: NextFunc
 
 // Crear un nuevo alumno
 export const createStudent = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password, firstName, lastName, enrollmentDate } = req.body;
-  const client = await db.getClient();
+  const { email, password, firstName, lastName, enrollmentDate } = req.body as {
+    email: string; password: string; firstName: string; lastName: string; enrollmentDate?: string | Date;
+  };
+
+  if (!email || !password || !firstName || !lastName) {
+    return res.status(400).json({ message: 'Faltan campos requeridos: email, password, firstName, lastName.' });
+  }
 
   try {
-    await client.query('BEGIN');
+    const role = await prisma.roles.findUnique({ where: { role_name: 'ALUMNO' } });
+    if (!role) {
+      return res.status(500).json({ message: 'Rol ALUMNO no configurado.' });
+    }
 
-    // 1. Obtener role_id de 'ALUMNO'
-    const roleResult = await client.query("SELECT role_id FROM Roles WHERE role_name = 'ALUMNO'");
-    const roleId = roleResult.rows[0].role_id;
-
-    // 2. Crear el registro en la tabla Users
     const passwordHash = await bcrypt.hash(password, 10);
-    const userQuery = `
-      INSERT INTO Users (email, password_hash, first_name, last_name, role_id)
-      VALUES ($1, $2, $3, $4, $5) RETURNING user_id;
-    `;
-    const userResult = await client.query(userQuery, [email, passwordHash, firstName, lastName, roleId]);
-    const newUserId = userResult.rows[0].user_id;
 
-    // 3. Crear el registro en la tabla Students
-    const studentQuery = `
-      INSERT INTO Students (user_id, enrollment_date)
-      VALUES ($1, $2) RETURNING student_id;
-    `;
-    const studentResult = await client.query(studentQuery, [newUserId, enrollmentDate]);
-    const newStudentId = studentResult.rows[0].student_id;
+  const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      const user = await tx.users.create({
+        data: {
+          email,
+          password_hash: passwordHash,
+          first_name: firstName,
+          last_name: lastName,
+          role_id: role.role_id,
+        },
+        select: { user_id: true }
+      });
 
-    await client.query('COMMIT');
+      const student = await tx.students.create({
+        data: {
+          user_id: user.user_id,
+          enrollment_date: enrollmentDate ? new Date(enrollmentDate) : undefined,
+        },
+        select: { student_id: true }
+      });
+
+      return { userId: user.user_id, studentId: student.student_id };
+    });
 
     res.status(201).json({
       message: 'Alumno creado con éxito.',
-      studentId: newStudentId,
-      userId: newUserId
+      studentId: result.studentId,
+      userId: result.userId,
     });
   } catch (error: any) {
-    await client.query('ROLLBACK');
     console.error('Error creating student:', error);
-    if (error.code === '23505') { // unique_violation
+    // Prisma unique constraint violation
+    if (error.code === 'P2002') {
       return res.status(409).json({ message: 'El email ya está en uso.' });
     }
     next(error);
-  } finally {
-    client.release();
   }
 };
 
 // Actualizar un alumno
 export const updateStudent = async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
-  const { firstName, lastName, email, enrollmentDate } = req.body;
-  const client = await db.getClient();
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id)) {
+    return res.status(400).json({ message: 'ID inválido.' });
+  }
+  const { firstName, lastName, email, enrollmentDate } = req.body as {
+    firstName?: string; lastName?: string; email?: string; enrollmentDate?: string | Date;
+  };
 
   try {
-    await client.query('BEGIN');
-    // Obtener el user_id del student_id
-    const studentUserQuery = "SELECT user_id FROM Students WHERE student_id = $1";
-    const studentUserResult = await client.query(studentUserQuery, [id]);
-    if (studentUserResult.rows.length === 0) {
+    const student = await prisma.students.findUnique({ where: { student_id: id } });
+    if (!student) {
       return res.status(404).json({ message: 'Alumno no encontrado.' });
     }
-    const userId = studentUserResult.rows[0].user_id;
 
-    // Actualizar la tabla Users
-    const userQuery = `
-      UPDATE Users SET first_name = $1, last_name = $2, email = $3, updated_at = CURRENT_TIMESTAMP
-      WHERE user_id = $4;
-    `;
-    await client.query(userQuery, [firstName, lastName, email, userId]);
+  await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      // Update user
+      await tx.users.update({
+        where: { user_id: student.user_id },
+        data: {
+          first_name: firstName ?? undefined,
+          last_name: lastName ?? undefined,
+          email: email ?? undefined,
+          updated_at: new Date(),
+        },
+      });
 
-    // Actualizar la tabla Students
-    const studentQuery = "UPDATE Students SET enrollment_date = $1 WHERE student_id = $2;";
-    await client.query(studentQuery, [enrollmentDate, id]);
-
-    await client.query('COMMIT');
+      // Update student
+      await tx.students.update({
+        where: { student_id: id },
+        data: {
+          enrollment_date: enrollmentDate ? new Date(enrollmentDate) : undefined,
+        },
+      });
+    });
 
     res.status(200).json({ message: `Alumno ${id} actualizado con éxito.` });
   } catch (error: any) {
-    await client.query('ROLLBACK');
     console.error(`Error updating student ${id}:`, error);
-    if (error.code === '23505') {
+    if (error.code === 'P2002') {
       return res.status(409).json({ message: 'El email ya está en uso por otro usuario.' });
     }
     next(error);
-  } finally {
-    client.release();
   }
 };
 
 // Eliminar un alumno
 export const deleteStudent = async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id)) {
+    return res.status(400).json({ message: 'ID inválido.' });
+  }
   try {
-    // La FK en Students tiene ON DELETE CASCADE, por lo que al borrar el User, se borra el Student.
-    // Primero necesitamos el user_id del alumno.
-    const studentUserQuery = "SELECT user_id FROM Students WHERE student_id = $1";
-    const studentUserResult = await db.query(studentUserQuery, [id]);
-    if (studentUserResult.rows.length === 0) {
+    const student = await prisma.students.findUnique({ select: { user_id: true }, where: { student_id: id } });
+    if (!student) {
       return res.status(404).json({ message: 'Alumno no encontrado.' });
     }
-    const userId = studentUserResult.rows[0].user_id;
 
-    // Borrar el usuario. Esto debería eliminar en cascada el registro de la tabla Students.
-    await db.query("DELETE FROM Users WHERE user_id = $1", [userId]);
+    await prisma.users.delete({ where: { user_id: student.user_id } });
 
     res.status(200).json({ message: `Alumno ${id} y su usuario asociado han sido eliminados.` });
   } catch (error: any) {

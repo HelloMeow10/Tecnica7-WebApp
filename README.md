@@ -12,7 +12,7 @@ Repositorio de la aplicación web para la **Escuela de Educación Secundaria Té
 - **Frontend Moderno:** Interfaz de usuario reactiva y performante creada con React, Vite y TypeScript.
 - **Estilos con Tailwind CSS:** UI diseñada con un enfoque utility-first para un desarrollo rápido y consistente.
 - **Componentes con Shadcn/UI:** Utilización de una librería de componentes reusables, accesibles y estéticamente agradables.
-- **Base de Datos PostgreSQL:** Gestión de datos relacional y robusta con el ORM de Prisma.
+- **Base de Datos PostgreSQL:** Gestión de datos relacional y robusta usando SQL directo (driver `pg`).
 - **Contenerización con Docker:** Entornos de desarrollo y producción consistentes y aislados gracias a Docker y Docker Compose.
 - **Autenticación y Seguridad:** Sistema de autenticación de usuarios mediante JWT (JSON Web Tokens).
 - **Notificaciones por Email:** Integración con Nodemailer para el envío de correos electrónicos.
@@ -96,11 +96,20 @@ Este método es ideal para desarrollar y ver cambios en tiempo real.
     ```
     Esto levantará un contenedor de PostgreSQL con los datos de tu archivo `.env`.
 
-5.  **Aplicar migraciones de la base de datos:**
-    Asegúrate que la base de datos esté corriendo y luego ejecuta:
-    ```bash
-    npx prisma migrate dev
-    ```
+5.  **Inicializar la base de datos:**
+        Si levantaste la base de datos con Docker en el paso anterior, los scripts en `./sql` (crear tablas y seed) se ejecutan automáticamente la primera vez que inicia el contenedor. No necesitas hacer nada más.
+
+        Si estás usando una base de datos PostgreSQL local (sin Docker), aplica los scripts manualmente con `psql`:
+        - Windows PowerShell (requiere `psql` instalado y en el PATH):
+            ```powershell
+            # Ajusta usuario, base y host según tu .env (DATABASE_URL)
+            $env:PGPASSWORD="tu_password"; psql -h localhost -U tu_usuario -d tu_base -f "sql/01_init.sql"; psql -h localhost -U tu_usuario -d tu_base -f "sql/02_seed.sql"
+            ```
+        - Alternativa general (desde cualquier shell con `psql`):
+            ```bash
+            PGPASSWORD="tu_password" psql -h localhost -U tu_usuario -d tu_base -f sql/01_init.sql
+            PGPASSWORD="tu_password" psql -h localhost -U tu_usuario -d tu_base -f sql/02_seed.sql
+            ```
 
 6.  **Iniciar los servidores de desarrollo:**
     Este comando iniciará el backend (con `nodemon`) y el frontend (con `vite`) concurrentemente.
@@ -133,9 +142,12 @@ Este método construye las imágenes y levanta todo el stack de la aplicación (
     docker-compose up --build -d
     ```
 
-4.  **Aplicar migraciones de la base de datos (en el contenedor):**
-    ```bash
-    docker-compose exec app npx prisma migrate deploy
+4.  **Base de datos y seed:**
+    La base de datos se inicializa automáticamente con los scripts de `./sql` al crear el contenedor de PostgreSQL por primera vez.
+    Si necesitas re-ejecutar solo el seed dentro del contenedor, puedes hacerlo así:
+    ```powershell
+    # Reemplaza el usuario y base por los de tu .env / docker-compose
+    docker exec -i tecnica7-db-container psql -U postgres -d tecnica7db -f /docker-entrypoint-initdb.d/02_seed.sql
     ```
 
 5.  **Acceder a la aplicación:**
@@ -155,9 +167,7 @@ Este método construye las imágenes y levanta todo el stack de la aplicación (
 │   ├── routes/
 │   ├── services/
 │   └── app.ts
-├── prisma/           # Esquema y migraciones de Prisma
-│   └── schema.prisma
-├── sql/              # Scripts de inicialización de la BD
+├── sql/              # Scripts SQL de creación y seed de la BD (01_init.sql, 02_seed.sql)
 ├── .env.example      # Plantilla de variables de entorno
 ├── docker-compose.yml # Orquestación de servicios Docker
 ├── Dockerfile        # Definición de la imagen Docker de producción
@@ -173,6 +183,16 @@ En el `package.json` de la raíz, encontrarás los siguientes scripts:
 - `npm run build`: Compila el código TypeScript del backend a JavaScript en el directorio `dist/`.
 - `npm start`: Inicia los servidores de desarrollo del backend y frontend simultáneamente.
 - `npm run dev`: Inicia únicamente el servidor de desarrollo del backend con `nodemon`.
+
+### Prisma (opcional)
+El proyecto ahora incluye Prisma como ORM opcional. La base de datos se inicializa con SQL, pero podés usar Prisma para el acceso a datos y explorar el esquema.
+
+- `npm run prisma:generate`: Genera el Prisma Client a partir del `prisma/schema.prisma`.
+- `npm run prisma:db:pull`: Sincroniza el schema de Prisma desde tu base de datos existente.
+- `npm run prisma:migrate`: Crea/aplica migraciones (útil si empezás a gestionar cambios con Prisma).
+- `npm run prisma:studio`: Abre Prisma Studio para explorar la base.
+
+Sugerencia: Si ya creaste la BD con `sql/01_init.sql` y `sql/02_seed.sql`, ejecutá `npm run prisma:db:pull` para asegurarte que el schema de Prisma refleje fielmente la estructura actual.
 
 ---
 

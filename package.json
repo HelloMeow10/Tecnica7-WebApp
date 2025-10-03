@@ -8,7 +8,11 @@
     "build:backend": "cd src && tsc",
     "build": "npm run build:frontend && npm run build:backend",
     "start": "concurrently \"npm run dev --prefix frontend\" \"npm run dev\"",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon",
+    "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio",
+    "prisma:db:pull": "prisma db pull",
+    "prisma:migrate": "prisma migrate dev"
   },
   "keywords": [
     "typescript",
@@ -18,6 +22,9 @@
   ],
   "author": "Jules AI Agent",
   "license": "ISC",
+  "prisma": {
+    "seed": "ts-node --transpile-only prisma/seed.ts"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@tsparticles/engine": "^3.9.1",
@@ -37,7 +44,8 @@
     "react-markdown": "^10.1.0",
     "react-tsparticles": "^2.12.2",
     "remark-gfm": "^4.0.1",
-    "tsparticles": "^3.9.1"
+    "tsparticles": "^3.9.1",
+    "@prisma/client": "^5.18.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
@@ -51,6 +59,7 @@
     "concurrently": "^9.2.0",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "prisma": "^5.18.0"
   }
 }

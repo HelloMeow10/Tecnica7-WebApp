@@ -3,34 +3,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import StudentForm from '@/components/admin/StudentForm';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 interface Student {
   student_id: number;
@@ -40,9 +16,15 @@ interface Student {
   enrollment_date: string;
 }
 
-type StudentFormValues = Omit<Student, 'student_id'>;
+type StudentFormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password?: string;
+  enrollmentDate: string;
+}
 
-const apiCall = async (url:string, method: string, token: string | null, body?: Partial<Student>) => {
+const apiCall = async (url: string, method: string, token: string | null, body?: any) => {
   const response = await fetch(url, {
     method,
     headers: {
@@ -82,38 +64,26 @@ const AdminStudentsPage: React.FC = () => {
   };
 
   const createMutation = useMutation({
-    mutationFn: (newStudent: StudentFormValues) => apiCall('/api/students', 'POST', token, newStudent),
+    mutationFn: (values: StudentFormValues) => apiCall('/api/students', 'POST', token, values),
     ...mutationOptions,
-    onSuccess: () => {
-      toast.success('Alumno creado con éxito.');
-      mutationOptions.onSuccess();
-    }
+    onSuccess: () => { toast.success('Alumno creado con éxito.'); mutationOptions.onSuccess(); }
   });
 
   const updateMutation = useMutation({
-    mutationFn: (updatedStudent: StudentFormValues) => apiCall(`/api/students/${editingStudent?.student_id}`, 'PUT', token, updatedStudent),
+    mutationFn: (values: StudentFormValues) => apiCall(`/api/students/${editingStudent?.student_id}`, 'PUT', token, values),
     ...mutationOptions,
-    onSuccess: () => {
-      toast.success('Alumno actualizado con éxito.');
-      mutationOptions.onSuccess();
-    }
+    onSuccess: () => { toast.success('Alumno actualizado con éxito.'); mutationOptions.onSuccess(); }
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (studentId: number) => apiCall(`/api/students/${studentId}`, 'DELETE', token),
+    mutationFn: (id: number) => apiCall(`/api/students/${id}`, 'DELETE', token),
     ...mutationOptions,
-    onSuccess: () => {
-      toast.success('Alumno eliminado con éxito.');
-      mutationOptions.onSuccess();
-    }
+    onSuccess: () => { toast.success('Alumno eliminado con éxito.'); mutationOptions.onSuccess(); }
   });
 
   const handleFormSubmit = (values: StudentFormValues) => {
-    if (editingStudent) {
-      updateMutation.mutate(values);
-    } else {
-      createMutation.mutate(values);
-    }
+    if (editingStudent) updateMutation.mutate(values);
+    else createMutation.mutate(values);
   };
 
   const handleEditClick = (student: Student) => {
@@ -122,16 +92,13 @@ const AdminStudentsPage: React.FC = () => {
   };
 
   if (isLoading) return <div>Cargando alumnos...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>Error: {(error as Error).message}</div>;
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Gestión de Alumnos</h1>
-        <Dialog open={isDialogOpen} onOpenChange={(open) => {
-          setIsDialogOpen(open);
-          if (!open) setEditingStudent(undefined);
-        }}>
+        <Dialog open={isDialogOpen} onOpenChange={(open) => { setIsDialogOpen(open); if (!open) setEditingStudent(undefined); }}>
           <DialogTrigger asChild>
             <Button>Añadir Alumno</Button>
           </DialogTrigger>
@@ -139,11 +106,7 @@ const AdminStudentsPage: React.FC = () => {
             <DialogHeader>
               <DialogTitle>{editingStudent ? 'Editar Alumno' : 'Añadir Nuevo Alumno'}</DialogTitle>
             </DialogHeader>
-            <StudentForm
-              onSubmit={handleFormSubmit}
-              isPending={createMutation.isPending || updateMutation.isPending}
-              initialData={editingStudent}
-            />
+            <StudentForm onSubmit={handleFormSubmit} isPending={createMutation.isPending || updateMutation.isPending} initialData={editingStudent} />
           </DialogContent>
         </Dialog>
       </div>
@@ -154,7 +117,7 @@ const AdminStudentsPage: React.FC = () => {
             <TableHead>ID</TableHead>
             <TableHead>Nombre</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Fecha de Inscripción</TableHead>
+            <TableHead>Inscripción</TableHead>
             <TableHead className="text-right">Acciones</TableHead>
           </TableRow>
         </TableHeader>
@@ -164,18 +127,18 @@ const AdminStudentsPage: React.FC = () => {
               <TableCell>{student.student_id}</TableCell>
               <TableCell>{student.first_name} {student.last_name}</TableCell>
               <TableCell>{student.email}</TableCell>
-              <TableCell>{new Date(student.enrollment_date).toLocaleDateString()}</TableCell>
+              <TableCell>{student.enrollment_date ? new Date(student.enrollment_date).toLocaleDateString() : '-'}</TableCell>
               <TableCell className="text-right">
                 <Button variant="outline" size="sm" className="mr-2" onClick={() => handleEditClick(student)}>Editar</Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="destructive" size="sm">Eliminar</Button>
-                  </AlertDialogTrigger>.
+                  </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Esta acción no se puede deshacer. Se eliminará permanentemente al alumno y su cuenta de usuario asociada.
+                        Esta acción no se puede deshacer. Se eliminará permanentemente al alumno y su cuenta asociada.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

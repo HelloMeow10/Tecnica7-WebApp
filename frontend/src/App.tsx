@@ -17,6 +17,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLayout from "./components/layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminTeachersPage from "./pages/admin/TeachersPage";
+import AdminStudentsPage from "./pages/admin/StudentsPage";
+import CoursesPage from "./pages/admin/CoursesPage";
+import ReportsPage from "./pages/admin/ReportsPage";
 import BibliotecaDigital from "./pages/BibliotecaDigital";
 import BolsaTrabajo from "./pages/BolsaTrabajo";
 import CalendarioAcademico from "./pages/CalendarioAcademico";
@@ -31,6 +34,9 @@ import ContactoPage from "./pages/Contacto";
 import InscripcionPage from "./pages/InscripcionPage";
 import TourVirtual from "./pages/TourVirtual";
 import Noticias from "./pages/Noticias";
+import MyCourses from "./pages/campus/MyCourses";
+import MyGrades from "./pages/campus/MyGrades";
+import Materials from "./pages/campus/Materials";
 
 const queryClient = new QueryClient();
 
@@ -68,6 +74,9 @@ const App = () => (
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/sistema-de-gestion" element={<Dashboard />} />
+              <Route path="/campus/mis-cursos" element={<MyCourses />} />
+              <Route path="/campus/calificaciones" element={<MyGrades />} />
+              <Route path="/campus/materiales" element={<Materials />} />
             </Route>
 
             {/* Rutas Protegidas de Administración */}
@@ -75,6 +84,9 @@ const App = () => (
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminDashboard />} />
                 <Route path="teachers" element={<AdminTeachersPage />} />
+                <Route path="students" element={<AdminStudentsPage />} />
+                <Route path="courses" element={<CoursesPage />} />
+                <Route path="reports" element={<ReportsPage />} />
               </Route>
             </Route>
 

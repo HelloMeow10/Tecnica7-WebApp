@@ -22,8 +22,7 @@ services:
       # 2. Cambia el CMD en Dockerfile a: CMD ["nodemon", "src/server.ts"] (o el script de dev)
       # 3. Monta los volúmenes como se muestra arriba.
       # Para producción, no se montan volúmenes de código.
-      - ./prisma:/usr/src/app/prisma # Montar prisma schema y migraciones por si se quieren ejecutar manualmente desde el host
-                                   # o para asegurar que `prisma migrate deploy` funcione correctamente si se ejecuta al inicio.
+  # Los scripts SQL se montan en el servicio db (ver más abajo). No se usa Prisma en este proyecto.
     environment:
       - NODE_ENV=development # O 'development' para desarrollo con hot-reloading
       - PORT=3000
@@ -104,11 +103,9 @@ networks:
 #    (puedes copiar de .env.example y ajustar DATABASE_URL y las variables DB_*)
 # 2. Copia el contenido de `frontend/` a `public/` para que sea servido.
 # 3. Ejecuta `docker-compose up --build`
-# 4. Para aplicar migraciones de Prisma:
-#    `docker-compose exec app npx prisma migrate deploy`
-#    o si es la primera vez en desarrollo:
-#    `docker-compose exec app npx prisma migrate dev --name init`
-#    (Asegúrate que DATABASE_URL en .env apunte a 'db' como host)
+# 4. Inicialización de BD: los scripts en ./sql se ejecutan automáticamente la primera vez
+#    que se crea el volumen de datos del contenedor de PostgreSQL. Para re-ejecutar el seed:
+#    docker exec -i tecnica7-db-container psql -U ${DB_USER:-postgres} -d ${DB_NAME:-tecnica7db} -f /docker-entrypoint-initdb.d/02_seed.sql
 #
 # Ejemplo de .env para docker-compose:
 #

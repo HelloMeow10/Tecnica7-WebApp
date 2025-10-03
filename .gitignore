@@ -12,6 +12,7 @@
 /prisma/migrations/*.new
 *.sqlite
 *.sqlite-journal
+/.prisma
 
 # Environment variables
 .env

@@ -17,7 +17,16 @@ const AdminLayout: React.FC = () => {
               <Link to="/admin" className="hover:text-gray-300">Dashboard</Link>
             </li>
             <li className="mb-4">
+              <Link to="/admin/students" className="hover:text-gray-300">Alumnos</Link>
+            </li>
+            <li className="mb-4">
               <Link to="/admin/teachers" className="hover:text-gray-300">Profesores</Link>
+            </li>
+            <li className="mb-4">
+              <Link to="/admin/courses" className="hover:text-gray-300">Cursos</Link>
+            </li>
+            <li className="mb-4">
+              <Link to="/admin/reports" className="hover:text-gray-300">Reportes</Link>
             </li>
             {/* Otros enlaces del panel de admin irán aquí */}
           </ul>

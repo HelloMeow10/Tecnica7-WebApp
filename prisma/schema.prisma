@@ -1,0 +1,141 @@
+// Prisma schema generated to map existing SQL tables.
+// If your database already exists (via sql/*.sql), prefer `prisma db pull`
+// to sync models. This file is a starting point based on current SQL.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Roles {
+  role_id   Int     @id @default(autoincrement())
+  role_name String  @unique
+  Users     Users[]
+
+  @@map("Roles")
+}
+
+model Users {
+  user_id       Int       @id @default(autoincrement())
+  email         String    @unique
+  password_hash String
+  first_name    String?
+  last_name     String?
+  role_id       Int
+  created_at    DateTime  @db.Timestamptz(6) @default(now())
+  updated_at    DateTime  @db.Timestamptz(6) @default(now())
+
+  role      Roles    @relation(fields: [role_id], references: [role_id])
+  Teacher   Teachers?
+  Student   Students?
+  Admin     Admins?
+
+  @@map("Users")
+}
+
+model Teachers {
+  teacher_id         Int     @id @default(autoincrement())
+  user_id            Int     @unique
+  bio                String?
+  profile_picture_url String?
+
+  user Users @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  courses Courses[]
+
+  @@map("Teachers")
+}
+
+model Students {
+  student_id     Int   @id @default(autoincrement())
+  user_id        Int   @unique
+  enrollment_date DateTime?
+
+  user Users @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  enrollments Enrollments[]
+  grades      Grades[]
+
+  @@map("Students")
+}
+
+model Admins {
+  admin_id       Int    @id @default(autoincrement())
+  user_id        Int    @unique
+  office_location String?
+
+  user Users @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  @@map("Admins")
+}
+
+model ContactSubmissions {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  message      String
+  submitted_at DateTime @db.Timestamptz(6) @default(now())
+
+  @@map("ContactSubmissions")
+}
+
+model Courses {
+  course_id   Int       @id @default(autoincrement())
+  name        String
+  description String?
+  year        Int?
+  division    String?
+  teacher_id  Int?
+  created_at  DateTime  @db.Timestamptz(6) @default(now())
+  updated_at  DateTime  @db.Timestamptz(6) @default(now())
+
+  teacher     Teachers? @relation(fields: [teacher_id], references: [teacher_id], onDelete: SetNull)
+  enrollments Enrollments[]
+  materials   CourseMaterials[]
+  grades      Grades[]
+
+  @@map("Courses")
+}
+
+model Enrollments {
+  id          Int       @id @default(autoincrement())
+  course_id   Int
+  student_id  Int
+  enrolled_at DateTime  @db.Timestamptz(6) @default(now())
+
+  course  Courses  @relation(fields: [course_id], references: [course_id], onDelete: Cascade)
+  student Students @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+
+  @@unique([course_id, student_id], name: "enrollment_unique_student_course")
+  @@map("Enrollments")
+}
+
+model CourseMaterials {
+  id          Int      @id @default(autoincrement())
+  course_id   Int
+  title       String
+  description String?
+  url         String?
+  created_at  DateTime @db.Timestamptz(6) @default(now())
+
+  course Courses @relation(fields: [course_id], references: [course_id], onDelete: Cascade)
+
+  @@map("CourseMaterials")
+}
+
+model Grades {
+  id          Int      @id @default(autoincrement())
+  course_id   Int
+  student_id  Int
+  title       String
+  score       Float
+  max_score   Float
+  graded_at   DateTime @db.Timestamptz(6) @default(now())
+
+  course  Courses  @relation(fields: [course_id], references: [course_id], onDelete: Cascade)
+  student Students @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+
+  @@map("Grades")
+}

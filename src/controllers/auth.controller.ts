@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { db } from '../services/database.service';
+import prisma from '../services/prisma.service';
 import config from '../config';
 
 const saltRounds = 10;
@@ -16,24 +16,25 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
   try {
     // 1. Obtener el role_id para 'ALUMNO'
-    const roleResult = await db.query('SELECT role_id FROM Roles WHERE role_name = $1', ['ALUMNO']);
-    if (roleResult.rows.length === 0) {
-      // Este es un caso de error grave: los roles iniciales no se cargaron.
+    const role = await prisma.roles.findUnique({ where: { role_name: 'ALUMNO' } });
+    if (!role) {
       return res.status(500).json({ message: 'Error interno del servidor: no se pudo encontrar el rol de alumno.' });
     }
-    const roleId = roleResult.rows[0].role_id;
 
     // 2. Hashear la contraseña
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // 3. Insertar el nuevo usuario en la base de datos
-    const insertUserQuery = `
-      INSERT INTO Users (email, password_hash, first_name, last_name, role_id)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING user_id, email, first_name, last_name, role_id;
-    `;
-    const newUserResult = await db.query(insertUserQuery, [email, passwordHash, firstName, lastName, roleId]);
-    const newUser = newUserResult.rows[0];
+    const newUser = await prisma.users.create({
+      data: {
+        email,
+        password_hash: passwordHash,
+        first_name: firstName,
+        last_name: lastName,
+        role_id: role.role_id,
+      },
+      select: { user_id: true, email: true, first_name: true, last_name: true, role_id: true }
+    });
 
     res.status(201).json({
       message: 'Usuario registrado con éxito.',
@@ -47,7 +48,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     });
   } catch (error: any) {
     console.error('Error durante el registro:', error);
-    if (error.code === '23505') { // unique_violation
+    if (error.code === 'P2002') { // unique_violation (Prisma)
       return res.status(409).json({ message: 'El email ya está en uso.' });
     }
     next(error);
@@ -63,22 +64,16 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
   try {
     // 1. Buscar al usuario por email y obtener también el nombre del rol
-    const query = `
-      SELECT u.user_id, u.email, u.password_hash, r.role_name
-      FROM Users u
-      JOIN Roles r ON u.role_id = r.role_id
-      WHERE u.email = $1;
-    `;
-    const result = await db.query(query, [email]);
-
-    if (result.rows.length === 0) {
-      return res.status(401).json({ message: 'Credenciales inválidas.' }); // Usuario no encontrado
+    const user = await prisma.users.findUnique({
+      where: { email },
+      select: { user_id: true, email: true, password_hash: true, role: { select: { role_name: true } } }
+    });
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales inválidas.' });
     }
 
-    const user = result.rows[0];
-
     // 2. Comparar la contraseña proporcionada con el hash almacenado
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+  const isMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!isMatch) {
       return res.status(401).json({ message: 'Credenciales inválidas.' }); // Contraseña incorrecta
@@ -88,7 +83,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     const tokenPayload = {
       userId: user.user_id,
       email: user.email,
-      role: user.role_name,
+      role: user.role?.role_name,
     };
 
     const token = jwt.sign(tokenPayload, jwtSecret, { expiresIn: '1h' }); // Token expira en 1 hora
@@ -99,7 +94,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       user: {
         id: user.user_id,
         email: user.email,
-        role: user.role_name,
+        role: user.role?.role_name,
       },
     });
 

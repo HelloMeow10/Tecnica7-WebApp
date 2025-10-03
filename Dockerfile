@@ -3,8 +3,6 @@
 # Especificar la versión de Node que coincida con la de desarrollo (ej. LTS)
 FROM node:18-alpine AS base
 WORKDIR /usr/src/app
-# Instalar dependencias de sistema si Prisma las necesitara en Alpine (ej. openssl)
-# RUN apk add --no-cache openssl
 
 # ---- Builder Stage ----
 # Esta etapa instala todas las dependencias (dev y prod), copia el código fuente,
@@ -13,8 +11,8 @@ FROM base AS builder
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npx prisma generate
 RUN npm run build
+RUN npx prisma generate
 # Opcional: Limpiar devDependencies si se quiere optimizar un poco más antes de la siguiente etapa,
 # aunque la etapa 'production' reinstalará solo las de producción.
 # RUN npm prune --production (si se quiere copiar node_modules desde aquí a producción)

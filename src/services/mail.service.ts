@@ -21,19 +21,19 @@ const transporter = nodemailer.createTransport({
 });
 
 // Función para verificar la conexión con el servidor SMTP (opcional, útil para diagnóstico)
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('Error connecting to mail server:', error);
-    // Si estás usando Ethereal y no has configurado credenciales, esto podría fallar.
-    // Ethereal a menudo funciona sin autenticación explícita si se usa su host y puerto.
-    // Para producción, asegúrate de que las credenciales son correctas.
-    if (config.mail.host === 'smtp.ethereal.email') {
-        console.warn('Ethereal mail server selected. Ensure you have an Ethereal account if auth is required, or check logs for preview URL.');
+// Controlada por la variable de entorno DEV_MAIL_VERIFY para evitar ruido en desarrollo
+if (process.env.DEV_MAIL_VERIFY === 'true') {
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error('Error connecting to mail server:', error);
+      if (config.mail.host === 'smtp.ethereal.email') {
+        console.warn('Ethereal mail server selected. Provide MAIL_USER/MAIL_PASS or set DEV_MAIL_VERIFY=false to skip verification in dev.');
+      }
+    } else {
+      console.log('Mail server is ready to take our messages');
     }
-  } else {
-    console.log('Mail server is ready to take our messages');
-  }
-});
+  });
+}
 
 export const sendMail = async (options: MailOptions): Promise<string | false> => {
   try {
@@ -63,7 +63,7 @@ export const sendMail = async (options: MailOptions): Promise<string | false> =>
 
 // Ejemplo de cómo obtener una cuenta de prueba de Ethereal (solo para desarrollo)
 export const createEtherealTestAccount = async () => {
-  if (config.mail.host === 'smtp.ethereal.email' && (!config.mail.auth.user || !config.mail.auth.pass)) {
+  if (process.env.DEV_MAIL_VERIFY === 'true' && config.mail.host === 'smtp.ethereal.email' && (!config.mail.auth.user || !config.mail.auth.pass)) {
     try {
       const testAccount = await nodemailer.createTestAccount();
       console.log('Ethereal test account created:');

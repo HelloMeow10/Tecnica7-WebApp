@@ -6,6 +6,9 @@ import authRoutes from './routes/auth.route';
 import teacherRoutes from './routes/teacher.route';
 import studentRoutes from './routes/student.route';
 import chatRoutes from './routes/chat.route';
+import adminRoutes from './routes/admin.route';
+import courseRoutes from './routes/course.route';
+import campusRoutes from './routes/campus.route';
 
 const app: Express = express();
 
@@ -31,6 +34,9 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/teachers', teacherRoutes);
 app.use('/api/students', studentRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/courses', courseRoutes);
+app.use('/api/campus', campusRoutes);
 app.use('/api', chatRoutes);
 
 // Middleware para manejar errores 404 (Not Found)

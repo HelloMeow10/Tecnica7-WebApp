@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { db } from '../services/database.service';
+import prisma from '../services/prisma.service';
 import { sendMail } from '../services/mail.service';
 import config from '../config';
 
@@ -19,14 +19,12 @@ export const handleContactForm = async (req: Request, res: Response, next: NextF
   }
 
   try {
-    // 1. Guardar en la base de datos con SQL directo
-    const insertQuery = `
-      INSERT INTO ContactSubmissions (email, name, message)
-      VALUES ($1, $2, $3)
-      RETURNING id;
-    `;
-    const result = await db.query(insertQuery, [Email, nombre, comentario]);
-    const newSubmissionId = result.rows[0].id;
+    // 1. Guardar en la base de datos con Prisma
+    const created = await prisma.contactSubmissions.create({
+      data: { email: Email, name: nombre, message: comentario },
+      select: { id: true }
+    });
+    const newSubmissionId = created.id;
     console.log('Contact form submission saved to DB:', newSubmissionId);
 
     // 2. Enviar correo electrónico
@@ -62,8 +60,8 @@ ID de Registro en BD: ${newSubmissionId}`;
 
   } catch (error: any) {
     console.error('Error processing contact form:', error);
-    // Manejo de errores de PostgreSQL (ej. '23505' es unique_violation)
-    if (error.code === '23505') {
+    // Prisma unique violation
+    if (error.code === 'P2002') {
       return res.status(409).json({ message: 'Este email ya ha sido registrado.' });
     }
     next(error); // Pasa a middleware de error global
