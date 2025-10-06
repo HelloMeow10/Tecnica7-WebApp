@@ -152,29 +152,27 @@ const ReglamentoInterno = () => {
       {/* Fondo animado con framer-motion */}
       <motion.div
         className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
-        initial={{ opacity: 0.8 }}
+        initial={{ opacity: 0.6 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Círculo verde grande */}
+        {/* Subtle neutral blurred shapes for background */}
         <motion.div
-          className="absolute top-[-120px] left-[-120px] bg-green-300 rounded-full"
+          className="absolute top-[-120px] left-[-120px] bg-gray-300/30 rounded-full"
           style={{ width: 420, height: 420, filter: "blur(90px)" }}
-          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
+          animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
           transition={{ repeat: Infinity, duration: 13, ease: "easeInOut" }}
         />
-        {/* Círculo azul claro */}
         <motion.div
-          className="absolute bottom-[-140px] right-[-140px] bg-blue-200 rounded-full"
+          className="absolute bottom-[-140px] right-[-140px] bg-gray-200/30 rounded-full"
           style={{ width: 370, height: 370, filter: "blur(80px)" }}
-          animate={{ x: [0, -40, 0], y: [0, -60, 0] }}
+          animate={{ x: [0, -30, 0], y: [0, -40, 0] }}
           transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }}
         />
-        {/* Círculo violeta suave */}
         <motion.div
-          className="absolute top-1/2 left-1/2 bg-purple-100 rounded-full"
+          className="absolute top-1/2 left-1/2 bg-gray-100/30 rounded-full"
           style={{ width: 320, height: 320, filter: "blur(70px)", transform: "translate(-50%, -50%)" }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
+          animate={{ scale: [1, 1.05, 1], opacity: [0.6, 1, 0.6] }}
           transition={{ repeat: Infinity, duration: 11, ease: "easeInOut" }}
         />
       </motion.div>
@@ -187,62 +185,61 @@ const ReglamentoInterno = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <motion.div 
-            className="relative mx-auto w-fit"
-            initial={{ scale: 0.8, rotate: -5 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, ease: "backOut" }}
-          >
-            <motion.div
-              className="w-28 h-28 bg-gradient-to-br from-blue-400 via-blue-500 to-purple-400 rounded-3xl flex items-center justify-center mx-auto shadow-xl relative overflow-hidden"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              transition={{ duration: 0.3 }}
+            <motion.div 
+              className="relative mx-auto w-fit"
+              initial={{ scale: 0.98, rotate: -1 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                animate={{ x: [-100, 200] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-              />
-              <FileText className="h-14 w-14 text-white relative z-10" />
+                className="w-28 h-28 bg-gray-100 rounded-3xl flex items-center justify-center mx-auto shadow-md relative overflow-hidden"
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.2 }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-white/30"
+                  animate={{ x: [-80, 160] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                />
+                <FileText className="h-14 w-14 text-gray-700 relative z-10" />
+              </motion.div>
             </motion.div>
-        
-          </motion.div>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h1 className="font-heading font-bold text-5xl lg:text-6xl text-foreground mb-4">
-              Reglamento <span className="bg-gradient-to-r from-green-500 to-blue-600 bg-clip-text text-transparent">Interno</span>
+            <h1 className="font-heading font-bold text-5xl lg:text-6xl text-gray-800 mb-4">
+              Reglamento <span className="font-semibold text-gray-700">Interno</span>
             </h1>
             <motion.div
-              className="w-24 h-1 bg-gradient-to-r from-green-400 to-blue-500 mx-auto rounded-full mb-6"
+              className="w-24 h-1 bg-gray-300 mx-auto rounded-full mb-6"
               initial={{ width: 0 }}
               animate={{ width: 96 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             />
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Pautas y acuerdos para una <span className="font-semibold text-green-600">convivencia armónica</span> y un entorno de aprendizaje <span className="font-semibold text-blue-600">seguro</span>.
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Pautas y acuerdos para una <span className="font-semibold text-gray-700">convivencia armónica</span> y un entorno de aprendizaje <span className="font-semibold text-gray-700">seguro</span>.
             </p>
           </motion.div>
         </motion.div>
 
         {/* Elementos flotantes decorativos */}
         <motion.div
-          className="fixed top-20 right-10 w-4 h-4 bg-yellow-400 rounded-full opacity-60 z-0"
-          animate={{ y: [0, -20, 0], rotate: [0, 180, 360] }}
-          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="fixed bottom-32 left-10 w-6 h-6 bg-green-400 rounded-full opacity-50 z-0"
-          animate={{ y: [0, 30, 0], x: [0, 10, 0] }}
+          className="fixed top-20 right-10 w-4 h-4 bg-gray-300 rounded-full opacity-20 z-0"
+          animate={{ y: [0, -12, 0], rotate: [0, 180, 360] }}
           transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
         />
         <motion.div
-          className="fixed top-1/2 right-5 w-3 h-3 bg-blue-400 rounded-full opacity-70 z-0"
-          animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
-          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          className="fixed bottom-32 left-10 w-6 h-6 bg-gray-300 rounded-full opacity-16 z-0"
+          animate={{ y: [0, 18, 0], x: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 9, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="fixed top-1/2 right-5 w-3 h-3 bg-gray-300 rounded-full opacity-18 z-0"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
+          transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
         />
 
         <div className="max-w-4xl mx-auto relative z-10">
@@ -270,11 +267,11 @@ const ReglamentoInterno = () => {
                     className="flex items-center gap-6 w-full cursor-pointer relative z-10"
                   >
                     <motion.div
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                      className="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-xl flex items-center justify-center shadow-lg"
+                      whileHover={{ rotate: 30, scale: 1.02 }}
+                      transition={{ duration: 0.4 }}
+                      className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center shadow-sm"
                     >
-                      <div className="text-white">
+                      <div className="text-gray-700">
                         {section.icon}
                       </div>
                     </motion.div>
@@ -288,13 +285,13 @@ const ReglamentoInterno = () => {
                     </div>
                   </motion.div>
                 </AccordionTrigger>
-                <AccordionContent className="px-8 pb-8 pt-4">
+                  <AccordionContent className="px-8 pb-8 pt-4">
                   <motion.div
                     initial={{ opacity: 0, y: -15, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -15, scale: 0.95 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-inner border border-gray-100"
+                    className="bg-white rounded-xl p-6 shadow-inner border border-gray-100"
                   >
                     <div className="prose prose-sm max-w-none text-gray-700">
                       {section.content}
