@@ -67,7 +67,7 @@ const CentroEstudiantes = () => {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 1 }}
                     >
-                      <motion.div
+                      <div
                         className="w-full h-full"
                         style={{
                           background:
@@ -78,20 +78,6 @@ const CentroEstudiantes = () => {
                           position: "absolute",
                           inset: 0,
                           zIndex: 1,
-                        }}
-                        animate={{
-                          scale: [1, 1.05, 1],
-                          rotate: [0, 2, -2, 0],
-                          filter: [
-                            "brightness(1)",
-                            "brightness(1.08)",
-                            "brightness(1)",
-                          ],
-                        }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 7,
-                          ease: "easeInOut",
                         }}
                       />
                     </motion.div>

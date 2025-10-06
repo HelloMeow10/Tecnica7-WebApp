@@ -17,6 +17,7 @@ import fotoalumnosImg from '@/assets/fotoalumnos.png';
 import multimediaImg from '@/assets/multimedia.png';
 import horariosCicloSuperior from '@/assets/Horarios ciclo superior (2).xlsx';
 import { motion } from "framer-motion";
+import AnimatedBackground from '@/components/ui/AnimatedBackground';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 15 },
@@ -75,36 +76,7 @@ const Multimedios = () => {
 
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden">
-      {/* Fondo animado con framer-motion */}
-      <motion.div
-        className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
-        initial={{ opacity: 0.8 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        {/* Círculo violeta grande */}
-        <motion.div
-          className="absolute top-[-120px] left-[-120px] bg-purple-300 rounded-full"
-          style={{ width: 420, height: 420, filter: "blur(90px)" }}
-          animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-          transition={{ repeat: Infinity, duration: 13, ease: "easeInOut" }}
-        />
-        {/* Círculo azul claro */}
-        <motion.div
-          className="absolute bottom-[-140px] right-[-140px] bg-blue-200 rounded-full"
-          style={{ width: 370, height: 370, filter: "blur(80px)" }}
-          animate={{ x: [0, -40, 0], y: [0, -60, 0] }}
-          transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }}
-        />
-        {/* Círculo violeta suave */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 bg-purple-100 rounded-full"
-          style={{ width: 320, height: 320, filter: "blur(70px)", transform: "translate(-50%, -50%)" }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
-          transition={{ repeat: Infinity, duration: 11, ease: "easeInOut" }}
-        />
-      </motion.div>
-
+      <AnimatedBackground />
       <Header />
       <main className="flex-grow">
         <div className="min-h-screen pt-32 pb-20">
