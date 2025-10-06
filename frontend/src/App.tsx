@@ -34,9 +34,9 @@ import ContactoPage from "./pages/Contacto";
 import InscripcionPage from "./pages/InscripcionPage";
 import TourVirtual from "./pages/TourVirtual";
 import Noticias from "./pages/Noticias";
-import MyCourses from "./pages/campus/MyCourses";
 import MyGrades from "./pages/campus/MyGrades";
 import Materials from "./pages/campus/Materials";
+import MyCoursesPage from "./pages/campus/MyCoursesPage";
 
 const queryClient = new QueryClient();
 
@@ -74,7 +74,7 @@ const App = () => (
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/sistema-de-gestion" element={<Dashboard />} />
-              <Route path="/campus/mis-cursos" element={<MyCourses />} />
+              <Route path="/campus/mis-cursos" element={<MyCoursesPage />} />
               <Route path="/campus/calificaciones" element={<MyGrades />} />
               <Route path="/campus/materiales" element={<Materials />} />
             </Route>

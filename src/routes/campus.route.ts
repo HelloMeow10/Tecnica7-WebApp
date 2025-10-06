@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { protect } from '../middleware/auth.middleware';
-import { getMyCourses, getMyGrades, listCourseMaterials, createCourseMaterial, deleteCourseMaterial, listCourseSubjects, getMyRecentMaterials } from '../controllers/campus.controller';
+import { getMyCourses, getMyGrades, listCourseMaterials, createCourseMaterial, deleteCourseMaterial, listCourseSubjects, getMyRecentMaterials, getMySummary } from '../controllers/campus.controller';
 
 const router = Router();
 
 router.use(protect([])); // cualquier usuario autenticado
 
+router.get('/my/summary', getMySummary);
 router.get('/my/courses', getMyCourses);
 router.get('/my/grades', getMyGrades);
 

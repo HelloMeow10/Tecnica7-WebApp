@@ -1,9 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 import prisma from '../services/prisma.service';
+import * as campusService from '../services/campus.service';
 
 interface AuthenticatedRequest extends Request {
   user?: { userId: number; role: string; email: string };
 }
+
+export const getMySummary = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  try {
+    const summary = await campusService.getMySummary(req.user!.userId, req.user!.role);
+    res.json(summary);
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const getMyCourses = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
