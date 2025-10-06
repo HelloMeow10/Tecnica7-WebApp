@@ -27,7 +27,7 @@ import CampusVirtual from "./pages/CampusVirtual";
 import ReglamentoInterno from "./pages/ReglamentoInterno";
 import SistemaGestion from "./pages/SistemaGestion";
 import CentroEstudiantes from "./pages/CentroEstudiantes";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import PoliticaDePrivacidad from "./pages/politica-de-privacidad";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
 import Dashboard from "./pages/Dashboard";
 import ContactoPage from "./pages/Contacto";
@@ -63,7 +63,7 @@ const App = () => (
             <Route path="/reglamento-interno" element={<ReglamentoInterno />} />
             <Route path="/sistema-gestion" element={<SistemaGestion />} />
             <Route path="/centro-estudiantes" element={<CentroEstudiantes />} />
-            <Route path="/politica-de-privacidad" element={<PrivacyPolicyPage />} />
+            <Route path="/politica-de-privacidad" element={<PoliticaDePrivacidad />} />
             <Route path="/terminos-de-uso" element={<TermsOfUsePage />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/inscripcion" element={<InscripcionPage />} />
