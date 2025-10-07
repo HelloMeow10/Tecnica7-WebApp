@@ -78,15 +78,15 @@ const CampusVirtual = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-12">
+      <main className="flex-grow container mx-auto px-12 pt-32 pb-12">
         <motion.div
           className="text-center mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 10 }}
+          transition={{ duration: 0.50 }}
         >
-          <h1 className="font-heading font-bold text-4xl lg:text-5xl text-gray-800">
-            Campus <span className="text-primary">Virtual</span>
+          <h1 className="font-heading font-bold text-4xl lg:text-5xl text-blak-600 mb-4">
+            Campus <span className="text-primary font-bold text-black">Virtual</span>
           </h1>
           <p className="text-xl text-muted-foreground mt-2">
             Tu portal de aprendizaje y colaboración.
@@ -98,10 +98,10 @@ const CampusVirtual = () => {
             {campusFeatures.map(feature => (
               <motion.div key={feature.title} variants={itemVariants}>
                 <Link to={feature.disabled ? '#' : feature.href} className={`group ${feature.disabled ? 'cursor-not-allowed' : ''}`} onClick={(e) => feature.disabled && e.preventDefault()}>
-                  <Card className={`h-full transition-all duration-300 bg-white border-gray-200 ${feature.disabled ? 'opacity-60' : 'hover:shadow-lg hover:border-primary'}`}>
+                  <Card className={`h-full transition-all duration-300 bg-white border-blue-400 ${feature.disabled ? 'opacity-60' : 'hover:shadow-lg hover:border-primary'}`}>
                     <CardHeader className="flex-row items-center justify-between">
                       <div className='space-y-1'>
-                        <CardTitle className="font-heading text-xl text-gray-800">{feature.title}</CardTitle>
+                        <CardTitle className="font-heading text-xl text-blue-800">{feature.title}</CardTitle>
                         <p className="text-muted-foreground text-sm">{feature.description}</p>
                       </div>
                       <div className="p-3 bg-primary/10 rounded-lg">
@@ -112,7 +112,7 @@ const CampusVirtual = () => {
                       {!feature.disabled && (
                         <div className="flex items-center text-sm text-primary font-semibold">
                           <span>{feature.title === 'Cursos que dicto' || feature.title === 'Mis Cursos' ? 'Ver mis cursos' : 'Ir ahora'}</span>
-                          <ChevronRight className="h-4 w-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" />
+                          <ChevronRight className="h-4 w-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-3" />
                         </div>
                       )}
                       {feature.disabled && (
@@ -126,7 +126,7 @@ const CampusVirtual = () => {
           </motion.div>
 
           <div className="space-y-6">
-            <Card className="bg-white border-gray-200">
+            <Card className="bg-white border-blue-200">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl"><Activity className="h-5 w-5 text-primary" /> Resumen</CardTitle>
               </CardHeader>
