@@ -5,6 +5,7 @@ import fotoLucas from '@/assets/fotoperfilgato.jpg';
 import fotoAbril from '@/assets/ftotoperfilAgua.jpg';
 import fotoAlejo from '@/assets/fotoperfilworms.jpg';
 import fotoJuan from '@/assets/fotoperfilzorro.jpg';
+import {motion} from 'framer-motion';
 
 const TestimoniosSection = () => {
   const testimonios = [
@@ -60,7 +61,7 @@ const TestimoniosSection = () => {
                   <AvatarFallback>{testimonio.nombre.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <div className="flex items-center gap-2 mb-100">
+                  <div className="flex items-center gap-2 mb-1 ">
                     <CardTitle className="font-bold text-lg">{testimonio.nombre}</CardTitle>
                     <a href={testimonio.linkedin} target="_blank" rel="noopener noreferrer">
                       <Linkedin className="h-6 w-6 text-primary hover:text-primary/80" />
