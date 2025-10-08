@@ -3,23 +3,32 @@ import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 
 import escuela from '@/assets/escuela.jpeg';
+import entrada from '@/assets/entrada.jpg';
 import patioColegio from '@/assets/patioColegio.jpg';
-import paisaje2 from '@/assets/paisaje2.png';
-import paisaje3 from '@/assets/paisaje3.png';
-import paisaje4 from '@/assets/paisaje4.png';
+import secretaria1 from '@/assets/secretaria.jpg';
+import cocina1 from '@/assets/cocina.jpg';
+import biblioteca1 from '@/assets/biblioteca.jpg';
+import direccion1 from '@/assets/direccion.jpg';
 import teatromalvinas from '@/assets/teatromalvinas.jpeg';
 import hero from '@/assets/hero-escuela-tecnica.jpg';
+
+import biblioteca from '@/assets/biblioteca.jpg';
+// import salaEspera from '@/assets/sala-espera.jpg';
+import direccion from '@/assets/direccion.jpg';
+// import secretaria from '@/assets/secretaria.jpg';
+import cocina from '@/assets/cocina.jpg';
 
 type AccentKey = 'blue' | 'violet' | 'emerald' | 'amber' | 'cyan' | 'rose';
 
 const images: { src: string; alt: string; accent: AccentKey }[] = [
-  { src: hero, alt: 'Entrada de la escuela', accent: 'blue' },
+  { src: entrada, alt: 'Entrada de la escuela', accent: 'blue' },
   { src: escuela, alt: 'Frente de la escuela', accent: 'cyan' },
   { src: teatromalvinas, alt: 'Teatro Malvinas', accent: 'violet' },
   { src: patioColegio, alt: 'Patio del colegio', accent: 'emerald' },
-  { src: paisaje2, alt: 'zoom del colegio', accent: 'cyan' },
-  { src: paisaje3, alt: 'Paisaje 3', accent: 'amber' },
-  { src: paisaje4, alt: 'Paisaje 4', accent: 'rose' },
+  { src: biblioteca1, alt: 'Biblioteca', accent: 'emerald' },
+  { src: direccion1, alt: 'Dirección', accent: 'amber' },
+  { src: secretaria1, alt: 'Secretaría', accent: 'cyan' },
+  { src: cocina1, alt: 'Cocina', accent: 'rose' },
 ];
 
 const accents: Record<AccentKey, { gradient: string; ring: string; borderHover: string; badge: string }> = {
@@ -35,7 +44,7 @@ const TourVirtual = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      <main className="relative flex-grow container mx-auto px-4 py-20">
+  <main className="relative flex-grow container mx-auto px-4 pt-32 pb-20">
         {/* Fondos suaves animados */}
         <motion.div
           className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
