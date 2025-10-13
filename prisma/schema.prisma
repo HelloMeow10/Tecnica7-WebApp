@@ -154,3 +154,68 @@ model CourseSubjects {
   @@unique([course_id, name])
   @@map("CourseSubjects")
 }
+
+model News {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  summary     String?
+  content     String   
+  image_url   String?
+  published   Boolean  @default(false)
+  published_at DateTime? @db.Timestamptz(6)
+  created_at  DateTime @db.Timestamptz(6) @default(now())
+  updated_at  DateTime @db.Timestamptz(6) @default(now())
+
+  @@map("News")
+}
+
+model StudentCenter {
+  id          Int      @id @default(autoincrement())
+  period      String
+  name        String
+  president   String?
+  image_url   String?
+  description String?
+  created_at  DateTime @db.Timestamptz(6) @default(now())
+  updated_at  DateTime @db.Timestamptz(6) @default(now())
+
+  @@map("StudentCenters")
+}
+
+model RadioItem {
+  id          Int      @id @default(autoincrement())
+  title       String
+  url         String?
+  description String?
+  image_url   String?
+  published   Boolean  @default(false)
+  created_at  DateTime @db.Timestamptz(6) @default(now())
+  updated_at  DateTime @db.Timestamptz(6) @default(now())
+
+  @@map("RadioItems")
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  start_at    DateTime
+  end_at      DateTime?
+  location    String?
+  all_day     Boolean  @default(false)
+  created_at  DateTime @db.Timestamptz(6) @default(now())
+  updated_at  DateTime @db.Timestamptz(6) @default(now())
+
+  @@map("Events")
+}
+
+model SiteSetting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+
+  @@map("SiteSettings")
+}

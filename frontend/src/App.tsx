@@ -20,6 +20,8 @@ import AdminTeachersPage from "./pages/admin/TeachersPage";
 import AdminStudentsPage from "./pages/admin/StudentsPage";
 import CoursesPage from "./pages/admin/CoursesPage";
 import ReportsPage from "./pages/admin/ReportsPage";
+import NewsPage from "./pages/admin/NewsPage";
+import SettingsAdminPage from "./pages/admin/SettingsAdminPage";
 import BibliotecaDigital from "./pages/BibliotecaDigital";
 import BolsaTrabajo from "./pages/BolsaTrabajo";
 import CalendarioAcademico from "./pages/CalendarioAcademico";
@@ -87,6 +89,8 @@ const App = () => (
                 <Route path="students" element={<AdminStudentsPage />} />
                 <Route path="courses" element={<CoursesPage />} />
                 <Route path="reports" element={<ReportsPage />} />
+                <Route path="news" element={<NewsPage />} />
+                <Route path="settings" element={<SettingsAdminPage />} />
               </Route>
             </Route>
 
