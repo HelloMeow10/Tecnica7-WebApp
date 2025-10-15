@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import UnidosPorLaLibertad from "@/assets/UnidosPorLaLibertad.jpeg";
 import CrearMasLibertad from "@/assets/Crear+Libertad.jpeg";
+import AvanceEstudiantil from "@/assets/AvanceEstudiantil.jpg";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +25,7 @@ const CentroEstudiantes = () => {
       period: "2022-2023",
       name: "Avance Estudiantil",
       president: "Luz Roggerone (Presidente interina Juliana Goux)",
-      image: null,
+      image: AvanceEstudiantil,
     },
   ].reverse(); // Show most recent first
 
