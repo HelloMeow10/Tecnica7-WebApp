@@ -59,12 +59,12 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-12">
+      <main className="flex-grow container mx-auto px-5 py-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white rounded-xl shadow-md p-8 mb-12 border border-gray-200"
+          className="bg-white rounded-xl shadow-md p-8 mb-12 border border-blue-400"
         >
           <div className="flex items-center justify-between">
             <div>
@@ -90,7 +90,7 @@ const Dashboard = () => {
           {features.map((feature) => (
             <motion.div key={feature.title} variants={itemVariants}>
               <Link to={feature.href} className="group block h-full">
-                <Card className="h-full bg-white text-gray-800 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 rounded-xl overflow-hidden border border-gray-200">
+                <Card className="h-full bg-white text-black-800 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 rounded-xl overflow-hidden border border-blue-400">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="font-heading text-2xl text-gray-800">
@@ -113,7 +113,7 @@ const Dashboard = () => {
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.5 }}>
-          <Card className="mt-12 bg-white border-gray-200">
+          <Card className="mt-12 bg-white border-blue-500">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-gray-800">Accesos Rápidos</CardTitle>
             </CardHeader>
