@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, Book, Settings, ArrowRight, Building, Users, Briefcase } from "lucide-react";
+import { GraduationCap, Book, Settings, ArrowRight, Building, Users, Briefcase, ExternalLink, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
@@ -14,21 +14,21 @@ const Dashboard = () => {
       title: "Campus Virtual",
       description: "Accede a tus cursos, materiales y calificaciones.",
       href: "/campus-virtual",
-      icon: <Briefcase className="h-8 w-8 text-white" />,
+      icon: <Briefcase className="h-8 w-8 text-primary" />,
       color: "from-blue-500 to-indigo-600",
     },
     {
       title: "Biblioteca Digital",
       description: "Explora nuestro catálogo de libros y recursos digitales.",
       href: "/biblioteca-digital",
-      icon: <Book className="h-8 w-8 text-white" />,
+      icon: <Book className="h-8 w-8 text-primary" />,
       color: "from-green-500 to-emerald-600",
     },
     {
       title: "Sistema de Gestión",
       description: "Administra la información académica y administrativa.",
       href: "/sistema-gestion",
-      icon: <Settings className="h-8 w-8 text-white" />,
+      icon: <Settings className="h-8 w-8 text-primary" />,
       color: "from-purple-500 to-violet-600",
     },
   ];
@@ -90,18 +90,18 @@ const Dashboard = () => {
           {features.map((feature) => (
             <motion.div key={feature.title} variants={itemVariants}>
               <Link to={feature.href} className="group block h-full">
-                <Card className={`h-full bg-gradient-to-br ${feature.color} text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 rounded-xl overflow-hidden`}>
+                <Card className="h-full bg-white text-gray-800 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 rounded-xl overflow-hidden border border-gray-200">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="font-heading text-2xl">
+                      <CardTitle className="font-heading text-2xl text-gray-800">
                         {feature.title}
                       </CardTitle>
                       {feature.icon}
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="opacity-90 mb-4">{feature.description}</p>
-                    <div className="flex items-center font-semibold mt-6">
+                    <p className="text-muted-foreground mb-4">{feature.description}</p>
+                    <div className="flex items-center font-semibold mt-6 text-primary">
                       <span>Ir ahora</span>
                       <ArrowRight className="h-4 w-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
                     </div>
