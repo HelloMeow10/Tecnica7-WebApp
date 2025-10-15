@@ -12,15 +12,12 @@ import direccion1 from '@/assets/direccion.jpg';
 import teatromalvinas from '@/assets/teatromalvinas.jpeg';
 import hero from '@/assets/hero-escuela-tecnica.jpg';
 
-import biblioteca from '@/assets/biblioteca.jpg';
-// import salaEspera from '@/assets/sala-espera.jpg';
-import direccion from '@/assets/direccion.jpg';
-// import secretaria from '@/assets/secretaria.jpg';
-import cocina from '@/assets/cocina.jpg';
+// Limpieza: no usamos estas variantes antiguas, mantenemos solo las definitivas arriba
 
 type AccentKey = 'blue' | 'violet' | 'emerald' | 'amber' | 'cyan' | 'rose';
 
-const images: { src: string; alt: string; accent: AccentKey }[] = [
+// Imágenes base fijas
+const baseImages: { src: string; alt: string; accent: AccentKey }[] = [
   { src: entrada, alt: 'Entrada de la escuela', accent: 'blue' },
   { src: escuela, alt: 'Frente de la escuela', accent: 'cyan' },
   { src: teatromalvinas, alt: 'Teatro Malvinas', accent: 'violet' },
@@ -29,6 +26,30 @@ const images: { src: string; alt: string; accent: AccentKey }[] = [
   { src: direccion1, alt: 'Dirección', accent: 'amber' },
   { src: secretaria1, alt: 'Secretaría', accent: 'cyan' },
   { src: cocina1, alt: 'Cocina', accent: 'rose' },
+];
+
+// Carga automática de Aulas y Laboratorios
+const aulaMap = import.meta.glob('/src/assets/Aula*.jpeg', { eager: true, as: 'url' }) as Record<string, string>;
+const labMap  = import.meta.glob('/src/assets/Laboratorio*.jpeg', { eager: true, as: 'url' }) as Record<string, string>;
+
+const toAlt = (p: string) => {
+  const name = p.split('/').pop() || '';
+  return decodeURIComponent(name.replace(/\.[^.]+$/, ''));
+};
+
+const aulaImages = Object.entries(aulaMap)
+  .sort(([a],[b]) => a.localeCompare(b, 'es'))
+  .map(([path, url]) => ({ src: url, alt: toAlt(path), accent: 'cyan' as AccentKey }));
+
+const laboratorioImages = Object.entries(labMap)
+  .sort(([a],[b]) => a.localeCompare(b, 'es'))
+  .map(([path, url]) => ({ src: url, alt: toAlt(path), accent: 'violet' as AccentKey }));
+
+// Galería final
+const images: { src: string; alt: string; accent: AccentKey }[] = [
+  ...baseImages,
+  ...aulaImages,
+  ...laboratorioImages,
 ];
 
 const accents: Record<AccentKey, { gradient: string; ring: string; borderHover: string; badge: string }> = {
