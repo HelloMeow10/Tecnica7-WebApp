@@ -9,6 +9,11 @@ import chatRoutes from './routes/chat.route';
 import adminRoutes from './routes/admin.route';
 import courseRoutes from './routes/course.route';
 import campusRoutes from './routes/campus.route';
+import newsRoutes from './routes/news.route';
+import studentCenterRoutes from './routes/studentCenter.route';
+import radioRoutes from './routes/radio.route';
+import eventRoutes from './routes/event.route';
+import settingRoutes from './routes/setting.route';
 
 const app: Express = express();
 
@@ -38,6 +43,11 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/campus', campusRoutes);
 app.use('/api', chatRoutes);
+app.use('/api/news', newsRoutes);
+app.use('/api/student-centers', studentCenterRoutes);
+app.use('/api/radio', radioRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/settings', settingRoutes);
 
 // Middleware para manejar errores 404 (Not Found)
 app.use((req: Request, res: Response, next: NextFunction) => {
