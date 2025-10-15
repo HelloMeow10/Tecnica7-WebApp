@@ -50,7 +50,7 @@ const Dashboard = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
       },
     },
@@ -68,8 +68,8 @@ const Dashboard = () => {
         >
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-heading font-bold text-3xl text-gray-800">
-                ¡Hola de nuevo, {user?.name ?? 'Estudiante'}!
+              <h1 className="font-heading font-bold text-3xl my-8 text-gray-800">
+                ¡Hola de nuevo, {user?.email ?? 'Estudiante'}!
               </h1>
               <p className="text-lg text-muted-foreground mt-1">
                 Bienvenido a tu panel personal. ¿Qué te gustaría hacer hoy?
