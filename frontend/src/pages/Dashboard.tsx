@@ -14,37 +14,22 @@ const Dashboard = () => {
       title: "Campus Virtual",
       description: "Accede a tus cursos, materiales y calificaciones.",
       href: "/campus-virtual",
-<<<<<<< Updated upstream
       icon: <Briefcase className="h-8 w-8 text-primary" />,
       color: "from-blue-500 to-indigo-600",
-=======
-      icon: <Briefcase className="h-8 w-8 text-white" />,
-      color: "from-blue-600 to-indigo-800",
->>>>>>> Stashed changes
     },
     {
       title: "Biblioteca Digital",
       description: "Explora nuestro catálogo de libros y recursos digitales.",
       href: "/biblioteca-digital",
-<<<<<<< Updated upstream
       icon: <Book className="h-8 w-8 text-primary" />,
       color: "from-green-500 to-emerald-600",
-=======
-      icon: <Book className="h-8 w-8 text-white" />,
-      color: "from-green-700 to-emerald-900",
->>>>>>> Stashed changes
     },
     {
       title: "Sistema de Gestión",
       description: "Administra la información académica y administrativa.",
       href: "/sistema-gestion",
-<<<<<<< Updated upstream
       icon: <Settings className="h-8 w-8 text-primary" />,
       color: "from-purple-500 to-violet-600",
-=======
-      icon: <Settings className="h-8 w-8 text-white" />,
-      color: "from-purple-700 to-violet-800",
->>>>>>> Stashed changes
     },
   ];
 
@@ -74,15 +59,13 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
-      
-        <main className="flex-grow container mx-auto px-4 py-12">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-xl shadow-md p-8 mb-12 border border-gray-200"
+      <main className="flex-grow container mx-auto px-4 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-xl shadow-md p-8 mb-12 border border-gray-200"
         >
-          
           <div className="flex items-center justify-between">
             <div>
               <h1 className="font-heading font-bold text-3xl text-gray-800">

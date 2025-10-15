@@ -30,6 +30,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 
 
 interface Teacher {
@@ -121,19 +123,22 @@ const AdminTeachersPage: React.FC = () => {
     setIsDialogOpen(true);
   };
 
-  if (isLoading) return <div>Cargando profesores...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div className="text-center py-12">Cargando profesores...</div>;
+  if (error) return <div className="text-center py-12 text-red-500">Error: {(error as Error).message}</div>;
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Gestión de Profesores</h1>
         <Dialog open={isDialogOpen} onOpenChange={(open) => {
           setIsDialogOpen(open);
           if (!open) setEditingTeacher(undefined);
         }}>
           <DialogTrigger asChild>
-            <Button>Añadir Profesor</Button>
+            <Button className="flex items-center gap-2">
+              <PlusCircle className="w-5 h-5" />
+              Añadir Profesor
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -148,47 +153,58 @@ const AdminTeachersPage: React.FC = () => {
         </Dialog>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Nombre</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead className="text-right">Acciones</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {teachers?.map((teacher) => (
-            <TableRow key={teacher.teacher_id}>
-              <TableCell>{teacher.teacher_id}</TableCell>
-              <TableCell>{teacher.first_name} {teacher.last_name}</TableCell>
-              <TableCell>{teacher.email}</TableCell>
-              <TableCell className="text-right">
-                <Button variant="outline" size="sm" className="mr-2" onClick={() => handleEditClick(teacher)}>Editar</Button>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="destructive" size="sm">Eliminar</Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        Esta acción no se puede deshacer. Se eliminará permanentemente al profesor y su cuenta de usuario asociada.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => deleteMutation.mutate(teacher.teacher_id)}>
-                        Sí, eliminar
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <Card>
+        <CardHeader>
+          <CardTitle>Lista de Profesores</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Nombre</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead className="text-right">Acciones</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {teachers?.map((teacher) => (
+                <TableRow key={teacher.teacher_id}>
+                  <TableCell className="font-medium">{teacher.teacher_id}</TableCell>
+                  <TableCell>{teacher.first_name} {teacher.last_name}</TableCell>
+                  <TableCell>{teacher.email}</TableCell>
+                  <TableCell className="text-right space-x-2">
+                    <Button variant="outline" size="icon" className="mr-2" onClick={() => handleEditClick(teacher)}>
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" size="icon">
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Esta acción no se puede deshacer. Se eliminará permanentemente al profesor y su cuenta de usuario asociada.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => deleteMutation.mutate(teacher.teacher_id)}>
+                            Sí, eliminar
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 };

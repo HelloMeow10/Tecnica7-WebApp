@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { PlusCircle, Edit, Trash2, UserPlus, BookOpen, ChevronUp, ChevronDown } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface CourseRow {
   course_id: number;
@@ -57,7 +60,6 @@ const CoursesPage: React.FC = () => {
     return data.filter(c => `${c.name} ${c.teacher_name ?? ''}`.toLowerCase().includes(q));
   }, [data, search]);
 
-  // Manage enrollments: course details and students list
   const { data: courseDetail } = useQuery({
     queryKey: ['course', manageCourse?.course_id],
     queryFn: async () => api(`/api/courses/${manageCourse?.course_id}`, 'GET', token),
@@ -100,7 +102,6 @@ const CoursesPage: React.FC = () => {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  // Subjects logic
   type Subject = { id: number; course_id: number; name: string; order_index: number };
   const { data: subjects } = useQuery<Subject[]>({
     queryKey: ['subjects', subjectsCourse?.course_id],
@@ -148,32 +149,35 @@ const CoursesPage: React.FC = () => {
     if (editing) updateMutation.mutate(payload); else createMutation.mutate(payload);
   };
 
-  if (isLoading) return <div>Cargando cursos...</div>;
-  if (error) return <div>Error: {(error as Error).message}</div>;
+  if (isLoading) return <div className="text-center py-12">Cargando cursos...</div>;
+  if (error) return <div className="text-center py-12 text-red-500">Error: {(error as Error).message}</div>;
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Gestión de Cursos</h1>
         <div className="flex gap-2">
-          <Input placeholder="Buscar curso o docente..." value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Input placeholder="Buscar curso o docente..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-64" />
           <Dialog open={isOpen} onOpenChange={(o) => { setIsOpen(o); if (!o) setEditing(null); }}>
             <DialogTrigger asChild>
-              <Button onClick={() => setEditing(null)}>Nuevo Curso</Button>
+              <Button onClick={() => setEditing(null)} className="flex items-center gap-2">
+                <PlusCircle className="w-5 h-5" />
+                Nuevo Curso
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>{editing ? 'Editar curso' : 'Nuevo curso'}</DialogTitle>
               </DialogHeader>
-              <form onSubmit={handleSubmit} className="space-y-3">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <Input name="name" placeholder="Nombre" defaultValue={editing?.name} />
                 <Input name="description" placeholder="Descripción" defaultValue={editing?.description ?? ''} />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-4">
                   <Input name="year" type="number" placeholder="Año" defaultValue={editing?.year ?? ''} />
                   <Input name="division" placeholder="División" defaultValue={editing?.division ?? ''} />
                 </div>
                 <Input name="teacher_id" type="number" placeholder="ID docente (opcional)" defaultValue={editing?.teacher_id ?? ''} />
-                <div className="flex justify-end gap-2">
+                <div className="flex justify-end gap-2 pt-4">
                   <Button type="button" variant="outline" onClick={() => setIsOpen(false)}>Cancelar</Button>
                   <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending}>
                     {createMutation.isPending || updateMutation.isPending ? 'Guardando...' : 'Guardar'}
@@ -185,77 +189,105 @@ const CoursesPage: React.FC = () => {
         </div>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Nombre</TableHead>
-            <TableHead>Docente</TableHead>
-            <TableHead>Alumnos</TableHead>
-            <TableHead>Inscripciones</TableHead>
-            <TableHead className="text-right">Acciones</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filtered?.map(c => (
-            <TableRow key={c.course_id}>
-              <TableCell>{c.course_id}</TableCell>
-              <TableCell>{c.name}</TableCell>
-              <TableCell>{c.teacher_name ?? '-'}</TableCell>
-              <TableCell>{c.students_count}</TableCell>
-              <TableCell>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => { setManageCourse(c); setManageOpen(true); }}
-                >Gestionar</Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="ml-2"
-                  onClick={() => { setSubjectsCourse(c); setSubjectsOpen(true); }}
-                >Materias</Button>
-              </TableCell>
-              <TableCell className="text-right">
-                <Button variant="outline" size="sm" className="mr-2" onClick={() => { setEditing(c); setIsOpen(true); }}>Editar</Button>
-                <Button variant="destructive" size="sm" onClick={() => deleteMutation.mutate(c.course_id)}>Eliminar</Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <Card>
+        <CardHeader>
+          <CardTitle>Lista de Cursos</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Nombre</TableHead>
+                <TableHead>Docente</TableHead>
+                <TableHead>Alumnos</TableHead>
+                <TableHead>Inscripciones</TableHead>
+                <TableHead className="text-right">Acciones</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filtered?.map(c => (
+                <TableRow key={c.course_id}>
+                  <TableCell className="font-medium">{c.course_id}</TableCell>
+                  <TableCell>{c.name}</TableCell>
+                  <TableCell>{c.teacher_name ?? '-'}</TableCell>
+                  <TableCell>{c.students_count}</TableCell>
+                  <TableCell className="space-x-2">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => { setManageCourse(c); setManageOpen(true); }}
+                      className="flex items-center gap-1"
+                    >
+                      <UserPlus className="w-4 h-4" />
+                      Gestionar
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => { setSubjectsCourse(c); setSubjectsOpen(true); }}
+                      className="flex items-center gap-1"
+                    >
+                      <BookOpen className="w-4 h-4" />
+                      Materias
+                    </Button>
+                  </TableCell>
+                  <TableCell className="text-right space-x-2">
+                    <Button variant="outline" size="icon" onClick={() => { setEditing(c); setIsOpen(true); }}>
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button variant="destructive" size="icon" onClick={() => deleteMutation.mutate(c.course_id)}>
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
-        {/* Manage Enrollments Dialog */}
-        <Dialog open={manageOpen} onOpenChange={(o) => { setManageOpen(o); if (!o) setManageCourse(null); }}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Inscripciones {manageCourse ? `- ${manageCourse.name}` : ''}</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <form
-                className="flex gap-2"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = new FormData(e.currentTarget as HTMLFormElement);
-                  const studentId = Number(form.get('student_id'));
-                  if (!studentId || !manageCourse) return;
-                  enrollMutation.mutate({ courseId: manageCourse.course_id, student_id: studentId });
-                  (e.currentTarget as HTMLFormElement).reset();
-                }}
-              >
-                <select name="student_id" className="w-full border rounded px-2 py-2">
-                  <option value="">Seleccionar alumno...</option>
+      {/* Manage Enrollments Dialog */}
+      <Dialog open={manageOpen} onOpenChange={(o) => { setManageOpen(o); if (!o) setManageCourse(null); }}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Inscripciones: {manageCourse?.name}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <form
+              className="flex gap-2 items-center"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = new FormData(e.currentTarget as HTMLFormElement);
+                const studentId = Number(form.get('student_id'));
+                if (!studentId || !manageCourse) return;
+                enrollMutation.mutate({ courseId: manageCourse.course_id, student_id: studentId });
+                (e.currentTarget as HTMLFormElement).reset();
+              }}
+            >
+              <Select name="student_id">
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccionar alumno..." />
+                </SelectTrigger>
+                <SelectContent>
                   {studentsList?.map(s => (
-                    <option key={s.student_id} value={s.student_id}>
-                      {`${s.first_name ?? ''} ${s.last_name ?? ''}`.trim()} - {s.email}
-                    </option>
+                    <SelectItem key={s.student_id} value={String(s.student_id)}>
+                      {`${s.first_name ?? ''} ${s.last_name ?? ''}`.trim()} ({s.email})
+                    </SelectItem>
                   ))}
-                </select>
-                <Button type="submit" disabled={enrollMutation.isPending}>Inscribir</Button>
-              </form>
+                </SelectContent>
+              </Select>
+              <Button type="submit" disabled={enrollMutation.isPending} className="flex items-center gap-2">
+                <UserPlus className="w-4 h-4" />
+                Inscribir
+              </Button>
+            </form>
 
-              <div>
-                <h3 className="font-semibold mb-2">Alumnos inscriptos</h3>
+            <Card>
+              <CardHeader>
+                <CardTitle>Alumnos Inscriptos</CardTitle>
+              </CardHeader>
+              <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -281,108 +313,111 @@ const CoursesPage: React.FC = () => {
                       ))
                       : (
                         <TableRow>
-                          <TableCell colSpan={3} className="text-center text-muted-foreground">Sin inscripciones</TableCell>
+                          <TableCell colSpan={3} className="text-center text-muted-foreground py-8">Sin inscripciones</TableCell>
                         </TableRow>
                       )}
                   </TableBody>
                 </Table>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+              </CardContent>
+            </Card>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-        {/* Manage Subjects Dialog */}
-        <Dialog open={subjectsOpen} onOpenChange={(o) => { setSubjectsOpen(o); if (!o) setSubjectsCourse(null); }}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Materias {subjectsCourse ? `- ${subjectsCourse.name}` : ''}</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              {user?.role === 'DIRECTOR' && (
-              <form
-                className="flex gap-2"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = new FormData(e.currentTarget as HTMLFormElement);
-                  const name = String(form.get('name') || '').trim();
-                  if (!name || !subjectsCourse) return;
-                  addSubjectMutation.mutate({ name });
-                  (e.currentTarget as HTMLFormElement).reset();
-                }}
-              >
-                <Input name="name" placeholder="Nueva materia..." className="w-full" />
-                <Button type="submit" disabled={addSubjectMutation.isPending}>Agregar</Button>
-              </form>
-              )}
+      {/* Manage Subjects Dialog */}
+      <Dialog open={subjectsOpen} onOpenChange={(o) => { setSubjectsOpen(o); if (!o) setSubjectsCourse(null); }}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Materias: {subjectsCourse?.name}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            {user?.role === 'DIRECTOR' && (
+            <form
+              className="flex gap-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = new FormData(e.currentTarget as HTMLFormElement);
+                const name = String(form.get('name') || '').trim();
+                if (!name || !subjectsCourse) return;
+                addSubjectMutation.mutate({ name });
+                (e.currentTarget as HTMLFormElement).reset();
+              }}
+            >
+              <Input name="name" placeholder="Nueva materia..." className="w-full" />
+              <Button type="submit" disabled={addSubjectMutation.isPending}>Agregar</Button>
+            </form>
+            )}
 
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Orden</TableHead>
-                    <TableHead>Nombre</TableHead>
-                    <TableHead className="text-right">Acciones</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {subjects?.length ? subjects.map((s) => (
-                    <TableRow key={s.id}>
-                      <TableCell>{s.order_index + 1}</TableCell>
-                      <TableCell>
-                        {user?.role === 'DIRECTOR' ? (
-                          <input
-                            defaultValue={s.name}
-                            className="w-full border rounded px-2 py-1"
-                            onBlur={(e) => {
-                              const val = e.target.value.trim();
-                              if (val && val !== s.name) updateSubjectMutation.mutate({ subjectId: s.id, data: { name: val } });
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Orden</TableHead>
+                  <TableHead>Nombre</TableHead>
+                  <TableHead className="text-right">Acciones</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {subjects?.length ? subjects.map((s) => (
+                  <TableRow key={s.id}>
+                    <TableCell className="font-medium">{s.order_index + 1}</TableCell>
+                    <TableCell>
+                      {user?.role === 'DIRECTOR' ? (
+                        <Input
+                          defaultValue={s.name}
+                          className="w-full"
+                          onBlur={(e) => {
+                            const val = e.target.value.trim();
+                            if (val && val !== s.name) updateSubjectMutation.mutate({ subjectId: s.id, data: { name: val } });
+                          }}
+                        />
+                      ) : (
+                        <span>{s.name}</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right space-x-1">
+                      {user?.role === 'DIRECTOR' ? (
+                        <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              const idx = s.order_index;
+                              if (!subjects || idx === 0) return;
+                              const prev = subjects.find(x => x.order_index === idx - 1);
+                              if (!prev) return;
+                              updateSubjectMutation.mutate({ subjectId: prev.id, data: { order_index: idx } });
+                              updateSubjectMutation.mutate({ subjectId: s.id, data: { order_index: idx - 1 } });
                             }}
-                          />
-                        ) : (
-                          <span>{s.name}</span>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right space-x-2">
-                        {user?.role === 'DIRECTOR' ? (
-                          <>
-                            <Button
-                              variant="secondary"
-                              size="sm"
-                              onClick={() => {
-                                const idx = s.order_index;
-                                if (!subjects || idx === 0) return;
-                                const prev = subjects.find(x => x.order_index === idx - 1);
-                                if (!prev) return;
-                                updateSubjectMutation.mutate({ subjectId: prev.id, data: { order_index: idx } });
-                                updateSubjectMutation.mutate({ subjectId: s.id, data: { order_index: idx - 1 } });
-                              }}
-                            >▲</Button>
-                            <Button
-                              variant="secondary"
-                              size="sm"
-                              onClick={() => {
-                                if (!subjects) return;
-                                const idx = s.order_index;
-                                const next = subjects.find(x => x.order_index === idx + 1);
-                                if (!next) return;
-                                updateSubjectMutation.mutate({ subjectId: next.id, data: { order_index: idx } });
-                                updateSubjectMutation.mutate({ subjectId: s.id, data: { order_index: idx + 1 } });
-                              }}
-                            >▼</Button>
-                            <Button variant="destructive" size="sm" onClick={() => deleteSubjectMutation.mutate(s.id)}>Eliminar</Button>
-                          </>
-                        ) : null}
-                      </TableCell>
-                    </TableRow>
-                  )) : (
-                    <TableRow>
-                      <TableCell colSpan={3} className="text-center text-muted-foreground">Sin materias</TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-          </DialogContent>
-        </Dialog>
+                          ><ChevronUp className="w-4 h-4" /></Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              if (!subjects) return;
+                              const idx = s.order_index;
+                              const next = subjects.find(x => x.order_index === idx + 1);
+                              if (!next) return;
+                              updateSubjectMutation.mutate({ subjectId: next.id, data: { order_index: idx } });
+                              updateSubjectMutation.mutate({ subjectId: s.id, data: { order_index: idx + 1 } });
+                            }}
+                          ><ChevronDown className="w-4 h-4" /></Button>
+                          <Button variant="destructive" size="icon" onClick={() => deleteSubjectMutation.mutate(s.id)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </>
+                      ) : null}
+                    </TableCell>
+                  </TableRow>
+                )) : (
+                  <TableRow>
+                    <TableCell colSpan={3} className="text-center text-muted-foreground py-8">Sin materias</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
