@@ -1,8 +1,20 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 const Noticias = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://elfsight.cdn.com/platform.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
@@ -18,10 +30,7 @@ const Noticias = () => {
             Todas las noticias de la comunidad.
           </p>
         </motion.div>
-        <div className="text-center">
-            <p className="text-2xl text-gray-700">Esta sección se encuentra en construcción.</p>
-            <p className="text-gray-500 mt-2">Vuelve pronto para más novedades.</p>
-        </div>
+        <div className="elfsight-app-2af9e07a-6b1e-4e25-858b-f53d170ab980" data-elfsight-app-lazy></div>
       </main>
       <Footer />
     </div>
