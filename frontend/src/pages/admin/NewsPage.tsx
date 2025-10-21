@@ -35,7 +35,7 @@ const NewsPage = () => {
           <DialogTrigger asChild>
             <Button>Crear Noticia</Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
             <DialogHeader>
               <DialogTitle>Crear noticia</DialogTitle>
             </DialogHeader>

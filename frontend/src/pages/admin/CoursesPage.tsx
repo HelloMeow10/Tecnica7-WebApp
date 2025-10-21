@@ -165,7 +165,7 @@ const CoursesPage: React.FC = () => {
                 Nuevo Curso
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
               <DialogHeader>
                 <DialogTitle>{editing ? 'Editar curso' : 'Nuevo curso'}</DialogTitle>
               </DialogHeader>
@@ -249,7 +249,7 @@ const CoursesPage: React.FC = () => {
 
       {/* Manage Enrollments Dialog */}
       <Dialog open={manageOpen} onOpenChange={(o) => { setManageOpen(o); if (!o) setManageCourse(null); }}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl !bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
           <DialogHeader>
             <DialogTitle>Inscripciones: {manageCourse?.name}</DialogTitle>
           </DialogHeader>
@@ -326,7 +326,7 @@ const CoursesPage: React.FC = () => {
 
       {/* Manage Subjects Dialog */}
       <Dialog open={subjectsOpen} onOpenChange={(o) => { setSubjectsOpen(o); if (!o) setSubjectsCourse(null); }}>
-        <DialogContent>
+        <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
           <DialogHeader>
             <DialogTitle>Materias: {subjectsCourse?.name}</DialogTitle>
           </DialogHeader>

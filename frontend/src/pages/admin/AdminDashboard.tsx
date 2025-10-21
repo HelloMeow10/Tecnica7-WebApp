@@ -27,6 +27,7 @@ const AdminDashboard = () => {
       icon: <Book className="h-8 w-8 text-white" />,
       href: "/admin/courses",
       color: "from-purple-500 to-violet-600",
+      highlight: true,
     },
     {
       title: "Reportes y Estadísticas",
@@ -150,14 +151,26 @@ const AdminDashboard = () => {
         animate="visible"
       >
         {adminFeatures.map((feature) => (
-          <motion.div key={feature.title} variants={itemVariants}>
+          <motion.div
+            key={feature.title}
+            variants={itemVariants}
+            className={feature.highlight ? 'md:col-span-2 lg:col-span-2' : ''}
+          >
             <Link to={feature.href} className="group block h-full">
-              <Card className={`h-full bg-gradient-to-br ${feature.color} text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 rounded-xl overflow-hidden`}>
+              <div className={feature.highlight ? 'relative rounded-2xl p-[2px] bg-gradient-to-r from-yellow-300/50 via-amber-400/50 to-pink-400/50 transition-all duration-300 hover:from-yellow-300/70 hover:via-amber-400/70 hover:to-pink-400/70' : ''}>
+              <Card className={`h-full bg-gradient-to-br ${feature.color} text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 rounded-xl overflow-hidden
+                ${feature.highlight ? 'ring-2 ring-yellow-300/60 hover:ring-yellow-400/70 hover:scale-[1.02]' : ''}
+              `}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-heading text-2xl">
-                      {feature.title}
-                    </CardTitle>
+                    <div className="flex items-center gap-2">
+                      <CardTitle className={`font-heading ${feature.highlight ? 'text-3xl' : 'text-2xl'}`}>
+                        {feature.title}
+                      </CardTitle>
+                      {feature.highlight && (
+                        <span className="text-[10px] uppercase tracking-wide bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full shadow-sm">Destacado</span>
+                      )}
+                    </div>
                     {feature.icon}
                   </div>
                 </CardHeader>
@@ -169,6 +182,7 @@ const AdminDashboard = () => {
                   </div>
                 </CardContent>
               </Card>
+              </div>
             </Link>
           </motion.div>
         ))}

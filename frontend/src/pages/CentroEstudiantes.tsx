@@ -10,6 +10,12 @@ import { Button } from "@/components/ui/button";
 const CentroEstudiantes = () => {
   const studentCenters = [
     {
+      period: "2025",
+      name: "Centro de Estudiantes",
+      president: "Mateo Fernandez",
+      image: AvanceEstudiantil,
+    },
+    {
       period: "2024-2025",
       name: "Crear + Libertad",
       president: "Lucas Ramos",
@@ -25,7 +31,7 @@ const CentroEstudiantes = () => {
       period: "2022-2023",
       name: "Avance Estudiantil",
       president: "Luz Roggerone (Presidente interina Juliana Goux)",
-      image: AvanceEstudiantil,
+      image: null,
     },
   ].reverse(); // Show most recent first
 

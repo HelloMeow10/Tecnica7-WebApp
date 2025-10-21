@@ -140,7 +140,7 @@ const AdminTeachersPage: React.FC = () => {
               Añadir Profesor
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
             <DialogHeader>
               <DialogTitle>{editingTeacher ? 'Editar Profesor' : 'Añadir Nuevo Profesor'}</DialogTitle>
             </DialogHeader>

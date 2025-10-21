@@ -89,7 +89,7 @@ const SettingsAdminPage = () => {
       </div>
 
       <Dialog open={open} onOpenChange={(o) => setOpen(o)}>
-        <DialogContent>
+        <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
           <DialogHeader>
             <DialogTitle>{editing ? 'Editar ajuste' : 'Crear ajuste'}</DialogTitle>
           </DialogHeader>

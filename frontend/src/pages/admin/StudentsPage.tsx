@@ -107,7 +107,7 @@ const AdminStudentsPage: React.FC = () => {
               Añadir Alumno
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
             <DialogHeader>
               <DialogTitle>{editingStudent ? 'Editar Alumno' : 'Añadir Nuevo Alumno'}</DialogTitle>
             </DialogHeader>
