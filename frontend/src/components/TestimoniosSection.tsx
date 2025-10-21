@@ -31,7 +31,7 @@ const TestimoniosSection = () => {
       linkedin: "https://www.linkedin.com/in/alejo-mirarchi-b0a13b370/",
     },
     {
-      nombre: "Juan Zapata",
+      nombre: "Juan Sacala Montenegro",
       rol: "Web Development Manager",
       testimonio: "El camino hacia ser Web Development Manager nació en la Tecnica 7, donde la disciplina y el trabajo en equipo marcaron mi forma de liderar. Hoy aplico esas lecciones para transformar ideas en realidades digitales.",
       avatar: fotoJuan,
