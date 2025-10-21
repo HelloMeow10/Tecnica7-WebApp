@@ -326,7 +326,7 @@ const CoursesPage: React.FC = () => {
 
       {/* Manage Subjects Dialog */}
       <Dialog open={subjectsOpen} onOpenChange={(o) => { setSubjectsOpen(o); if (!o) setSubjectsCourse(null); }}>
-        <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white">
+        <DialogContent className="!bg-white !text-black dark:!bg-neutral-900 dark:!text-white max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Materias: {subjectsCourse?.name}</DialogTitle>
           </DialogHeader>
