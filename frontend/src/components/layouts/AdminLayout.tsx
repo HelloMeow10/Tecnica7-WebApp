@@ -3,6 +3,8 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Home, Users, GraduationCap, Book, BarChart, LogOut, Settings, Newspaper, Radio } from 'lucide-react';
+import logo from '@/assets/logo.png';
+import {motion} from "framer-motion";
 
 const AdminLayout: React.FC = () => {
   const { logout } = useAuth();
@@ -20,14 +22,22 @@ const AdminLayout: React.FC = () => {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gradient-to-l from-gray-300 to-white">
       {/* Sidebar */}
-      <aside className="w-64 bg-white text-gray-800 p-4 flex flex-col shadow-lg border-r border-gray-200">
+      
+      <aside className="w-64 bg-gradient-to-b from-blue-700 to-gray-900 text-white p-4 flex flex-col shadow-lg border-r border-gray-200">
+        <motion.div className="div"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
         <div className="flex items-center mb-8">
-          <div className="p-2 bg-primary rounded-lg mr-3">
-            <Book className="w-6 h-6 text-white" />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
+         <Link to="/sistema-gestion" className="flex items-center">
+           <div className="p-2 bg-primary rounded-lg mr-3">
+             <img src={logo} alt="Logo" className="w-auto h-12" />
+           </div>
+           <h1 className="text-2xl font-semibold text-white ">Panel de admin</h1>
+         </Link>
         </div>
         <nav className="flex-grow">
           <ul>
@@ -37,8 +47,8 @@ const AdminLayout: React.FC = () => {
                   to={link.to}
                   className={`flex items-center p-3 rounded-lg transition-colors duration-200 ${
                     location.pathname === link.to
-                      ? 'bg-primary text-white shadow-md'
-                      : 'hover:bg-primary/10 hover:text-primary'
+                      ? 'bg-primary text-white shadow-lg'
+                      : 'hover:bg-black/10 hover:text-primary'
                   }`}
                 >
                   {link.icon}
@@ -48,17 +58,19 @@ const AdminLayout: React.FC = () => {
             ))}
           </ul>
         </nav>
-        <div className="mt-auto">
-          <Button onClick={logout} variant="ghost" className="w-full justify-start p-3 text-red-500 hover:bg-red-500/10 hover:text-red-600">
-            <LogOut className="w-5 h-5 mr-4" />
+        <div className="mt-auto  rounded-lg">
+          <Button onClick={logout}  variant='ghost' className="w-full justify-start p-3 text-red-500 hover:bg-red-500/10 hover:text-red-600">
+            <LogOut className="w-5 h-5 mr-4"  />
             <span className="font-medium">Cerrar Sesión</span>
           </Button>
         </div>
+        </motion.div>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-6 md:p-10 overflow-y-auto">
         <Outlet />
+        
       </main>
     </div>
   );

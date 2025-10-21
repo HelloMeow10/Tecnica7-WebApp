@@ -78,7 +78,7 @@ const AdminDashboard = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white rounded-xl shadow-md p-8 mb-12 border border-gray-200"
+        className="bg-gradient-to-r from-gray-100 to-white-200 rounded-xl shadow-md p-8 mb-12 border border-gray-500"
       >
         <div className="flex items-center justify-between">
           <div>
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
         animate="visible"
       >
         <motion.div variants={itemVariants}>
-          <Card className="bg-white shadow-md rounded-lg">
+          <Card className="bg-gradient-to-r from-gray-100 to-white-200 shadow-md rounded-lg * border-gray-500">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Alumnos</CardTitle>
               <Users className="w-5 h-5 text-primary" />
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
           </Card>
         </motion.div>
         <motion.div variants={itemVariants}>
-          <Card className="bg-white shadow-md rounded-lg">
+          <Card className="bg-gradient-to-r from-gray-100 to-white-200 shadow-md rounded-lg border-gray-500">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Profesores</CardTitle>
               <GraduationCap className="w-5 h-5 text-primary" />
@@ -121,7 +121,7 @@ const AdminDashboard = () => {
           </Card>
         </motion.div>
         <motion.div variants={itemVariants}>
-          <Card className="bg-white shadow-md rounded-lg">
+          <Card className="bg-gradient-to-r from-gray-100 to-white-200 shadow-md rounded-lg border-gray-500">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Usuarios</CardTitle>
               <Users className="w-5 h-5 text-primary" />
@@ -132,7 +132,7 @@ const AdminDashboard = () => {
           </Card>
         </motion.div>
         <motion.div variants={itemVariants}>
-          <Card className="bg-white shadow-md rounded-lg">
+          <Card className="bg-gradient-to-r from-gray-100 to-white-200 shadow-md rounded-lg border-gray-500">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">Contactos</CardTitle>
               <Book className="w-5 h-5 text-primary" />

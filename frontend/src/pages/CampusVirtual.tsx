@@ -1,3 +1,4 @@
+import React from 'react';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -94,35 +95,39 @@ const CampusVirtual = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-          <motion.div className="lg:col-span-2 grid md:grid-cols-2 gap-6" variants={containerVariants} initial="hidden" animate="visible">
-            {campusFeatures.map(feature => (
-              <motion.div key={feature.title} variants={itemVariants}>
-                <Link to={feature.disabled ? '#' : feature.href} className={`group ${feature.disabled ? 'cursor-not-allowed' : ''}`} onClick={(e) => feature.disabled && e.preventDefault()}>
-                  <Card className={`h-full transition-all duration-300 bg-white border-blue-400 ${feature.disabled ? 'opacity-60' : 'hover:shadow-lg hover:border-primary'}`}>
-                    <CardHeader className="flex-row items-center justify-between">
-                      <div className='space-y-1'>
-                        <CardTitle className="font-heading text-xl text-blue-800">{feature.title}</CardTitle>
-                        <p className="text-muted-foreground text-sm">{feature.description}</p>
-                      </div>
-                      <div className="p-3 bg-primary/10 rounded-lg">
-                        {feature.icon}
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      {!feature.disabled && (
-                        <div className="flex items-center text-sm text-primary font-semibold">
-                          <span>{feature.title === 'Cursos que dicto' || feature.title === 'Mis Cursos' ? 'Ver mis cursos' : 'Ir ahora'}</span>
-                          <ChevronRight className="h-4 w-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-3" />
+    <motion.div className="lg:col-span-2 grid md:grid-cols-2 gap-6" variants={containerVariants} initial="hidden" animate="visible">
+            {campusFeatures.map((feature, idx) => {
+              const grads = ['from-blue-500 to-indigo-600','from-green-500 to-emerald-600','from-purple-500 to-violet-600','from-red-500 to-orange-400'];
+              const grad = grads[idx % grads.length];
+              return (
+                <motion.div key={feature.title} variants={itemVariants}>
+                  <Link to={feature.disabled ? '#' : feature.href} className={`group ${feature.disabled ? 'cursor-not-allowed' : ''}`} onClick={(e) => feature.disabled && e.preventDefault()}>
+                    <Card className={`h-full transition-all duration-300 ${feature.disabled ? 'opacity-60 bg-white border-blue-400' : `bg-gradient-to-br ${grad} text-white` }` }>
+                      <CardHeader className="flex-row items-center justify-between">
+                        <div className='space-y-1'>
+                          <CardTitle className={`font-heading text-xl ${feature.disabled ? 'text-blue-800' : 'text-white'}`}>{feature.title}</CardTitle>
+                          <p className={`${feature.disabled ? 'text-muted-foreground' : 'text-white/90'} text-sm`}>{feature.description}</p>
                         </div>
-                      )}
-                      {feature.disabled && (
-                        <span className="text-xs font-semibold bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full inline-block">Próximamente</span>
-                      )}
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
+                        <div className={`${feature.disabled ? 'p-3 bg-primary/10 rounded-lg' : 'p-3 rounded-lg bg-white/10'}`}>
+                          {React.cloneElement(feature.icon as any, { className: `${feature.disabled ? 'h-8 w-8 text-primary' : 'h-8 w-8 text-white'}` })}
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        {!feature.disabled && (
+                          <div className={`flex items-center text-sm ${feature.disabled ? 'text-primary' : 'text-white/90'} font-semibold`}>
+                            <span>{feature.title === 'Cursos que dicto' || feature.title === 'Mis Cursos' ? 'Ver mis cursos' : 'Ir ahora'}</span>
+                            <ChevronRight className={`h-4 w-4 ml-1 transform transition-transform duration-300 ${feature.disabled ? 'group-hover:translate-x-3' : 'group-hover:translate-x-3 text-white'}`} />
+                          </div>
+                        )}
+                        {feature.disabled && (
+                          <span className="text-xs font-semibold bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full inline-block">Próximamente</span>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </motion.div>
+              )
+            })}
           </motion.div>
 
           <div className="space-y-6">

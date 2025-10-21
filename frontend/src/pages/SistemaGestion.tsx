@@ -1,3 +1,4 @@
+import React from 'react';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 
 interface MetricsResponse {
   usersCount: number;
@@ -67,7 +69,17 @@ const SistemaGestion = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-16 pt-32">
-        <div className="text-center mb-12">
+        <motion.div 
+         initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+
+
+        >
+        
+        
+        <div className="text-center mb-12 bg-gray-100/70 p-6 rounded-lg shadow-lg">
+        
           <h1 className="font-heading font-bold text-4xl lg:text-5xl text-foreground">
             Sistema de <span className="text-primary">Gestión</span>
           </h1>
@@ -77,23 +89,32 @@ const SistemaGestion = () => {
           {user?.role !== 'DIRECTOR' && (
             <p className="mt-4 text-sm text-muted-foreground">Acceso limitado: algunas métricas solo visibles para Dirección.</p>
           )}
-        </div>
+        </div></motion.div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          {featureCards.map(card => (
-            <Link key={card.title} to={card.href} className="group">
-              <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="font-heading text-xl text-foreground">{card.title}</CardTitle>
-                    {card.icon}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{card.description}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+          {featureCards.map((card, idx) => {
+            const gradients = [
+              'from-blue-500 to-indigo-600',
+              'from-green-500 to-emerald-600',
+              'from-purple-500 to-violet-600',
+              'from-red-500 to-orange-400'
+            ];
+            const grad = gradients[idx % gradients.length];
+            return (
+              <Link key={card.title} to={card.href} className="group">
+                <Card className={`h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] bg-gradient-to-br ${grad} text-white`}> 
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="font-heading text-xl text-white">{card.title}</CardTitle>
+                      {React.cloneElement(card.icon as any, { className: 'h-7 w-7 text-white' })}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-white/90">{card.description}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            )
+          })}
         </div>
 
         {user?.role === 'DIRECTOR' && (
