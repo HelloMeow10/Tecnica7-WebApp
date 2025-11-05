@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -14,11 +16,28 @@ const SettingsAdminPage = () => {
   const [valueField, setValueField] = useState('');
   const auth = useAuth();
 
+  // UI específica: teléfonos y prompt IA
+  const [phoneEnabled, setPhoneEnabled] = useState<boolean>(true);
+  const [phoneNumbersText, setPhoneNumbersText] = useState<string>('');
+  const [aiPrompt, setAiPrompt] = useState<string>('');
+
   const fetchItems = async () => {
     setLoading(true);
     const res = await fetch('/api/settings');
     const data = await res.json();
     setItems(data);
+    // hidratar controles específicos
+    try {
+      const enabled = data.find((i: any) => i.key === 'site.phone.enabled')?.value;
+      setPhoneEnabled((enabled ?? 'true') !== 'false');
+      const numbersRaw = data.find((i: any) => i.key === 'site.phone.numbers')?.value;
+      if (numbersRaw) {
+        const arr = JSON.parse(numbersRaw);
+        if (Array.isArray(arr)) setPhoneNumbersText(arr.join('\n'));
+      }
+      const promptVal = data.find((i: any) => i.key === 'ai.prompt.system')?.value ?? '';
+      setAiPrompt(promptVal);
+    } catch {}
     setLoading(false);
   };
 
@@ -40,14 +59,40 @@ const SettingsAdminPage = () => {
 
   const save = async () => {
     if (!keyField) return alert('Key requerido');
-    const method = editing ? 'PUT' : 'POST';
-    const url = editing ? `/api/settings/${encodeURIComponent(editing.key)}` : '/api/settings';
     const headers: any = { 'Content-Type': 'application/json' };
     if (auth?.token) headers['Authorization'] = `Bearer ${auth.token}`;
 
-    const res = await fetch(url, { method, headers, body: JSON.stringify({ key: keyField, value: valueField }) });
+    const res = await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: keyField, value: valueField }) });
     if (!res.ok) return alert('Error al guardar');
     setOpen(false);
+    fetchItems();
+  };
+
+  // Guardar teléfonos y prompt IA
+  const savePhoneSettings = async () => {
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (auth?.token) headers['Authorization'] = `Bearer ${auth.token}`;
+    const numbers = phoneNumbersText
+      .split(/\n|,/)
+      .map(s => s.trim())
+      .filter(Boolean);
+    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.enabled', value: String(phoneEnabled) }) });
+    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.numbers', value: JSON.stringify(numbers) }) });
+    fetchItems();
+  };
+
+  const disablePhonesQuick = async () => {
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (auth?.token) headers['Authorization'] = `Bearer ${auth.token}`;
+    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.enabled', value: 'false' }) });
+    setPhoneEnabled(false);
+    fetchItems();
+  };
+
+  const saveAiPrompt = async () => {
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (auth?.token) headers['Authorization'] = `Bearer ${auth.token}`;
+    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'ai.prompt.system', value: aiPrompt }) });
     fetchItems();
   };
 
@@ -67,6 +112,45 @@ const SettingsAdminPage = () => {
         <div className="flex items-center gap-2">
           <Button onClick={openCreate}>Crear ajuste</Button>
         </div>
+      </div>
+
+      {/* Sección específica: Teléfonos y Prompt IA */}
+      <div className="grid gap-4 mb-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Teléfonos de contacto</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Mostrar números de teléfono</p>
+                <p className="text-sm text-muted-foreground">Desactívalo para ocultar los teléfonos del sitio y del prompt de la IA.</p>
+              </div>
+              <Switch checked={phoneEnabled} onCheckedChange={(v) => setPhoneEnabled(Boolean(v))} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Números (uno por línea)</label>
+              <Textarea rows={4} value={phoneNumbersText} onChange={(e) => setPhoneNumbersText(e.target.value)} placeholder="(011) 4248-6259\n11 6523-3593" />
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={savePhoneSettings}>Guardar teléfonos</Button>
+              <Button variant="secondary" onClick={disablePhonesQuick}>Deshabilitar números de teléfono</Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Prompt de la IA</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">Personaliza la instrucción del asistente. Se añadirá al final la información actualizada del sitio.</p>
+            <Textarea rows={8} value={aiPrompt} onChange={(e) => setAiPrompt(e.target.value)} placeholder="Eres un asistente virtual para la E.E.S.T. N°7..." />
+            <div className="flex justify-end">
+              <Button onClick={saveAiPrompt}>Guardar prompt</Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
       <div className="grid gap-4">
         {loading && <div>Cargando...</div>}

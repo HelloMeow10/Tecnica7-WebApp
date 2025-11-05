@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X, Phone, Mail, MapPin, LogOut, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logo from '../assets/logo.png';
@@ -17,9 +17,35 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [phoneEnabled, setPhoneEnabled] = useState(true);
+  const [phoneNumbers, setPhoneNumbers] = useState<string[]>(["(011) 4248-6259", "11 6523-3593"]);
   const { isAuthenticated, user, logout } = useAuth();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Cargar ajustes de teléfonos (público)
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetch('/api/settings');
+        if (!res.ok) return;
+        const items: Array<{ key: string; value: string }> = await res.json();
+        if (!mounted) return;
+        const enabled = items.find(i => i.key === 'site.phone.enabled')?.value;
+        const numbersRaw = items.find(i => i.key === 'site.phone.numbers')?.value;
+        const enabledBool = (enabled ?? 'true') !== 'false';
+        setPhoneEnabled(enabledBool);
+        if (numbersRaw) {
+          try {
+            const arr = JSON.parse(numbersRaw);
+            if (Array.isArray(arr) && arr.length) setPhoneNumbers(arr.map(String));
+          } catch {}
+        }
+      } catch {}
+    })();
+    return () => { mounted = false; };
+  }, []);
 
   const navLinks = [
     { name: 'Inicio', href: '/' },
@@ -87,14 +113,12 @@ const Header = () => {
       <div className="bg-primary text-primary-foreground py-1 text-xs">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-1">
-              <Phone className="h-3 w-3" />
-              <span>(011) 4248-6259</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Phone className="h-3 w-3" />
-              <span>11 6523-3593</span>
-            </div>
+            {phoneEnabled && phoneNumbers.map((n, idx) => (
+              <div key={idx} className="flex items-center space-x-1">
+                <Phone className="h-3 w-3" />
+                <span>{n}</span>
+              </div>
+            ))}
             <div className="flex items-center space-x-1">
               <Mail className="h-3 w-3" />
               <span>eet7lz@yahoo.com.ar</span>
