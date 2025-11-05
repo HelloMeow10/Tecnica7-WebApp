@@ -10,9 +10,10 @@ const startServer = async () => {
     await createEtherealTestAccount();
   }
 
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    console.log(`Access it at http://localhost:${PORT}`);
+  // Start server bound to localhost only to avoid exposing it externally
+  app.listen({ port: PORT, host: '127.0.0.1' }, () => {
+    console.log(`Server is running on port ${PORT} (listening on 127.0.0.1)`);
+    console.log(`Access it at http://127.0.0.1:${PORT}`);
   });
 };
 

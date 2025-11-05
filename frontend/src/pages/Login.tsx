@@ -171,7 +171,7 @@ export function LoginPage() {
           <motion.div
             key={i}
             className={`absolute ${item.color}`}
-            style={{ left: item.x, top: item.y, filter: "drop-shadow(0 0 18px rgba(59,130,246,0.18))" }}
+            style={{ left: item.x, top: item.y, filter: "drop-shadow(0 0 18px rgba(243, 243, 243, 0.18))" }}
             animate={{
               y: [0, 30, -30, 0],
               x: [0, 18, -18, 0],
@@ -198,7 +198,10 @@ export function LoginPage() {
           className="w-full flex justify-center"
         >
           <div className="w-full flex justify-center">
-            <Card className="w-full max-w-xs sm:max-w-sm !bg-white !text-black dark:!bg-neutral-900 dark:!text-white border border-gray-200 shadow-sm px-5 py-6 sm:px-8 sm:py-8 mt-36 mb-10">
+            <Card
+              className="w-full max-w-xs sm:max-w-sm bg-white text-black border border-gray-200 shadow-sm px-5 py-6 sm:px-8 sm:py-8 mt-36 mb-10"
+              style={{ backgroundColor: '#ffffff', color: '#000000' }}
+            >
               <CardHeader>
                 <div className="flex flex-col items-center mb-2">
                   <motion.div
