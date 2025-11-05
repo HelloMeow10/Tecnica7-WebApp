@@ -14,6 +14,7 @@ import studentCenterRoutes from './routes/studentCenter.route';
 import radioRoutes from './routes/radio.route';
 import eventRoutes from './routes/event.route';
 import settingRoutes from './routes/setting.route';
+import { db } from './services/database.service';
 
 const app: Express = express();
 
@@ -28,6 +29,24 @@ app.use(express.urlencoded({ extended: true }));
 // Por ejemplo, si tienes public/index.html, será accesible en /index.html
 // O si el frontend original estaba en 'frontend/', copiaremos su contenido a 'public/'
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// Auto-bootstrap: asegurar tabla SiteSettings si no existe (soporte para despliegues sin migraciones Prisma)
+(async () => {
+  try {
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS "SiteSettings" (
+        id SERIAL PRIMARY KEY,
+        "key" VARCHAR(191) UNIQUE NOT NULL,
+        value TEXT NOT NULL,
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      );
+    `);
+    console.log('Tabla SiteSettings verificada/creada');
+  } catch (e) {
+    console.error('No se pudo verificar/crear la tabla SiteSettings:', e);
+  }
+})();
 
 // Ruta de prueba
 app.get('/api/health', (req: Request, res: Response) => {
