@@ -10,6 +10,7 @@ import { useAuth } from '@/hooks/useAuth';
 const SettingsAdminPage = () => {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<any | null>(null);
   const [keyField, setKeyField] = useState('');
@@ -23,19 +24,37 @@ const SettingsAdminPage = () => {
 
   const fetchItems = async () => {
     setLoading(true);
-    const res = await fetch('/api/settings');
-    const data = await res.json();
-    setItems(data);
+    setError(null);
+    let data: any = [];
+    try {
+      const res = await fetch('/api/settings');
+      if (!res.ok) {
+        setItems([]);
+        setError('No se pudo cargar los ajustes (HTTP ' + res.status + ').');
+        setLoading(false);
+        return;
+      }
+      data = await res.json();
+      if (!Array.isArray(data)) {
+        // backend devolvió algo inesperado
+        setError('La respuesta de ajustes no es una lista.');
+        data = [];
+      }
+      setItems(data);
+    } catch (e: any) {
+      setItems([]);
+      setError('Error cargando ajustes.');
+    }
     // hidratar controles específicos
     try {
-      const enabled = data.find((i: any) => i.key === 'site.phone.enabled')?.value;
+  const enabled = data.find((i: any) => i.key === 'site.phone.enabled')?.value;
       setPhoneEnabled((enabled ?? 'true') !== 'false');
-      const numbersRaw = data.find((i: any) => i.key === 'site.phone.numbers')?.value;
+  const numbersRaw = data.find((i: any) => i.key === 'site.phone.numbers')?.value;
       if (numbersRaw) {
         const arr = JSON.parse(numbersRaw);
         if (Array.isArray(arr)) setPhoneNumbersText(arr.join('\n'));
       }
-      const promptVal = data.find((i: any) => i.key === 'ai.prompt.system')?.value ?? '';
+  const promptVal = data.find((i: any) => i.key === 'ai.prompt.system')?.value ?? '';
       setAiPrompt(promptVal);
     } catch {}
     setLoading(false);
@@ -154,7 +173,12 @@ const SettingsAdminPage = () => {
       </div>
       <div className="grid gap-4">
         {loading && <div>Cargando...</div>}
-        {items.map(i => (
+        {!!error && (
+          <div className="text-red-600 bg-red-50 border border-red-200 rounded p-3">
+            {error}
+          </div>
+        )}
+        {Array.isArray(items) && items.map(i => (
           <Card key={i.key}>
             <CardHeader>
               <CardTitle className="flex justify-between items-center">

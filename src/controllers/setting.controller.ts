@@ -5,7 +5,11 @@ export const listSettings = async (req: Request, res: Response, next: NextFuncti
   try {
     const items = await (prisma as any).siteSetting.findMany({ orderBy: { key: 'asc' } });
     res.json(items);
-  } catch (err) { next(err); }
+  } catch (err) {
+    console.error('listSettings error:', err);
+    // Responder con lista vacía para no romper el frontend si no hay tabla o DB falló
+    res.json([]);
+  }
 };
 
 export const getSetting = async (req: Request, res: Response, next: NextFunction) => {
