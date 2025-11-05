@@ -32,7 +32,10 @@ export const upsertSetting = async (req: Request, res: Response, next: NextFunct
     }
     const created = await (prisma as any).siteSetting.create({ data: { key, value } });
     res.status(201).json(created);
-  } catch (err) { next(err); }
+  } catch (err: any) {
+    console.error('upsertSetting error:', err);
+    return res.status(503).json({ message: 'No se pudo guardar el ajuste. Verifique migraciones de base de datos y conexión.' });
+  }
 };
 
 export const deleteSetting = async (req: Request, res: Response, next: NextFunction) => {
@@ -40,5 +43,8 @@ export const deleteSetting = async (req: Request, res: Response, next: NextFunct
   try {
     await (prisma as any).siteSetting.delete({ where: { key } });
     res.json({ message: 'Eliminado.' });
-  } catch (err) { next(err); }
+  } catch (err) {
+    console.error('deleteSetting error:', err);
+    return res.status(503).json({ message: 'No se pudo eliminar el ajuste. Verifique migraciones de base de datos y conexión.' });
+  }
 };

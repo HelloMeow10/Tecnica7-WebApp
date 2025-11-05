@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
 
 const SettingsAdminPage = () => {
@@ -82,7 +83,11 @@ const SettingsAdminPage = () => {
     if (auth?.token) headers['Authorization'] = `Bearer ${auth.token}`;
 
     const res = await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: keyField, value: valueField }) });
-    if (!res.ok) return alert('Error al guardar');
+    if (!res.ok) {
+      toast.error('No se pudo guardar el ajuste.');
+      return;
+    }
+    toast.success('Ajuste guardado');
     setOpen(false);
     fetchItems();
   };
@@ -95,23 +100,38 @@ const SettingsAdminPage = () => {
       .split(/\n|,/)
       .map(s => s.trim())
       .filter(Boolean);
-    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.enabled', value: String(phoneEnabled) }) });
-    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.numbers', value: JSON.stringify(numbers) }) });
+    const r1 = await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.enabled', value: String(phoneEnabled) }) });
+    const r2 = await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.numbers', value: JSON.stringify(numbers) }) });
+    if (!r1.ok || !r2.ok) {
+      toast.error('No se pudieron guardar los teléfonos.');
+    } else {
+      toast.success('Teléfonos guardados');
+    }
     fetchItems();
   };
 
   const disablePhonesQuick = async () => {
     const headers: any = { 'Content-Type': 'application/json' };
     if (auth?.token) headers['Authorization'] = `Bearer ${auth.token}`;
-    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.enabled', value: 'false' }) });
-    setPhoneEnabled(false);
+    const res = await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'site.phone.enabled', value: 'false' }) });
+    if (!res.ok) {
+      toast.error('No se pudo deshabilitar. Verificá tu sesión o la base de datos.');
+    } else {
+      toast.success('Teléfonos deshabilitados');
+      setPhoneEnabled(false);
+    }
     fetchItems();
   };
 
   const saveAiPrompt = async () => {
     const headers: any = { 'Content-Type': 'application/json' };
     if (auth?.token) headers['Authorization'] = `Bearer ${auth.token}`;
-    await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'ai.prompt.system', value: aiPrompt }) });
+    const res = await fetch('/api/settings', { method: 'POST', headers, body: JSON.stringify({ key: 'ai.prompt.system', value: aiPrompt }) });
+    if (!res.ok) {
+      toast.error('No se pudo guardar el prompt.');
+    } else {
+      toast.success('Prompt guardado');
+    }
     fetchItems();
   };
 
