@@ -24,7 +24,7 @@ const CentroEstudiantes = () => {
     {
       period: "2022-2023",
       name: "Avance Estudiantil",
-      president: "Luz Roggerone (Presidente interina Juliana Goux)",
+      president: "Juan Ignacio Darias",
       image: AvanceEstudiantil,
     },
   ].reverse(); // Show most recent first
