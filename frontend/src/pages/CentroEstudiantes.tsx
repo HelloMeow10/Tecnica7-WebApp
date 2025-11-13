@@ -10,6 +10,13 @@ import { Button } from "@/components/ui/button";
 const CentroEstudiantes = () => {
   const studentCenters = [
     {
+      period: "2025",
+      name: "Lapiz Negro",
+      president: "Juan Ignacio Darias",
+      image : AvanceEstudiantil,         
+
+    },
+    {
       period: "2024-2025",
       name: "Crear + Libertad",
       president: "Lucas Ramos",
@@ -24,8 +31,10 @@ const CentroEstudiantes = () => {
     {
       period: "2022-2023",
       name: "Avance Estudiantil",
-      president: "Juan Ignacio Darias",
-      image: AvanceEstudiantil,
+      president: "Luz Roggerone",
+
+      
+      
     },
   ].reverse(); // Show most recent first
 
